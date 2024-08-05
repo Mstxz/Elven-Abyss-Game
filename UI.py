@@ -12,7 +12,7 @@ class Gui:
         self.background = main.game.transform.scale(background, (self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def draw(self, player):
-        """Draw everything"""
+        """Draw UI"""
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(player.player_img, player.player_pos)
