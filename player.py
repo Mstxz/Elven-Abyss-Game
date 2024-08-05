@@ -10,7 +10,9 @@ class Player:
         self.key_state = {
             main.game.K_a: False,
             main.game.K_d: False,
-            main.game.K_1: False,
+            main.game.K_f: False, #skill 1
+            main.game.K_c: False, #skill 2
+            main.game.K_v: False, #skill 3
         }
         self.magic_combat = magic_combat
 
@@ -47,12 +49,16 @@ class Player:
         self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0], screen_width - self.player_img.get_width()))
         self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], screen_height - self.player_img.get_height()))
 
-class MagicCombat:
+class Combat:
     """Magic Combat"""
     def __init__(self):
         self.magic_damage = -10
         
-    def mage_combat(self, key_state):
+    def mage_combat( key_state):
         """Magic weapon"""
-        if key_state[main.game.K_1]:
+        if key_state[main.game.K_f]:
             print("Pew Pew Pew")
+        elif key_state[main.game.K_c]:
+            print("Smash!!!")
+        elif key_state[main.game.K_v]:
+            print("Ultimate!!!")

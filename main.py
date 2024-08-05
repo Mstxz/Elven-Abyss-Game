@@ -14,7 +14,7 @@ def main():
     player_images = [game.image.load("Assets/Sprite/Player_Anabelle.png"),  
                      game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
                      game.image.load("Assets/Sprite/Player_Anabelle_Right.png")]
-    player_main = player.Player(player_images, player.MagicCombat())
+    player_main = player.Player(player_images, player.Combat)
 
     clock = game.time.Clock()
     while True:
