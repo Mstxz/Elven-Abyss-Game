@@ -7,7 +7,7 @@ import sys
 def main():
     """Main function"""
     game.init()
-    PLAYER_SPEED = 2
+    PLAYER_SPEED = 7
 
     gui = UI.Gui()
 
