@@ -11,10 +11,10 @@ def main():
 
     gui = UI.Gui()
 
-    player_images = [game.image.load("Assets/Sprite/Player_Anabelle.png"),  
+    player_movement_img = [game.image.load("Assets/Sprite/Player_Anabelle.png"),  
                      game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
                      game.image.load("Assets/Sprite/Player_Anabelle_Right.png")]
-    player_main = player.Player(player_images, player.Combat)
+    mc = player.Character(player_movement_img, player.Combat)
 
     clock = game.time.Clock()
     while True:
@@ -23,10 +23,10 @@ def main():
                 game.quit()
                 sys.exit()
             else:
-                player_main.handle_event(event, PLAYER_SPEED)
+                mc.handle_event(event, PLAYER_SPEED)
 
-        player_main.update_position(gui.SCREEN_WIDTH, gui.SCREEN_HEIGHT)
-        gui.draw(player_main)
+        mc.update_position(gui.SCREEN_WIDTH, gui.SCREEN_HEIGHT)
+        gui.draw(mc)
         clock.tick(120)
 
 if __name__ == "__main__":

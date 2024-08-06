@@ -1,7 +1,8 @@
+"""Player"""
 import main
 
-class Player:
-    """Player class"""
+class Character:
+    """Character class"""
     def __init__(self, player_images, magic_combat):
         self.player_imgs = player_images
         self.player_img = self.player_imgs[0]
@@ -13,21 +14,31 @@ class Player:
             main.game.K_f: False, #skill 1
             main.game.K_c: False, #skill 2
             main.game.K_v: False, #skill 3
+            main.game.K_r: False,
         }
-        self.magic_combat = magic_combat
+        self.player_hp = 10
+        self.player_stamina = 100
+        self.combat = Combat
+        self.level = 1
+        self.player_exp = 0
+        self.player_max_exp = 25*(self.level**2) + 75*(self.level)
 
     def handle_event(self, event, speed):
         """Handle player input"""
+        def update():
+            self.update_movement(speed)
+            self.player_stamina = self.combat.combat_skill(self.key_state, self.player_stamina)
+            self.player_exp, self.player_max_exp, self.level = self.combat.levelling(self.key_state, self.player_exp, self.player_max_exp, self.level)
+
+        
         if event.type == main.game.KEYDOWN:
             if event.key in self.key_state:
                 self.key_state[event.key] = True
-                self.update_movement(speed)
-                self.magic_combat.mage_combat(self.key_state)
+                update()
         elif event.type == main.game.KEYUP:
             if event.key in self.key_state:
                 self.key_state[event.key] = False
-                self.update_movement(speed)
-                self.magic_combat.mage_combat(self.key_state)
+                update()
 
     def update_movement(self, speed):
         """Update movement"""
@@ -50,15 +61,33 @@ class Player:
         self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], screen_height - self.player_img.get_height()))
 
 class Combat:
-    """Magic Combat"""
+    """Combat Class"""
     def __init__(self):
         self.magic_damage = -10
         
-    def mage_combat( key_state):
-        """Magic weapon"""
-        if key_state[main.game.K_f]:
+    def combat_skill(key_state, stamina):
+        """Weapon Skill"""
+        if key_state[main.game.K_f] and stamina >= 10:
             print("Pew Pew Pew")
-        elif key_state[main.game.K_c]:
+            stamina -= 10
+        elif key_state[main.game.K_c] and stamina >= 20:
             print("Smash!!!")
-        elif key_state[main.game.K_v]:
+            stamina -= 20
+        elif key_state[main.game.K_v] and stamina >= 50:
             print("Ultimate!!!")
+            stamina -= 50
+
+        if stamina <= 0:
+            stamina = 100
+        return stamina
+    
+    def levelling(key_state, exp, max_exp, level):
+        if exp >= max_exp:
+            exp -= max_exp
+            max_exp = 25*(level**2) + 75*(level)
+            level += 1
+
+        if key_state[main.game.K_r]:
+            exp += 20
+
+        return exp, max_exp, level
