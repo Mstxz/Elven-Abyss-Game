@@ -3,7 +3,8 @@ import main
 
 class Character:
     """Character class"""
-    def __init__(self, player_images, magic_combat):
+    def __init__(self, player_images):
+        #player position
         self.player_imgs = player_images
         self.player_img = self.player_imgs[0]
         self.player_pos = [960, 540]
@@ -30,7 +31,6 @@ class Character:
             self.player_stamina = self.combat.combat_skill(self.key_state, self.player_stamina)
             self.player_exp, self.player_max_exp, self.level = self.combat.levelling(self.key_state, self.player_exp, self.player_max_exp, self.level)
 
-        
         if event.type == main.game.KEYDOWN:
             if event.key in self.key_state:
                 self.key_state[event.key] = True
@@ -84,8 +84,8 @@ class Combat:
     def levelling(key_state, exp, max_exp, level):
         if exp >= max_exp:
             exp -= max_exp
-            max_exp = 25*(level**2) + 75*(level)
             level += 1
+            max_exp = 25*(level**2) + 75*(level)
 
         if key_state[main.game.K_r]:
             exp += 20
