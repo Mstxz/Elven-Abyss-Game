@@ -2,15 +2,23 @@
 import main
 
 class Character:
-    def __init__(self, player_images):
-        self.player_imgs = player_images
+    def __init__(self):
+        super().__init__()
+        # Player Image Setup
+        self.player_imgs = [
+            main.game.image.load("Assets/Sprite/Player_Anabelle.png"),  
+            main.game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
+            main.game.image.load("Assets/Sprite/Player_Anabelle_Right.png"),
+            main.game.image.load("Assets/Sprite/Player_Anabelle_Back.png")
+        ]
         self.player_img = self.player_imgs[0]
         self.player_pos = [960, 540]
         self.movement = [0, 0]
-        # self.velocity_y = 0
-        # self.gravity = 0.5
-        # self.jump_strength = -10
-        # self.on_ground = True
+        self.rect = self.player_img.get_rect()
+        self.rect.topleft = self.player_pos
+
+        # Movement Variable
+        self.speed = 7
         self.key_state = {
             main.game.K_w: False,
             main.game.K_a: False,
@@ -22,6 +30,8 @@ class Character:
             main.game.K_r: False,
             main.game.K_SPACE: False,
         }
+
+        # Player stats
         self.player_hp = 100
         self.player_stamina = 100
         self.combat = Combat()
@@ -29,9 +39,9 @@ class Character:
         self.player_exp = 0
         self.player_max_exp = 25 * ((self.level // 3 + 1) ** 2) + 75 * (self.level // 3 + 1)
 
-    def handle_event(self, event, speed):
+    def handle_event(self, event):
         def update():
-            self.update_movement(speed)
+            self.update_movement()
             self.player_stamina = self.combat.combat_skill(self.key_state, self.player_stamina)
             self.player_exp, self.player_max_exp, self.level = self.combat.levelling(self.key_state, self.player_exp, self.player_max_exp, self.level)
 
@@ -44,43 +54,31 @@ class Character:
                 self.key_state[event.key] = False
                 update()
 
-    def update_movement(self, speed):
+    def update_movement(self):
         # Horizontal movement
         if self.key_state[main.game.K_a]:
-            self.movement[0] = -speed
+            self.movement[0] = -self.speed
             self.player_img = self.player_imgs[1]  # Left image
         elif self.key_state[main.game.K_d]:
-            self.movement[0] = speed
+            self.movement[0] = self.speed
             self.player_img = self.player_imgs[2]  # Right image
         else:
             self.movement[0] = 0
 
         # Vertical movement
         if self.key_state[main.game.K_w]:
-            self.movement[1] = -speed
+            self.movement[1] = -self.speed
             self.player_img = self.player_imgs[3]  # Up image
         elif self.key_state[main.game.K_s]:
-            self.movement[1] = speed
+            self.movement[1] = self.speed
             self.player_img = self.player_imgs[0]  # Down image
         else:
             self.movement[1] = 0
 
-        #Jumping
-        #if self.key_state[main.game.K_SPACE] and self.on_ground:
-        #    self.velocity_y = self.jump_strength
-        #    self.on_ground = False
-
-
-    def update_position(self, screen_width, screen_height):
-        # self.velocity_y += self.gravity
-        # self.movement[1] = self.velocity_y
-        self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0], screen_width - self.player_img.get_width()))
-        self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], screen_height - self.player_img.get_height()))
-
-        if self.player_pos[1] >= screen_height - self.player_img.get_height():
-            self.player_pos[1] = screen_height - self.player_img.get_height()
-            # self.velocity_y = 0
-            # self.on_ground = True
+    def update_position(self, world_width, world_height):
+        self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0], world_width - self.player_img.get_width()))
+        self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], world_height - self.player_img.get_height()))
+        self.rect.topleft = self.player_pos
 
 class Combat:
     """Combat Class"""

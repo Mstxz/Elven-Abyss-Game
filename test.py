@@ -1,12 +1,13 @@
 import pygame
 import sys
+import camera as cam
 
 # Initialize Pygame
 pygame.init()
 
 # Screen dimensions
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-WORLD_WIDTH, WORLD_HEIGHT = 1600, 1200
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+WORLD_WIDTH, WORLD_HEIGHT = 1920 * 2, 1800 * 2
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Pygame Camera Example")
@@ -46,35 +47,12 @@ class Player(pygame.sprite.Sprite):
             self.image = self.images[0]
             self.direction = 'down'
 
-class Camera:
-    def __init__(self, width, height, world_width, world_height):
-        self.camera = pygame.Rect(0, 0, width, height)
-        self.width = width
-        self.height = height
-        self.world_width = world_width
-        self.world_height = world_height
-
-    def apply(self, entity):
-        return entity.rect.move(self.camera.topleft)
-
-    def update(self, target):
-        x = -target.rect.centerx + int(self.width / 2)
-        y = -target.rect.centery + int(self.height / 2)
-
-        # Limit scrolling to map size
-        x = min(0, x)  # left
-        y = min(0, y)  # top
-        x = max(-(self.world_width - self.width), x)  # right
-        y = max(-(self.world_height - self.height), y)  # bottom
-
-        self.camera = pygame.Rect(x, y, self.width, self.height)
-
 # Main game loop
 def main():
     clock = pygame.time.Clock()
 
     player = Player(400, 300)
-    camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
+    camera = cam.Camera(SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
     background = pygame.image.load("Assets/Sprite/BG.jpg")
     background = pygame.transform.scale(background, (WORLD_WIDTH, WORLD_HEIGHT))
 
@@ -93,12 +71,12 @@ def main():
 
         # Draw everything
         screen.fill((0, 0, 0))
-        screen.blit(background, camera.apply(pygame.Rect(0, 0, WORLD_WIDTH, WORLD_HEIGHT)))
+        screen.blit(background, (camera.camera.x, camera.camera.y))
         for entity in all_sprites:
             screen.blit(entity.image, camera.apply(entity))
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(120)
 
     pygame.quit()
     sys.exit()
