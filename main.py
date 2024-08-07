@@ -13,7 +13,8 @@ def main():
 
     player_movement_img = [game.image.load("Assets/Sprite/Player_Anabelle.png"),  
                      game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
-                     game.image.load("Assets/Sprite/Player_Anabelle_Right.png")]
+                     game.image.load("Assets/Sprite/Player_Anabelle_Right.png"),
+                     game.image.load("Assets/Sprite/Player_Anabelle_Back.png")]
     mc = player.Character(player_movement_img)
 
     clock = game.time.Clock()
