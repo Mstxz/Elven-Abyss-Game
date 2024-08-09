@@ -3,6 +3,7 @@ import pygame as game
 import player
 import UI
 import sys
+import enemy
 import camera as cam
 import scenemanager
 
@@ -26,7 +27,7 @@ def main(width, height, fps):
             else:
                 filtered_events.append(event)
         
-        active_scene.process_input(filtered_events, pressed_keys)
+        active_scene.process_input(filtered_events)
         active_scene.update()
         active_scene.render(screen)
         

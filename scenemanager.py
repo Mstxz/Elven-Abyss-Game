@@ -29,15 +29,13 @@ class TitleScene(Scene_Base):
         self.bg = main.game.image.load("Assets/Sprite/Scene_BG.jpg")
         self.bg = main.game.transform.scale_by(self.bg, 2.5)
 
-    def process_input(self, events, pressed_keys):
-        try:
-            for event in events:
-                if event.type == main.game.MOUSEBUTTONDOWN:
-                    mouse_pos = event.pos
-                    if self.button_rect.collidepoint(mouse_pos):
-                        self.switch_to_scene(GameScene())
-        except AttributeError():
-            print("Ended")
+    def process_input(self, events):
+        for event in events:
+            if event.type == main.game.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if self.button_rect.collidepoint(mouse_pos):
+                    self.switch_to_scene(GameScene())
+
 
     def render(self, screen):
         screen.blit(self.bg ,(0, 0))
@@ -57,7 +55,7 @@ class GameScene(Scene_Base):
         self.mc = main.player.Character()
         self.camera = main.cam.Camera(self.gui.SCREEN_WIDTH, self.gui.SCREEN_HEIGHT, self.gui.WORLD_WIDTH, self.gui.WORLD_HEIGHT)
 
-    def process_input(self, events, pressed_keys):
+    def process_input(self, events):
         for event in events:
             if event.type == main.game.QUIT:
                 main.game.quit()

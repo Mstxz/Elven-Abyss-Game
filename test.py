@@ -1,85 +1,65 @@
 import pygame
-import sys
-import camera as cam
+
+class Enemy:
+    def __init__(self, x, y, width, height, color, speed):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+        self.speed = speed
+        self.health = 100
+
+    def move_towards_player(self, player_pos):
+        # Simple logic to move towards the player
+        if self.rect.x < player_pos[0]:
+            self.rect.x += self.speed
+        elif self.rect.x > player_pos[0]:
+            self.rect.x -= self.speed
+
+        if self.rect.y < player_pos[1]:
+            self.rect.y += self.speed
+        elif self.rect.y > player_pos[1]:
+            self.rect.y -= self.speed
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def take_damage(self, amount):
+        self.health -= amount
+        if self.health <= 0:
+            self.health = 0
+            # Enemy is defeated, you can add more logic here
+
+
 
 # Initialize Pygame
 pygame.init()
 
-# Screen dimensions
-SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
-WORLD_WIDTH, WORLD_HEIGHT = 1920 * 2, 1800 * 2
+# Set up the display
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Pygame Camera Example")
+# Player position for enemy to chase
+player_pos = [400, 300]
 
-# Player class
-class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.images = [
-            pygame.image.load("Assets/Sprite/Player_Anabelle.png"),  
-            pygame.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
-            pygame.image.load("Assets/Sprite/Player_Anabelle_Right.png"),
-            pygame.image.load("Assets/Sprite/Player_Anabelle_Back.png")
-        ]
-        self.image = self.images[0]
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
-        self.direction = 'down'
-        self.speed = 5
+# Create an enemy instance
+enemy = Enemy(x=100, y=100, width=50, height=50, color=(255, 0, 0), speed=2)
 
-    def update(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.rect.x -= self.speed
-            self.image = self.images[1]
-            self.direction = 'left'
-        elif keys[pygame.K_RIGHT]:
-            self.rect.x += self.speed
-            self.image = self.images[2]
-            self.direction = 'right'
-        elif keys[pygame.K_UP]:
-            self.rect.y -= self.speed
-            self.image = self.images[3]
-            self.direction = 'up'
-        elif keys[pygame.K_DOWN]:
-            self.rect.y += self.speed
-            self.image = self.images[0]
-            self.direction = 'down'
+# Game loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-# Main game loop
-def main():
-    clock = pygame.time.Clock()
+    # Enemy movement towards player
+    enemy.move_towards_player(player_pos)
 
-    player = Player(400, 300)
-    camera = cam.Camera(SCREEN_WIDTH, SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
-    background = pygame.image.load("Assets/Sprite/BG.jpg")
-    background = pygame.transform.scale(background, (WORLD_WIDTH, WORLD_HEIGHT))
+    # Update display
+    screen.fill((0, 0, 0))  # Clear the screen
+    enemy.draw(screen)
+    pygame.display.flip()
 
-    all_sprites = pygame.sprite.Group()
-    all_sprites.add(player)
+    # Cap the frame rate
+    clock.tick(60)
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        # Update player and camera
-        all_sprites.update()
-        camera.update(player)
-
-        # Draw everything
-        screen.fill((0, 0, 0))
-        screen.blit(background, (camera.camera.x, camera.camera.y))
-        for entity in all_sprites:
-            screen.blit(entity.image, camera.apply(entity))
-
-        pygame.display.flip()
-        clock.tick(120)
-
-    pygame.quit()
-    sys.exit()
-
-if __name__ == "__main__":
-    main()
+# Quit Pygame
+pygame.quit()
