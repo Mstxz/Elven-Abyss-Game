@@ -1,8 +1,12 @@
 """Enemy"""
 import main
-from player import Character as mc
+import player
 
-class Enemy_Main:
+class Slime:
     def __init__(self):
-        self.enemy_hp = 100
-        self.enemy_damage = 10
+        #enemy stat
+        self.enemy_hp = 20
+        self.enemy_dmg = 5
+
+        #enemy movement
+        self.enemy_movement_spd = 3

@@ -4,28 +4,36 @@ import player
 import UI
 import sys
 import camera as cam
+import scenemanager
 
-def main():
-    """Main function"""
-    game.init()
-
-    gui = UI.Gui()
-    mc = player.Character()
-    camera = cam.Camera(gui.SCREEN_WIDTH, gui.SCREEN_HEIGHT, gui.WORLD_WIDTH, gui.WORLD_HEIGHT)
-
+def main(width, height, fps):
+    game.init()  # Initialize Pygame
+    game.font.init()  # Initialize the font module explicitly
+    
+    screen = game.display.set_mode((width, height))
     clock = game.time.Clock()
-    while True:
+    
+    # Initialize the TitleScene here after pygame initialization
+    active_scene = scenemanager.TitleScene()
+    
+    while active_scene is not None:
+        pressed_keys = game.key.get_pressed()
+        
+        filtered_events = []
         for event in game.event.get():
             if event.type == game.QUIT:
-                game.quit()
-                sys.exit()
+                active_scene = None
             else:
-                mc.handle_event(event)
-
-        mc.update_position(gui.WORLD_WIDTH, gui.WORLD_HEIGHT)
-        camera.update(mc)
-        gui.draw(mc, camera)
-        clock.tick(120)
+                filtered_events.append(event)
+        
+        active_scene.process_input(filtered_events, pressed_keys)
+        active_scene.update()
+        active_scene.render(screen)
+        
+        active_scene = active_scene.next_scene
+        
+        game.display.flip()
+        clock.tick(fps)
 
 if __name__ == "__main__":
-    main()
+    main(1920, 1080, 120)
