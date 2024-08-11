@@ -4,37 +4,38 @@ import player
 import UI
 import sys
 import enemy
-import camera as cam
+import math
 import scenemanager
 
 def main(width, height, fps):
-    game.init()  # Initialize Pygame
-    game.font.init()  # Initialize the font module explicitly
-    
+    game.init()
+    game.font.init()
+
     screen = game.display.set_mode((width, height))
     clock = game.time.Clock()
-    
-    # Initialize the TitleScene here after pygame initialization
-    active_scene = scenemanager.TitleScene()
-    
-    while active_scene is not None:
+
+    scene_manager = scenemanager.TitleScene()
+
+    while True:
         pressed_keys = game.key.get_pressed()
-        
-        filtered_events = []
-        for event in game.event.get():
+        events = game.event.get()
+
+        for event in events:
             if event.type == game.QUIT:
-                active_scene = None
+                game.quit()
+                sys.exit()
             else:
-                filtered_events.append(event)
-        
-        active_scene.process_input(filtered_events)
-        active_scene.update()
-        active_scene.render(screen)
-        
-        active_scene = active_scene.next_scene
-        
+                scene_manager.process_input([event], pressed_keys)
+
+        scene_manager.update()
+
+        screen.fill((0, 0, 0))
+        scene_manager.render(screen)
+
         game.display.flip()
         clock.tick(fps)
+
+        scene_manager = scene_manager.next_scene
 
 if __name__ == "__main__":
     main(1920, 1080, 120)

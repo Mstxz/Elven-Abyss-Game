@@ -4,7 +4,6 @@ import main
 class Character:
     def __init__(self):
         super().__init__()
-        # Player Image Setup
         self.player_imgs = [
             main.game.image.load("Assets/Sprite/Player_Anabelle.png"),  
             main.game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
@@ -58,9 +57,11 @@ class Character:
         # Horizontal movement
         if self.key_state[main.game.K_a]:
             self.movement[0] = -self.speed
+            print("Left")
             self.player_img = self.player_imgs[1]  # Left image
         elif self.key_state[main.game.K_d]:
             self.movement[0] = self.speed
+            print("Right")
             self.player_img = self.player_imgs[2]  # Right image
         else:
             self.movement[0] = 0
@@ -68,9 +69,11 @@ class Character:
         # Vertical movement
         if self.key_state[main.game.K_w]:
             self.movement[1] = -self.speed
+            print("Up")
             self.player_img = self.player_imgs[3]  # Up image
         elif self.key_state[main.game.K_s]:
             self.movement[1] = self.speed
+            print("Down")
             self.player_img = self.player_imgs[0]  # Down image
         else:
             self.movement[1] = 0
