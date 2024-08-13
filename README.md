@@ -7,5 +7,3 @@ This Project is one of the games in ***"Project Mestixz"*** powered by Mstxz.
 ## The Devs
 
 - ### Mstxz (Director, Programmer, 2D Artist, Sound Engineer, Designer)
-
-- ### Namoun (2D Artist)
