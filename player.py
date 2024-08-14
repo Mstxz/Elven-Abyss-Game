@@ -23,23 +23,29 @@ class Character:
             main.game.K_a: False,
             main.game.K_s: False,
             main.game.K_d: False,
-            main.game.K_f: False,
-            main.game.K_c: False,
-            main.game.K_v: False,
+            main.game.K_1: False,
+            main.game.K_2: False,
+            main.game.K_3: False,
             main.game.K_r: False,
             main.game.K_SPACE: False,
+            main.game.K_1: False,
+            main.game.K_2: False,
         }
 
         # Player stats
-        self.player_hp = 100
-        self.player_stamina = 100
+        self.player_max_hp = 100
+        self.player_hp = self.player_max_hp
+        self.player_max_stamina = 100
+        self.player_stamina = self.player_max_stamina
         self.combat = Combat()
         self.level = 1
         self.player_exp = 0
         self.player_max_exp = 25 * ((self.level // 3 + 1) ** 2) + 75 * (self.level // 3 + 1)
 
     def handle_event(self, event):
+        """Event Handle"""
         def update():
+            """Update anything"""
             self.update_movement()
             self.player_stamina = self.combat.combat_skill(self.key_state, self.player_stamina)
             self.player_exp, self.player_max_exp, self.level = self.combat.levelling(self.key_state, self.player_exp, self.player_max_exp, self.level)
@@ -54,31 +60,26 @@ class Character:
                 update()
 
     def update_movement(self):
-        # Horizontal movement
+        """Movement Update"""
         if self.key_state[main.game.K_a]:
             self.movement[0] = -self.speed
-            print("Left")
             self.player_img = self.player_imgs[1]  # Left image
         elif self.key_state[main.game.K_d]:
             self.movement[0] = self.speed
-            print("Right")
             self.player_img = self.player_imgs[2]  # Right image
         else:
             self.movement[0] = 0
-
-        # Vertical movement
         if self.key_state[main.game.K_w]:
             self.movement[1] = -self.speed
-            print("Up")
             self.player_img = self.player_imgs[3]  # Up image
         elif self.key_state[main.game.K_s]:
             self.movement[1] = self.speed
-            print("Down")
             self.player_img = self.player_imgs[0]  # Down image
         else:
             self.movement[1] = 0
 
     def update_position(self, world_width, world_height):
+        """Player Position Update"""
         self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0], world_width - self.player_img.get_width()))
         self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], world_height - self.player_img.get_height()))
         self.rect.topleft = self.player_pos
@@ -90,13 +91,14 @@ class Combat:
 
     def combat_skill(self, key_state, stamina):
         """Weapon Skill"""
-        if key_state[main.game.K_f] and stamina >= 10:
+
+        if key_state[main.game.K_1] and stamina >= 10:
             print("Pew Pew Pew")
             stamina -= 10
-        elif key_state[main.game.K_c] and stamina >= 20:
+        elif key_state[main.game.K_2] and stamina >= 20:
             print("Smash!!!")
             stamina -= 20
-        elif key_state[main.game.K_v] and stamina >= 50:
+        elif key_state[main.game.K_3] and stamina >= 50:
             print("Ultimate!!!")
             stamina -= 50
 
