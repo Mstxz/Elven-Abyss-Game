@@ -48,13 +48,35 @@ class Combat_Gui:
         background = main.game.image.load("Assets/Sprite/BG.jpg")
         self.background = main.game.transform.scale(background, (self.width, self.height))
         self.font = main.game.font.Font("Assets/Fonts/Bungee-Regular.ttf", 30)
+        self.font_h1 = main.game.font.Font("Assets/Fonts/Bungee-Regular.ttf", 70)
 
     def draw(self, player):
         """Draw UI"""
-        text_player_hp = self.font.render(f"HP : {player.player_hp:02d}", True, (255,255,255))
-        text_player_stamina = self.font.render(f"STA : {player.player_stamina:02d}", True, (255, 255, 255))
-        self.screen.fill((0, 0, 0))
-        self.screen.blit(text_player_hp, (20, 20))
-        self.screen.blit(text_player_stamina, (20, 50))
 
+        # Clear the screen
+        self.screen.fill((0, 0, 0))
+
+        # Bar dimensions
+        bar_width = 200
+        bar_height = 25
+
+        # Calculate player and enemy HP bar widths
+        player_hp_bar_width = int((player.player_hp / player.player_max_hp) * bar_width)
+        # enemy_hp_bar_width = int((enemy.hp / enemy.max_hp) * bar_width)
+
+        # Draw Player HP bar (Left Side)
+        main.game.draw.rect(self.screen, (0, 255, 0), (20, 60, player_hp_bar_width, bar_height))  # Green bar
+        self.screen.blit(self.font_h1.render("Player", True, (255, 255, 255)), (20, 20))
+        self.screen.blit(self.font.render(f"HP : {player.player_hp:03d}", True, (255, 255, 255)), (20, 60))
+
+        # Draw Enemy HP bar (Right Side)
+        # main.game.draw.rect(self.screen, (0, 255, 0), (1580, 60, enemy_hp_bar_width, bar_height))  # Green bar
+        self.screen.blit(self.font_h1.render("Enemy 1", True, (255, 255, 255)), (1580, 20))
+        # self.screen.blit(self.font.render(f"HP : {enemy.hp:03d}", True, (255, 255, 255)), (1580, 60))
+
+        # Draw stamina text
+        self.screen.blit(self.font.render(f"STA : {player.player_stamina:03d}", True, (255, 255, 255)), (20, 100))
+        # self.screen.blit(self.font.render(f"STA : {enemy.stamina:03d}", True, (255, 255, 255)), (1580, 100))
+
+        # Update the display
         main.game.display.update()
