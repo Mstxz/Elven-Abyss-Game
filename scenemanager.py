@@ -1,5 +1,6 @@
-# scenemanager.py
 import main
+import math
+import time
 
 class Scene_Base:
     def __init__(self):
@@ -75,8 +76,8 @@ class GameScene(Scene_Base):
                 main.sys.exit()
             elif event.type == main.game.KEYDOWN and event.key == main.game.K_ESCAPE:
                 self.switch_to_scene(PauseScene())
-            elif event.type == main.game.KEYDOWN and event.key == main.game.K_i:
-                self.switch_to_scene(CombatScene())
+            elif event.type == main.game.KEYDOWN and event.key == main.game.K_m:
+                self.switch_to_scene(MapScene())
             else:
                 self.mc.handle_event(event)
 
@@ -88,11 +89,35 @@ class GameScene(Scene_Base):
     def render(self, screen):
         self.gui.draw(self.mc)
 
-class CombatScene(Scene_Base):
+class MapScene(Scene_Base):
     def __init__(self):
         super().__init__()
         self.gui = main.UI.Combat_Gui()
         self.mc = main.player.Character()
+        self.grid = main.Grid(40, (54, 78, 236))  # Initialize the grid here
+
+    def process_input(self, events, pressed_keys):
+        for event in events:
+            if event.type == main.game.QUIT:
+                main.game.quit()
+                main.sys.exit()
+            elif event.type == main.game.KEYDOWN and event.key == main.game.K_ESCAPE:
+                self.switch_to_scene(PauseScene())
+            elif event.type == main.game.MOUSEBUTTONDOWN:
+                mouse_pos = main.game.mouse.get_pos()
+                self.grid.destination_pos = self.grid.get_grid_pos(mouse_pos)
+            else:
+                self.mc.handle_event(event)
+
+    def update(self):
+        if self.grid.destination_pos:
+            if self.grid.player_pos != self.grid.destination_pos:
+                self.grid.move_towards_destination()
+                time.sleep(0.1)
 
     def render(self, screen):
+        self.grid.draw_movement_radius()
+        self.grid.draw_grid()
+        self.grid.draw_player()
+        self.grid.screen = screen  # Ensure the grid draws on the main screen
         self.gui.draw(self.mc)

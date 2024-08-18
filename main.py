@@ -6,6 +6,7 @@ import sys
 import enemy
 import math
 import scenemanager
+from grid import Grid
 
 def main(width, height, fps):
     game.init()
