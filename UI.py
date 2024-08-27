@@ -37,7 +37,7 @@ class Gui:
         self.screen.blit(text_level, (1740, 20))
         main.game.display.update()
 
-class Combat_Gui:
+class CombatGui:
     """Combat Gui"""
     def __init__(self) -> None:
         self.width, self.height = SCREEN_WIDTH, SCREEEN_HEIGHT
@@ -52,22 +52,6 @@ class Combat_Gui:
 
     def draw(self, player):
         """Draw UI"""
-
-        bar_width = 300
-        bar_height = 40
-
-        player_hp_bar_width = int((player.player_hp / player.player_max_hp) * bar_width)
-        # enemy_hp_bar_width = int((enemy.hp / enemy.max_hp) * bar_width)
-
-        main.game.draw.rect(self.screen, (0, 255, 0), (20, 100, player_hp_bar_width, bar_height))  # Green bar
-        self.screen.blit(self.font_h1.render("Player", True, (255, 255, 255)), (20, 20))
-        self.screen.blit(self.font.render(f"HP : {player.player_hp:03d}", True, (255, 255, 255)), (20, 100))
-
-        # main.game.draw.rect(self.screen, (0, 255, 0), (1580, 60, enemy_hp_bar_width, bar_height))  # Green bar
-        self.screen.blit(self.font_h1.render("Enemy 1", True, (255, 255, 255)), (1580, 20))
-        # self.screen.blit(self.font.render(f"HP : {enemy.hp:03d}", True, (255, 255, 255)), (1580, 60))
-
-        self.screen.blit(self.font.render(f"STA : {player.player_stamina:03d}", True, (255, 255, 255)), (20, 140))
-        # self.screen.blit(self.font.render(f"STA : {enemy.stamina:03d}", True, (255, 255, 255)), (1580, 100))
+        self.screen.blit(self.font_h1.render("Map", True, (255, 255, 255)), (20, 20))
 
         main.game.display.update()

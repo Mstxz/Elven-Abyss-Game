@@ -2,6 +2,7 @@
 import main
 
 class Character:
+    """Character Class"""
     def __init__(self):
         super().__init__()
         self.player_imgs = [
@@ -80,8 +81,10 @@ class Character:
 
     def update_position(self, world_width, world_height):
         """Player Position Update"""
-        self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0], world_width - self.player_img.get_width()))
-        self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1], world_height - self.player_img.get_height()))
+        self.player_pos[0] = max(0, min(self.player_pos[0] + self.movement[0],
+                                world_width - self.player_img.get_width()))
+        self.player_pos[1] = max(0, min(self.player_pos[1] + self.movement[1],
+                                world_height - self.player_img.get_height()))
         self.rect.topleft = self.player_pos
 
 class Combat:
@@ -107,6 +110,7 @@ class Combat:
         return stamina
 
     def levelling(self, key_state, exp, max_exp, level):
+        """Levelling"""
         if exp >= max_exp:
             exp -= max_exp
             level += 1

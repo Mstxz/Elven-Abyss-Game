@@ -1,14 +1,10 @@
 """main game"""
-import pygame as game
-import player
-import UI
 import sys
-import enemy
-import math
+import pygame as game
 import scenemanager
-from grid import Grid
 
 def main(width, height, fps):
+    """Main game loop"""
     game.init()
     game.font.init()
 
