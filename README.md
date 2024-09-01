@@ -4,6 +4,8 @@
 
 This Project is one of the games in ***"Project Mestixz"*** powered by Mstxz.
 
+[Notion](https://www.notion.so/Elven-Abyss-dc6c3ca32547471d8145ef02a2facf59?pvs=4)
+
 ## The Devs
 
 - ### Mstxz (Director, Programmer, 2D Artist, Sound Engineer, Designer)

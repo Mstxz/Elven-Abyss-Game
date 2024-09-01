@@ -1,0 +1,1 @@
+"""Test for smth, nothing interest here"""

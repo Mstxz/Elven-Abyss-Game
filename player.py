@@ -5,6 +5,7 @@ class Character:
     """Character Class"""
     def __init__(self):
         super().__init__()
+        #player sprites here
         self.player_imgs = [
             main.game.image.load("Assets/Sprite/Player_Anabelle.png"),  
             main.game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
@@ -94,7 +95,6 @@ class Combat:
 
     def combat_skill(self, key_state, stamina):
         """Weapon Skill"""
-
         if key_state[main.game.K_1] and stamina >= 10:
             print("Pew Pew Pew")
             stamina -= 10

@@ -2,7 +2,6 @@
 import main
 import UI
 import player
-import enemy
 
 class SceneBase:
     """Scene Base Class"""
@@ -77,7 +76,6 @@ class GameScene(SceneBase):
         super().__init__()
         self.gui = UI.Gui()
         self.mc = player.Character()
-        self.enemy = enemy.Enemy(x=100, y=300)
 
     def process_input(self, events, pressed_keys):
         for event in events:
@@ -92,7 +90,6 @@ class GameScene(SceneBase):
     def update(self):
         self.mc.update_movement()
         self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEEN_HEIGHT)
-        self.enemy.update(self.mc.rect)
 
     def render(self, screen):
         self.gui.draw(self.mc)
