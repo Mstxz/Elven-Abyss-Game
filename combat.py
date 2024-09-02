@@ -3,10 +3,6 @@ import player
 import enemy
 from math import sqrt
 
-import player
-import enemy
-from math import sqrt
-
 class Combat:
     """Combat System Class"""
     def __init__(self):
