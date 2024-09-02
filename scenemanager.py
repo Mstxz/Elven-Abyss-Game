@@ -2,6 +2,7 @@
 import main
 import UI
 import player
+import enemy as mon
 
 class SceneBase:
     """Scene Base Class"""
@@ -76,8 +77,15 @@ class GameScene(SceneBase):
         super().__init__()
         self.gui = UI.Gui()
         self.mc = player.Character()
-        self.combat = player.Combat()  # Initialize Combat class
-        self.game_manager = player.GameManager()  # Ensure you have a GameManager instance
+        self.combat = player.Combat()
+        self.game_manager = player.GameManager()
+
+        # Create enemy sprite
+        enemy_sprite = main.game.Surface((50, 50))
+        enemy_sprite.fill((255, 0, 0))  # Example: red square as enemy sprite
+
+        # Instantiate the enemy
+        self.enemy = mon.Enemy(enemy_hp=100, enemy_dmg=10, enemy_sprite=enemy_sprite, x=200, y=200, speed=0)
 
     def process_input(self, events, pressed_keys):
         for event in events:
@@ -87,15 +95,22 @@ class GameScene(SceneBase):
             elif event.type == main.game.KEYDOWN and event.key == main.game.K_ESCAPE:
                 self.switch_to_scene(PauseScene())
             elif event.type == main.game.MOUSEBUTTONDOWN:
-                self.combat.shooting(event, self.mc, self.game_manager)  # Handle shooting
+                self.combat.shooting(event, self.mc, self.game_manager)
             else:
                 self.mc.handle_event(event)
 
     def update(self):
         self.mc.update_movement()
         self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
-        self.game_manager.update(keys=None)  # Update game manager or other objects
+        self.game_manager.update(keys=None)
+        self.enemy.update()  # Update the enemy position
 
     def render(self, screen):
-        self.gui.draw(self.mc)
-        self.game_manager.render(screen)  # Render game manager or other objects
+        self.gui.draw(self.mc)  # Draw the GUI and player character
+        self.game_manager.render(screen)  # Render other game elements
+
+        # Add this line to draw the enemy on the screen
+        self.enemy.draw(screen)
+
+        # Update the display (if not already being done elsewhere in your game loop)
+        main.game.display.flip()

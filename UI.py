@@ -26,7 +26,7 @@ class Gui:
                                     True, (91, 80, 58 ))
         text_exp = self.font.render(f"EXP : {player.player_exp:02d}/{player.player_max_exp}",
                                     True, (91, 80, 58 ))
-        text_level = self.font.render(f"Level : {player.level}", True, (0, 0, 0))
+        text_level = self.font.render(f"Level : {player.level}", True, (255, 255, 255))
 
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.background, (0, 0))

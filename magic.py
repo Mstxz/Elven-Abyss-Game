@@ -17,19 +17,19 @@ class GameObject:
         screen.blit(self.image, (self.x, self.y))
 
 class Range_Object(GameObject):
-    def __init__(self, x, y, target_x, target_y, speed=20):
-        red_square_image = game.Surface((50, 50))
-        red_square_image.fill((255, 0, 0))
-        super().__init__(x, y, red_square_image)
+    def __init__(self, x, y, target_x, target_y):
+        fireball = game.Surface((20, 20))
+        fireball.fill((0, 250, 100))
+        super().__init__(x, y, fireball)
         self.target_x = target_x
         self.target_y = target_y
-        self.speed = speed
+        self.speed = 10
         dx = target_x - x
         dy = target_y - y
         distance = math.hypot(dx, dy)
         if distance != 0:
-            self.velocity_x = (dx / distance) * speed
-            self.velocity_y = (dy / distance) * speed
+            self.velocity_x = (dx / distance) * self.speed
+            self.velocity_y = (dy / distance) * self.speed
         else:
             self.velocity_x = 0
             self.velocity_y = 0
