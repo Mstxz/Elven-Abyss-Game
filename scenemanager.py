@@ -76,6 +76,8 @@ class GameScene(SceneBase):
         super().__init__()
         self.gui = UI.Gui()
         self.mc = player.Character()
+        self.combat = player.Combat()  # Initialize Combat class
+        self.game_manager = player.GameManager()  # Ensure you have a GameManager instance
 
     def process_input(self, events, pressed_keys):
         for event in events:
@@ -84,12 +86,16 @@ class GameScene(SceneBase):
                 main.sys.exit()
             elif event.type == main.game.KEYDOWN and event.key == main.game.K_ESCAPE:
                 self.switch_to_scene(PauseScene())
+            elif event.type == main.game.MOUSEBUTTONDOWN:
+                self.combat.shooting(event, self.mc, self.game_manager)  # Handle shooting
             else:
                 self.mc.handle_event(event)
 
     def update(self):
         self.mc.update_movement()
-        self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEEN_HEIGHT)
+        self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
+        self.game_manager.update(keys=None)  # Update game manager or other objects
 
     def render(self, screen):
         self.gui.draw(self.mc)
+        self.game_manager.render(screen)  # Render game manager or other objects

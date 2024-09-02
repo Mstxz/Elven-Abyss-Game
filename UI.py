@@ -1,12 +1,12 @@
 """Gui"""
 import pygame as game
 
-SCREEN_WIDTH, SCREEEN_HEIGHT = 1920, 1080
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
 
 class Gui:
     """Gui and Screen"""
     def __init__(self):
-        self.width, self.height = SCREEN_WIDTH, SCREEEN_HEIGHT
+        self.width, self.height = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = game.display.set_mode((self.width, self.height))
         game.display.set_caption("Elven Abyss")
         self.icon_image = game.image.load("Assets/Sprite/Sebastian_Icon.png")

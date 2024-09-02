@@ -1,5 +1,6 @@
 """Player"""
 import main
+import magic
 
 class Character:
     """Character Class"""
@@ -29,9 +30,9 @@ class Character:
             main.game.K_2: False,
             main.game.K_3: False,
             main.game.K_r: False,
-            main.game.K_SPACE: False,
             main.game.K_1: False,
             main.game.K_2: False,
+            main.game.K_SPACE: False,
         }
 
         # Player stats
@@ -94,7 +95,6 @@ class Combat:
         self.magic_damage = -10
 
     def combat_skill(self, key_state, stamina):
-        """Weapon Skill"""
         if key_state[main.game.K_1] and stamina >= 10:
             print("Pew Pew Pew")
             stamina -= 10
@@ -110,7 +110,6 @@ class Combat:
         return stamina
 
     def levelling(self, key_state, exp, max_exp, level):
-        """Levelling"""
         if exp >= max_exp:
             exp -= max_exp
             level += 1
@@ -119,3 +118,28 @@ class Combat:
         if key_state[main.game.K_r]:
             exp += 20
         return exp, max_exp, level
+
+    def shooting(self, event, character, game_manager):
+        if event.type == main.game.MOUSEBUTTONDOWN and event.button == 1:
+            cursor_x, cursor_y = main.game.mouse.get_pos()
+            red_square = magic.Range_Object(character.player_pos[0], character.player_pos[1], cursor_x, cursor_y)
+            game_manager.instantiate(red_square)
+
+class GameManager:
+    def __init__(self):
+        self.objects = []
+
+    def instantiate(self, game_object):
+        self.objects.append(game_object)
+
+    def update(self, keys):
+        for obj in self.objects:
+            if isinstance(obj, Character):
+                obj.update(keys)
+            else:
+                obj.update()
+        self.objects = [obj for obj in self.objects if not obj.destroyed]
+
+    def render(self, screen):
+        for obj in self.objects:
+            obj.render(screen)

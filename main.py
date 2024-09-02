@@ -23,7 +23,7 @@ def main(width, height, fps):
 
         #events
         for event in events:
-            if event.type == game.QUIT:
+            if event.type == game.QUIT: #Quit the game
                 game.quit()
                 sys.exit()
             else:
