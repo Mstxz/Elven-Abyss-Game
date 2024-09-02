@@ -3,6 +3,9 @@ import main
 import UI
 import player
 import enemy as mon
+import random
+from math import sqrt
+import combat
 
 class SceneBase:
     """Scene Base Class"""
@@ -77,15 +80,37 @@ class GameScene(SceneBase):
         super().__init__()
         self.gui = UI.Gui()
         self.mc = player.Character()
-        self.combat = player.Combat()
+        self.playercombat = player.PlayerCombat()
         self.game_manager = player.GameManager()
+        self.combat = combat.Combat()
 
         # Create enemy sprite
         enemy_sprite = main.game.Surface((50, 50))
         enemy_sprite.fill((255, 0, 0))  # Example: red square as enemy sprite
 
-        # Instantiate the enemy
-        self.enemy = mon.Enemy(enemy_hp=100, enemy_dmg=10, enemy_sprite=enemy_sprite, x=200, y=200, speed=0)
+        # Instantiate the EnemyManager
+        self.enemy_manager = mon.EnemyManager()
+
+        # Define spawn area boundaries
+        spawn_area_x_min = 200
+        spawn_area_x_max = UI.SCREEN_WIDTH - 200
+        spawn_area_y_min = 200
+        spawn_area_y_max = UI.SCREEN_HEIGHT - 200
+
+        # Spawn multiple enemies at random position
+        for i in range(5):
+            while True:
+                random_x = random.randint(spawn_area_x_min, spawn_area_x_max)
+                random_y = random.randint(spawn_area_y_min, spawn_area_y_max)
+
+                player_x, player_y = self.mc.player_pos
+                distance = sqrt((random_x - player_x) ** 2 + (random_y - player_y) ** 2)
+                
+                # Ensure the enemy is at least 300px away from the player
+                if distance >= 300:
+                    self.enemy_manager.spawn_enemy(enemy_hp=100, enemy_sprite=enemy_sprite, enemy_dmg=10, 
+                                                   x=random_x, y=random_y, speed=2)
+                    break  # Exit the loop once a valid position is found
 
     def process_input(self, events, pressed_keys):
         for event in events:
@@ -95,22 +120,29 @@ class GameScene(SceneBase):
             elif event.type == main.game.KEYDOWN and event.key == main.game.K_ESCAPE:
                 self.switch_to_scene(PauseScene())
             elif event.type == main.game.MOUSEBUTTONDOWN:
-                self.combat.shooting(event, self.mc, self.game_manager)
+                self.playercombat.shooting(event, self.mc, self.game_manager)
             else:
                 self.mc.handle_event(event)
 
     def update(self):
+        self.enemy_manager.update(self.mc.player_pos)  # Update all enemies
         self.mc.update_movement()
         self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
+
+        # Update combat (player attacking enemies)
+        self.combat.update_combat(self.mc, self.enemy_manager.enemies)
+
+        # Handle player skill usage and leveling
+        self.mc.player_stamina = self.mc.combat.combat_skill(self.mc.key_state, self.mc.player_stamina)
+        self.mc.player_exp, self.mc.player_max_exp, self.mc.level = self.mc.combat.levelling(
+            self.mc.key_state, self.mc.player_exp, self.mc.player_max_exp, self.mc.level)
+
         self.game_manager.update(keys=None)
-        self.enemy.update()  # Update the enemy position
 
     def render(self, screen):
-        self.gui.draw(self.mc)  # Draw the GUI and player character
-        self.game_manager.render(screen)  # Render other game elements
+        self.gui.draw(self.mc)
+        self.game_manager.render(screen)
 
-        # Add this line to draw the enemy on the screen
-        self.enemy.draw(screen)
+        self.enemy_manager.draw(screen)
 
-        # Update the display (if not already being done elsewhere in your game loop)
         main.game.display.flip()
