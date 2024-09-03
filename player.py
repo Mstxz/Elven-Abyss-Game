@@ -1,4 +1,5 @@
 """Player"""
+import time
 import main
 import magic
 import math
@@ -93,23 +94,50 @@ class Character:
 
 class PlayerCombat:
     """Combat Class for the Player"""
+    
     def __init__(self):
         self.magic_damage = 10  # Example damage value for magic attacks
+        # Cooldowns and durations (in seconds)
+        self.cooldowns = {
+            "magic": 0,
+            "physical": 0,
+            "ultimate": 0,
+        }
+        self.cooldown_durations = {
+            "magic": 5,        # Cooldown for magic attack
+            "physical": 15,    # Cooldown for physical attack
+            "ultimate": 30,    # Cooldown for ultimate attack
+        }
+        self.last_time = time.time()  # Initialize time tracking
+
+    def update_cooldowns(self):
+        """Update cooldown timers based on time elapsed."""
+        current_time = time.time()
+        elapsed_time = current_time - self.last_time
+        for key in self.cooldowns:
+            if self.cooldowns[key] > 0:
+                self.cooldowns[key] -= elapsed_time
+                self.cooldowns[key] = max(0, self.cooldowns[key])  # Ensure cooldown doesn't go below 0
+        self.last_time = current_time
 
     def combat_skill(self, key_state, stamina):
-        """Handle player skill usage"""
-        if key_state[main.game.K_1] and stamina >= 10:
+        """Handle player skill usage with cooldowns"""
+        
+        # Update cooldowns
+        self.update_cooldowns()
+        
+        if key_state[main.game.K_1] and stamina >= 10 and self.cooldowns["magic"] == 0:
             print("Pew Pew Pew (Magic Attack)")
             stamina -= 10
-            # Example: Handle a magic attack (implement details later)
-        elif key_state[main.game.K_2] and stamina >= 20:
+            self.cooldowns["magic"] = self.cooldown_durations["magic"]  # Set cooldown for magic attack
+        elif key_state[main.game.K_2] and stamina >= 20 and self.cooldowns["physical"] == 0:
             print("Smash!!! (Physical Attack)")
             stamina -= 20
-            # Example: Handle a physical attack
-        elif key_state[main.game.K_3] and stamina >= 50:
+            self.cooldowns["physical"] = self.cooldown_durations["physical"]  # Set cooldown for physical attack
+        elif key_state[main.game.K_3] and stamina >= 50 and self.cooldowns["ultimate"] == 0:
             print("Ultimate!!! (Powerful Attack)")
             stamina -= 50
-            # Example: Handle an ultimate attack
+            self.cooldowns["ultimate"] = self.cooldown_durations["ultimate"]  # Set cooldown for ultimate attack
 
         if stamina <= 0:
             stamina = 100  # Reset stamina when it runs out (you can adjust this logic)
@@ -150,6 +178,7 @@ class PlayerCombat:
     def calculate_distance(pos1, pos2):
         """Helper method to calculate distance between two points"""
         return math.sqrt((pos2[0] - pos1[0]) ** 2 + (pos2[1] - pos1[1]) ** 2)
+
 
 class GameManager:
     def __init__(self):
