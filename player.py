@@ -94,7 +94,7 @@ class Character:
 
 class PlayerCombat:
     """Combat Class for the Player"""
-    
+
     def __init__(self):
         self.magic_damage = 10  # Example damage value for magic attacks
         # Cooldowns and durations (in seconds)
@@ -109,6 +109,7 @@ class PlayerCombat:
             "ultimate": 30,    # Cooldown for ultimate attack
         }
         self.last_time = time.time()  # Initialize time tracking
+        self.projectiles = []  # List to store projectiles created by the player
 
     def update_cooldowns(self):
         """Update cooldown timers based on time elapsed."""
@@ -122,8 +123,6 @@ class PlayerCombat:
 
     def combat_skill(self, key_state, stamina):
         """Handle player skill usage with cooldowns"""
-        
-        # Update cooldowns
         self.update_cooldowns()
         
         if key_state[main.game.K_1] and stamina >= 10 and self.cooldowns["magic"] == 0:
@@ -153,7 +152,7 @@ class PlayerCombat:
             print(f"Level up! New level: {level}")
 
         if key_state[main.game.K_r]:
-            exp += 20  # Grant experience when pressing 'R' (for testing purposes)
+            exp += 20
 
         return exp, max_exp, level
 
@@ -162,7 +161,15 @@ class PlayerCombat:
         if event.type == main.game.MOUSEBUTTONDOWN and event.button == 1:
             cursor_x, cursor_y = main.game.mouse.get_pos()
             red_square = magic.Range_Object(character.player_pos[0], character.player_pos[1], cursor_x, cursor_y)
+            self.projectiles.append(red_square)  # Add projectile to the player's list
             game_manager.instantiate(red_square)
+
+    def update_projectiles(self):
+        """Update all projectiles and remove any that are destroyed."""
+        for projectile in self.projectiles[:]:  # Iterate over a shallow copy of the list
+            projectile.update()
+            if projectile.destroyed:
+                self.projectiles.remove(projectile)
 
     def attack(self, player, enemies):
         """Handle melee or ranged attacks on enemies within range"""
@@ -178,7 +185,6 @@ class PlayerCombat:
     def calculate_distance(pos1, pos2):
         """Helper method to calculate distance between two points"""
         return math.sqrt((pos2[0] - pos1[0]) ** 2 + (pos2[1] - pos1[1]) ** 2)
-
 
 class GameManager:
     def __init__(self):

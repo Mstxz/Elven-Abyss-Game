@@ -1,4 +1,5 @@
 """Enemy Manager"""
+import pygame
 from math import sqrt
 
 class Enemy:
@@ -38,6 +39,13 @@ class Enemy:
             # Example: Implement attack logic here
             pass
 
+    def take_damage(self, damage):
+        """Apply damage to the enemy."""
+        self.enemy_hp -= damage
+        if self.enemy_hp <= 0:
+            return True  # Return True if enemy is dead
+        return False
+
     def update(self, player_pos):
         """Update the enemy's position by tracking the player."""
         self.track_player(player_pos)
@@ -45,6 +53,7 @@ class Enemy:
     def draw(self, screen):
         """Draw the enemy sprite at the current position."""
         screen.blit(self.enemy_sprite, self.rect.topleft)
+
 
 class EnemyManager:
     """Enemy Manager Class"""
@@ -72,3 +81,13 @@ class EnemyManager:
         """Remove an enemy from the list."""
         if enemy in self.enemies:
             self.enemies.remove(enemy)
+
+    def check_collisions(self, projectiles):
+        """Check for collisions between enemies and projectiles."""
+        for enemy in self.enemies:
+            for projectile in projectiles:
+                if enemy.rect.colliderect(projectile.rect):
+                    if enemy.take_damage(20):
+                        self.remove_enemy(enemy)
+                        print("dead")
+                    projectiles.remove(projectile)

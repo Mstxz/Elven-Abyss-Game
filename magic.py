@@ -1,6 +1,7 @@
 """Player Magic Combat"""
 import pygame as game
 import math
+import UI
 
 class GameObject:
     def __init__(self, x, y, image):
@@ -42,4 +43,10 @@ class Range_Object(GameObject):
             self.x = self.target_x
             self.y = self.target_y
             self.destroyed = True
+
+        # Check if the projectile is off-screen
+        if self.x < 0 or self.x > UI.SCREEN_WIDTH or self.y < 0 or self.y > UI.SCREEN_HEIGHT:
+            self.destroyed = True
+
         self.rect.topleft = (self.x, self.y)
+

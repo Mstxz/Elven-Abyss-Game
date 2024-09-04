@@ -35,12 +35,16 @@ class TitleScene(SceneBase):
         self.button_rect = main.game.Rect(30, 400, 400, 100)
         self.font = main.game.font.Font("Assets/Fonts/Bungee-Regular.ttf", 120)
         self.bg = main.game.image.load("Assets/Sprite/Scene_BG.png")
+        main.game.mixer.music.load("Assets/Audio/Elven_Abyss_Lobby.mp3")
+        main.game.mixer.music.set_volume(0.1)
+        main.game.mixer.music.play(-1,0,0)
 
     def process_input(self, events, pressed_keys):
         for event in events:
             if event.type == main.game.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if self.button_rect.collidepoint(mouse_pos):
+                    main.game.mixer.music.stop()
                     self.switch_to_scene(GameScene())
 
     def render(self, screen):
@@ -125,19 +129,27 @@ class GameScene(SceneBase):
                 self.mc.handle_event(event)
 
     def update(self):
-        self.enemy_manager.update(self.mc.player_pos)  # Update all enemies
+        # Update all enemies' positions
+        self.enemy_manager.update(self.mc.player_pos)
+
+        # Update the player's movement
         self.mc.update_movement()
         self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
 
-        # Update combat (player attacking enemies)
-        self.combat.update_combat(self.mc, self.enemy_manager.enemies)
+        # Update player projectiles (e.g., handle projectile movement)
+        self.playercombat.update_projectiles()
+
+        # Check for collisions between projectiles and enemies
+        self.enemy_manager.check_collisions(self.playercombat.projectiles)
 
         # Handle player skill usage and leveling
         self.mc.player_stamina = self.mc.combat.combat_skill(self.mc.key_state, self.mc.player_stamina)
         self.mc.player_exp, self.mc.player_max_exp, self.mc.level = self.mc.combat.levelling(
             self.mc.key_state, self.mc.player_exp, self.mc.player_max_exp, self.mc.level)
 
+        # Update other game logic (e.g., GUI, game state)
         self.game_manager.update(keys=None)
+
 
     def render(self, screen):
         self.gui.draw(self.mc)
