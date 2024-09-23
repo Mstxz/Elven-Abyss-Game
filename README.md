@@ -10,3 +10,6 @@ This Project is one of the games in ***"Project Mestixz"*** powered by Mstxz.
 
 - ### Mstxz (Director, Programmer, Sound Engineer, Designer)
 - ### S0dixmm (2D Artist)
+
+...Disgusting piece of program... I have been tainted with monstrous object name github desktop...
+despicable I will now proceed with this sins carry along with me.
