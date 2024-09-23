@@ -1,10 +1,12 @@
-"""Combat System"""
-import player
-import enemy
+"""
+Combat System
+This is the combat manager between players and enemy
+
+"""
 from math import sqrt
 
 class Combat:
-    """Combat System Class"""
+    """Combat System Manager"""
     def __init__(self):
         self.player_attack_range = 100
         self.enemy_attack_range = 50

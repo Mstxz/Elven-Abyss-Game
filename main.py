@@ -21,23 +21,24 @@ def main(width, height, fps):
         pressed_keys = game.key.get_pressed()
         events = game.event.get()
 
-        #events
+        #================event================#
         for event in events:
-            if event.type == game.QUIT: #Quit the game
+            if event.type == game.QUIT:
                 game.quit()
                 sys.exit()
             else:
                 scene_manager.process_input([event], pressed_keys)
 
-        scene_manager.update()
+        scene_manager.update() #update scene
 
         screen.fill((0, 0, 0))
         scene_manager.render(screen)
 
-        game.display.flip() #update screen display
+        game.display.flip()
         clock.tick(fps)
 
         scene_manager = scene_manager.next_scene
 
+#======call main loop======#
 if __name__ == "__main__":
-    main(1920, 1080, 120)
+    main(1280, 720, 60)

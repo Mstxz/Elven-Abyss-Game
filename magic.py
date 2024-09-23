@@ -49,4 +49,3 @@ class Range_Object(GameObject):
             self.destroyed = True
 
         self.rect.topleft = (self.x, self.y)
-

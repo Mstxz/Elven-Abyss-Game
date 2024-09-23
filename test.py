@@ -1,58 +1,72 @@
-"""Test for smth, nothing interest here"""
 import pygame
+import sys
 
-class Enemy:
-    def __init__(self, enemy_hp, enemy_dmg, enemy_sprite, x, y, speed):
-        #==========enemy sprite==========#
-        self.enemy_sprite = enemy_sprite
-        #==========enemy stat==========#
-        self.enemy_hp = enemy_hp
-        self.enemy_dmg = enemy_dmg
-        #==========enemy position==========#
-        self.x = x
-        self.y = y
-        self.speed = speed
-        self.rect = self.enemy_sprite.get_rect(topleft=(self.x, self.y))
-    
-    def move(self, dx, dy):
-        """Move the enemy by dx and dy."""
-        self.x += dx
-        self.y += dy
-        self.rect.topleft = (self.x, self.y)
-
-    def update(self):
-        """Update the enemy's position. You can add more complex movement logic here."""
-        self.move(self.speed, 0)
-    
-    def draw(self, screen):
-        """Draw the enemy sprite at the current position."""
-        screen.blit(self.enemy_sprite, self.rect.topleft)
-
+# Initialize Pygame
 pygame.init()
-screen = pygame.display.set_mode((1920, 1080))
 
-# Load enemy sprite
-enemy_sprite = pygame.Surface((50, 50))
-enemy_sprite.fill((255, 0, 0))
+# Set screen dimensions
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-enemy = Enemy(enemy_hp=100, enemy_dmg=10, enemy_sprite=enemy_sprite, x=500, y=500, speed=0.1)
+# Set room dimensions
+ROOM_WIDTH, ROOM_HEIGHT = 1200, 800
 
+# Define colors
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+# Player setup
+player_size = 50
+player_x = SCREEN_WIDTH // 2 - player_size // 2
+player_y = SCREEN_HEIGHT // 2 - player_size // 2
+player_speed = 5
+
+# Game loop
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     
-    # Update the enemy
-    enemy.update()
+    # Handle key presses for movement
+    keys = pygame.key.get_pressed()
     
-    # Clear the screen
-    screen.fill((0, 0, 0))
+    if keys[pygame.K_LEFT]:
+        player_x -= player_speed
+    if keys[pygame.K_RIGHT]:
+        player_x += player_speed
+    if keys[pygame.K_UP]:
+        player_y -= player_speed
+    if keys[pygame.K_DOWN]:
+        player_y += player_speed
     
-    # Draw the enemy
-    enemy.draw(screen)
+    # Enforce room boundaries
+    if player_x < (SCREEN_WIDTH - ROOM_WIDTH) // 2:
+        player_x = (SCREEN_WIDTH - ROOM_WIDTH) // 2
+    if player_x + player_size > (SCREEN_WIDTH + ROOM_WIDTH) // 2:
+        player_x = (SCREEN_WIDTH + ROOM_WIDTH) // 2 - player_size
+    if player_y < (SCREEN_HEIGHT - ROOM_HEIGHT) // 2:
+        player_y = (SCREEN_HEIGHT - ROOM_HEIGHT) // 2
+    if player_y + player_size > (SCREEN_HEIGHT + ROOM_HEIGHT) // 2:
+        player_y = (SCREEN_HEIGHT + ROOM_HEIGHT) // 2 - player_size
+
+    # Draw everything
+    screen.fill(WHITE)
     
-    # Update the display
+    # Draw room boundary (optional)
+    pygame.draw.rect(screen, RED, [(SCREEN_WIDTH - ROOM_WIDTH) // 2, 
+                                   (SCREEN_HEIGHT - ROOM_HEIGHT) // 2, 
+                                   ROOM_WIDTH, ROOM_HEIGHT], 2)
+    
+    # Draw player
+    pygame.draw.rect(screen, RED, [player_x, player_y, player_size, player_size])
+    
+    # Update display
     pygame.display.flip()
 
+    # Frame rate
+    pygame.time.Clock().tick(120)
+
+# Clean up
 pygame.quit()
+sys.exit()

@@ -1,10 +1,10 @@
 """Scene Manager"""
+import random
+from math import sqrt
 import main
 import UI
 import player
 import enemy as mon
-import random
-from math import sqrt
 import combat
 
 class SceneBase:
@@ -88,20 +88,16 @@ class GameScene(SceneBase):
         self.game_manager = player.GameManager()
         self.combat = combat.Combat()
 
-        # Create enemy sprite
-        enemy_sprite = main.game.Surface((50, 50))
-        enemy_sprite.fill((255, 0, 0))  # Example: red square as enemy sprite
+        enemy_sprite = main.game.Surface((50, 50)) #it should be enemy sprite here, btu later na eiei
+        enemy_sprite.fill((255, 0, 0))
 
-        # Instantiate the EnemyManager
         self.enemy_manager = mon.EnemyManager()
 
-        # Define spawn area boundaries
         spawn_area_x_min = 200
         spawn_area_x_max = UI.SCREEN_WIDTH - 200
         spawn_area_y_min = 200
         spawn_area_y_max = UI.SCREEN_HEIGHT - 200
 
-        # Spawn multiple enemies at random position
         for i in range(5):
             while True:
                 random_x = random.randint(spawn_area_x_min, spawn_area_x_max)
@@ -109,12 +105,11 @@ class GameScene(SceneBase):
 
                 player_x, player_y = self.mc.player_pos
                 distance = sqrt((random_x - player_x) ** 2 + (random_y - player_y) ** 2)
-                
-                # Ensure the enemy is at least 300px away from the player
+
                 if distance >= 300:
                     self.enemy_manager.spawn_enemy(enemy_hp=100, enemy_sprite=enemy_sprite, enemy_dmg=10, 
                                                    x=random_x, y=random_y, speed=2)
-                    break  # Exit the loop once a valid position is found
+                    break
 
     def process_input(self, events, pressed_keys):
         for event in events:
@@ -129,25 +124,20 @@ class GameScene(SceneBase):
                 self.mc.handle_event(event)
 
     def update(self):
-        # Update all enemies' positions
         self.enemy_manager.update(self.mc.player_pos)
 
-        # Update the player's movement
         self.mc.update_movement()
         self.mc.update_position(UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
 
-        # Update player projectiles (e.g., handle projectile movement)
         self.playercombat.update_projectiles()
 
-        # Check for collisions between projectiles and enemies
         self.enemy_manager.check_collisions(self.playercombat.projectiles)
 
-        # Handle player skill usage and leveling
+
         self.mc.player_stamina = self.mc.combat.combat_skill(self.mc.key_state, self.mc.player_stamina)
         self.mc.player_exp, self.mc.player_max_exp, self.mc.level = self.mc.combat.levelling(
             self.mc.key_state, self.mc.player_exp, self.mc.player_max_exp, self.mc.level)
 
-        # Update other game logic (e.g., GUI, game state)
         self.game_manager.update(keys=None)
 
 

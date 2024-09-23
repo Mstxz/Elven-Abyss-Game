@@ -1,29 +1,29 @@
 """Player"""
+import math
 import time
 import main
 import magic
-import math
 import enemy as mon
 
 class Character:
     """Character Class"""
     def __init__(self):
         super().__init__()
-        #player sprites here
-        self.player_imgs = [
-            main.game.image.load("Assets/Sprite/Player_Anabelle.png"),  
-            main.game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
-            main.game.image.load("Assets/Sprite/Player_Anabelle_Right.png"),
-            main.game.image.load("Assets/Sprite/Player_Anabelle_Back.png")
-        ]
-        self.player_img = self.player_imgs[0]
+        #========================Player Sprites======================#
+        self.player_imgs = {
+            'Front': main.game.image.load("Assets/Sprite/Player_Anabelle.png"),  
+            'Left': main.game.image.load("Assets/Sprite/Player_Anabelle_Left.png"), 
+            'Right': main.game.image.load("Assets/Sprite/Player_Anabelle_Right.png"),
+            'Back': main.game.image.load("Assets/Sprite/Player_Anabelle_Back.png")
+        }
+
+        self.player_img = self.player_imgs['Front']
         self.player_pos = [960, 540]
         self.movement = [0, 0]
         self.rect = self.player_img.get_rect()
         self.rect.topleft = self.player_pos
 
-        # Movement Variable
-        self.speed = 7
+        #========================Interaction Keys=========================#
         self.key_state = {
             main.game.K_w: False,
             main.game.K_a: False,
@@ -37,8 +37,8 @@ class Character:
             main.game.K_2: False,
             main.game.K_SPACE: False,
         }
-
-        # Player stats
+        #========================Player Stats======================#
+        self.movement_speed = 7
         self.player_max_hp = 100
         self.player_hp = self.player_max_hp
         self.player_max_stamina = 100
@@ -65,22 +65,23 @@ class Character:
                 self.key_state[event.key] = False
                 update()
 
+    #======================Update Movement=========================#
     def update_movement(self):
         """Movement Update"""
         if self.key_state[main.game.K_a]:
-            self.movement[0] = -self.speed
-            self.player_img = self.player_imgs[1]  # Left image
+            self.movement[0] = -self.movement_speed
+            self.player_img = self.player_imgs['Left']
         elif self.key_state[main.game.K_d]:
-            self.movement[0] = self.speed
-            self.player_img = self.player_imgs[2]  # Right image
+            self.movement[0] = self.movement_speed
+            self.player_img = self.player_imgs['Right']
         else:
             self.movement[0] = 0
         if self.key_state[main.game.K_w]:
-            self.movement[1] = -self.speed
-            self.player_img = self.player_imgs[3]  # Up image
+            self.movement[1] = -self.movement_speed
+            self.player_img = self.player_imgs['Back']
         elif self.key_state[main.game.K_s]:
-            self.movement[1] = self.speed
-            self.player_img = self.player_imgs[0]  # Down image
+            self.movement[1] = self.movement_speed
+            self.player_img = self.player_imgs['Front']
         else:
             self.movement[1] = 0
 
@@ -96,20 +97,19 @@ class PlayerCombat:
     """Combat Class for the Player"""
 
     def __init__(self):
-        self.magic_damage = 10  # Example damage value for magic attacks
-        # Cooldowns and durations (in seconds)
+        self.magic_damage = 10
         self.cooldowns = {
             "magic": 0,
             "physical": 0,
             "ultimate": 0,
         }
         self.cooldown_durations = {
-            "magic": 5,        # Cooldown for magic attack
-            "physical": 15,    # Cooldown for physical attack
-            "ultimate": 30,    # Cooldown for ultimate attack
+            "magic": 5,
+            "physical": 15,
+            "ultimate": 30,
         }
-        self.last_time = time.time()  # Initialize time tracking
-        self.projectiles = []  # List to store projectiles created by the player
+        self.last_time = time.time()
+        self.projectiles = []
 
     def update_cooldowns(self):
         """Update cooldown timers based on time elapsed."""
@@ -118,28 +118,28 @@ class PlayerCombat:
         for key in self.cooldowns:
             if self.cooldowns[key] > 0:
                 self.cooldowns[key] -= elapsed_time
-                self.cooldowns[key] = max(0, self.cooldowns[key])  # Ensure cooldown doesn't go below 0
+                self.cooldowns[key] = max(0, self.cooldowns[key])
         self.last_time = current_time
 
     def combat_skill(self, key_state, stamina):
         """Handle player skill usage with cooldowns"""
         self.update_cooldowns()
-        
+
         if key_state[main.game.K_1] and stamina >= 10 and self.cooldowns["magic"] == 0:
             print("Pew Pew Pew (Magic Attack)")
             stamina -= 10
-            self.cooldowns["magic"] = self.cooldown_durations["magic"]  # Set cooldown for magic attack
+            self.cooldowns["magic"] = self.cooldown_durations["magic"]
         elif key_state[main.game.K_2] and stamina >= 20 and self.cooldowns["physical"] == 0:
             print("Smash!!! (Physical Attack)")
             stamina -= 20
-            self.cooldowns["physical"] = self.cooldown_durations["physical"]  # Set cooldown for physical attack
+            self.cooldowns["physical"] = self.cooldown_durations["physical"]
         elif key_state[main.game.K_3] and stamina >= 50 and self.cooldowns["ultimate"] == 0:
             print("Ultimate!!! (Powerful Attack)")
             stamina -= 50
-            self.cooldowns["ultimate"] = self.cooldown_durations["ultimate"]  # Set cooldown for ultimate attack
+            self.cooldowns["ultimate"] = self.cooldown_durations["ultimate"]
 
         if stamina <= 0:
-            stamina = 100  # Reset stamina when it runs out (you can adjust this logic)
+            stamina = 100
 
         return stamina
 
@@ -161,12 +161,12 @@ class PlayerCombat:
         if event.type == main.game.MOUSEBUTTONDOWN and event.button == 1:
             cursor_x, cursor_y = main.game.mouse.get_pos()
             red_square = magic.Range_Object(character.player_pos[0], character.player_pos[1], cursor_x, cursor_y)
-            self.projectiles.append(red_square)  # Add projectile to the player's list
+            self.projectiles.append(red_square)
             game_manager.instantiate(red_square)
 
     def update_projectiles(self):
         """Update all projectiles and remove any that are destroyed."""
-        for projectile in self.projectiles[:]:  # Iterate over a shallow copy of the list
+        for projectile in self.projectiles[:]:
             projectile.update()
             if projectile.destroyed:
                 self.projectiles.remove(projectile)
@@ -175,11 +175,11 @@ class PlayerCombat:
         """Handle melee or ranged attacks on enemies within range"""
         for enemy in enemies:
             distance = self.calculate_distance(player.rect.center, enemy.rect.center)
-            if distance <= player.attack_range:  # Assume player has an attack range
-                enemy.enemy_hp -= self.magic_damage  # Deal damage to the enemy
+            if distance <= player.attack_range:
+                enemy.enemy_hp -= self.magic_damage
                 if enemy.enemy_hp <= 0:
                     print("Enemy defeated!")
-                    enemies.remove(enemy)  # Remove enemy if defeated
+                    enemies.remove(enemy)
 
     @staticmethod
     def calculate_distance(pos1, pos2):
@@ -188,7 +188,7 @@ class PlayerCombat:
 
 class GameManager:
     def __init__(self):
-        self.objects = []  # This includes enemies, projectiles, etc.
+        self.objects = []
 
     def instantiate(self, game_object):
         self.objects.append(game_object)
@@ -198,17 +198,15 @@ class GameManager:
             if isinstance(obj, magic.GameObject):
                 obj.update()
 
-        # Check for collisions between projectiles and enemies
         for obj in self.objects:
             if isinstance(obj, magic.Range_Object):
                 for enemy in [o for o in self.objects if isinstance(o, mon.Enemy)]:
                     if self.check_collision(obj, enemy):
-                        enemy.enemy_hp -= 20  # Example damage
-                        obj.destroyed = True  # Destroy projectile
+                        enemy.enemy_hp -= 20
+                        obj.destroyed = True
                         if enemy.enemy_hp <= 0:
                             self.remove_enemy(enemy)
 
-        # Clean up destroyed objects
         self.objects = [obj for obj in self.objects if not obj.destroyed]
 
     def render(self, screen):
