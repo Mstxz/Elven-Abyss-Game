@@ -41,4 +41,4 @@ def main(width, height, fps):
 
 #======call main loop======#
 if __name__ == "__main__":
-    main(1280, 720, 60)
+    main(1280 , 720, 60)
