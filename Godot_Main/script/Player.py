@@ -59,3 +59,9 @@ class Player(KinematicBody2D):
 			#self.sprite.play("default")
 		# Move the KinematicBody2D
 		self.velocity = self.move_and_slide(self.velocity)
+		
+	def take_damage(self, dmg):
+		self.hp -= dmg
+		
+	def heal(self, amount):
+		self.hp += amount

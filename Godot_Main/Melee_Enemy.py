@@ -34,3 +34,9 @@ class Melee_Enemy(KinematicBody2D):
 	def _on_Area2D_body_exited(self, body):
 		self.player = None
 		self.player_see = False
+		
+	def take_damage(self, dmg):
+		self.hp -= dmg
+		
+	def heal(self, amount):
+		self.hp += amount
