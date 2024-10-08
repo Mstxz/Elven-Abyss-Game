@@ -7,6 +7,13 @@ class Player(KinematicBody2D):
 
 	# member variables here, example:
 	speed = export(float, default=150.0)
+	atk = export(float, default=10.00)
+	hp = export(float, default=100.0)
+	exp = export(int, default=0)
+	mana = export(float, default=100.0)
+	defense = export(float, default=0.0)
+	critrate = export(float, default=0.0)
+	critdmg = export(float, default=50.0)
 	velocity = Vector2()
 
 	def _ready(self):
@@ -52,3 +59,9 @@ class Player(KinematicBody2D):
 			#self.sprite.play("default")
 		# Move the KinematicBody2D
 		self.velocity = self.move_and_slide(self.velocity)
+		
+	def take_damage(self, dmg):
+		self.hp -= dmg
+		
+	def heal(self, amount):
+		self.hp += amount
