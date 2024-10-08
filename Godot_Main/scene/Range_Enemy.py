@@ -7,6 +7,10 @@ class Range_Enemy(KinematicBody2D):
 
 	# member variables here, example:
 	speed = export(float, default=100.00)
+	atk = export(float, default=10.00)
+	hp = export(float, default=100.0)
+	defense = export(float, default=0.0)
+	
 	player = None
 	player_see = export(bool, default = False) 
 
