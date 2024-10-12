@@ -2,15 +2,33 @@
 
 importer="texture"
 type="StreamTexture"
+<<<<<<< Updated upstream:Godot_Main/Assets/SquareProfile (2).png.import
+<<<<<<<< Updated upstream:Godot_Main/Assets/SquareProfile (2).png.import
 path="res://.import/SquareProfile (2).png-345436a36e77584ba561638048aa7606.stex"
+========
+path="res://.import/Godot_icon.svg.png-13975b1ea35c8c50dc9517bea23afa23.stex"
+>>>>>>>> Stashed changes:Godot_Main/assets/Godot_icon.svg.png.import
+=======
+path="res://.import/SquareProfile (2).png-a6c2d0f35b664249dfb2d273fb8dbd2b.stex"
+>>>>>>> Stashed changes:Godot_Main/assets/SquareProfile (2).png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
+<<<<<<< Updated upstream:Godot_Main/Assets/SquareProfile (2).png.import
+<<<<<<<< Updated upstream:Godot_Main/Assets/SquareProfile (2).png.import
 source_file="res://Assets/SquareProfile (2).png"
 dest_files=[ "res://.import/SquareProfile (2).png-345436a36e77584ba561638048aa7606.stex" ]
+========
+source_file="res://assets/Godot_icon.svg.png"
+dest_files=[ "res://.import/Godot_icon.svg.png-13975b1ea35c8c50dc9517bea23afa23.stex" ]
+>>>>>>>> Stashed changes:Godot_Main/assets/Godot_icon.svg.png.import
+=======
+source_file="res://assets/SquareProfile (2).png"
+dest_files=[ "res://.import/SquareProfile (2).png-a6c2d0f35b664249dfb2d273fb8dbd2b.stex" ]
+>>>>>>> Stashed changes:Godot_Main/assets/SquareProfile (2).png.import
 
 [params]
 
