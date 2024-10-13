@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Godot_icon.svg.png-13975b1ea35c8c50dc9517bea23afa23.stex"
+path="res://.import/PointLight.png-734bbb050b341332ae0228fa444cd75d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Godot_icon.svg.png"
-dest_files=[ "res://.import/Godot_icon.svg.png-13975b1ea35c8c50dc9517bea23afa23.stex" ]
+source_file="res://assets/PointLight.png"
+dest_files=[ "res://.import/PointLight.png-734bbb050b341332ae0228fa444cd75d.stex" ]
 
 [params]
 

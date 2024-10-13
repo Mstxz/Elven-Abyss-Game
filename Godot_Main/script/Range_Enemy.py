@@ -8,6 +8,7 @@ class Range_Enemy(KinematicBody2D):
 	# member variables here, example:
 	speed = export(float, default=100.00)
 	atk = export(float, default=10.00)
+	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
 	
@@ -35,3 +36,10 @@ class Range_Enemy(KinematicBody2D):
 	def _on_Area2D_body_exited(self, body):
 		self.player = None
 		self.player_see = False
+		
+	def take_damage(self, dmg):
+		self.hp -= dmg
+		
+	def heal(self, amount):
+		self.hp += amount
+	
