@@ -32,7 +32,6 @@ class Player(KinematicBody2D):
 		self.move(delta)
 
 	def move(self, delta):
-		# Get input axis for horizontal movement
 		direction_x = Input.get_axis("left", "right")
 		direction_y = Input.get_axis("up", "down")
 		
@@ -40,7 +39,7 @@ class Player(KinematicBody2D):
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
 
-			self.sprite.play('Walk') #plays walk animation whenever there is direction input
+			self.sprite.play('Walk')
 			if direction_x < 0:
 				self.sprite.flip_h = False
 				
@@ -48,14 +47,12 @@ class Player(KinematicBody2D):
 				self.sprite.flip_h = True
 				
 		else:
-			self.sprite.play('default')  #otherwise plays idle anim
+			self.sprite.play('default')
 			self.velocity.x = 0
-			self.velocity.y = 0  # Stop moving when there's no input
-		# Move the KinematicBody2D
+			self.velocity.y = 0 
 		self.velocity = self.move_and_slide(self.velocity)
 	
 	def hp_changed_func(self):
-		#call everytime the health is change (its need to be call to update healthbar)
 		healthbar = self.get_node("/root/Node2D/MainUI/ProfileBar/HealthBar")
 		healthbar.updatehealth(self.maxhp,self.hp)
 	
@@ -65,19 +62,19 @@ class Player(KinematicBody2D):
 		manabar.updatemana(self.maxmana,self.mana)
 	
 	def take_damage(self, dmg):
-		dmg = min(self.hp,dmg) #max to prevent negative damage turn into healing
+		dmg = min(self.hp,dmg)
 		if dmg:
 			self.hp -= dmg
 			self.hp_changed_func()
 		
 	def heal(self, amount):
-		amount = min(self.maxhp-self.hp,amount) #min to prevent hp over maxhp
+		amount = min(self.maxhp-self.hp,amount)
 		if amount:
 			self.hp += amount
 			self.hp_changed_func()
 			
 	def mana_regen(self, amount):
-		amount = min(self.maxmana-self.mana,amount) #min to prevent mana over maxmana
+		amount = min(self.maxmana-self.mana,amount)
 		if amount:
 			self.mana += amount
 			self.mana_changed_func()
@@ -86,7 +83,7 @@ class Player(KinematicBody2D):
 		if amount <= self.mana:
 			self.mana -= amount
 			self.mana_changed_func()
-			return True #might be helpful for checking if have enough mana before using skill
-		return False #might be helpful for checking if have enough mana before using skill
+			return True
+		return False
 		
 		
