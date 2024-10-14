@@ -39,25 +39,18 @@ class Player(KinematicBody2D):
 		if direction_x or direction_y:
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
-			#if direction_x or (direction_x and direction_y):
-				#self.sprite.play("run_l")
 
+			self.sprite.play('Walk') #plays walk animation whenever there is direction input
 			if direction_x < 0:
 				self.sprite.flip_h = False
-
+				
 			elif direction_x > 0:
 				self.sprite.flip_h = True
-			
-			#elif direction_y > 0:
-				#self.sprite.play("run_d")
-			#elif direction_y < 0:
-				#self.sprite.play("run_u")
 				
 		else:
+			self.sprite.play('default')  #otherwise plays idle anim
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
-			self.sprite.flip_h = False
-			#self.sprite.play("default")
 		# Move the KinematicBody2D
 		self.velocity = self.move_and_slide(self.velocity)
 	
