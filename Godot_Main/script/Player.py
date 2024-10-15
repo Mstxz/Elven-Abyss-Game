@@ -1,6 +1,23 @@
 from godot import exposed, export
 from godot import *
 
+elemdict = {
+	'Water' : 0,
+	'Fire' : 1,
+	'Wind' : 2,
+	'Earth' : 3
+}
+		
+weapondict = {
+	'Stick' : 0,
+	'Spellbook' : 1,
+	'Staff' : 2,
+	'Bow' : 3,
+	'Crossbow' : 4,
+	'Gun' : 5
+}
+
+
 @exposed
 class Player(KinematicBody2D):
 
@@ -15,14 +32,22 @@ class Player(KinematicBody2D):
 	defense = export(float, default=0.0)
 	critrate = export(float, default=0.0)
 	critdmg = export(float, default=50.0)
+	weapon = export(str, default='Staff')
+	element = export(str, default="Water")
 	velocity = Vector2()
+	
+	
 	
 	def _ready(self):
 		"""
 		Called when the node is added to the scene.
 		Initialization happens here.
 		"""
-		self.sprite = self.get_node("AnimatedSprite")
+		self.sprite = self.get_node('AnimatedSprite')
+		
+		#prepare animation id (str() is require twice to convert gdstring to string)
+		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
+		
 		pass
 
 	def _process(self, delta):
@@ -40,10 +65,8 @@ class Player(KinematicBody2D):
 			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
-			#if direction_x or (direction_x and direction_y):
-				#self.sprite.play("run_l")
-
-			self.sprite.play('Walk') #Player Animation
+			
+			self.sprite.play('Walk' + self.animationid) #Player Animation
 			if direction_x < 0:
 				self.sprite.flip_h = False
 
@@ -56,17 +79,10 @@ class Player(KinematicBody2D):
 				#self.sprite.play("run_u")
 				
 		else:
-			self.sprite.play('Idle')
-			self.velocity.x = 0
-			self.velocity.y = 0 
-
+			self.sprite.play('Idle' + self.animationid)
+			
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
-			self.sprite.flip_h = False
-			#self.sprite.play("Idle")
-		# Move the KinematicBody2D
-			self.velocity.x = 0
-			self.velocity.y = 0 
 		self.velocity = self.move_and_slide(self.velocity)
 		
 	
@@ -80,6 +96,7 @@ class Player(KinematicBody2D):
 		manabar.updatemana(self.maxmana,self.mana)
 	
 	def take_damage(self, dmg):
+		dmg = max(dmg-self.defense, 1) #reduce damage with defense with the least possible dmg is 1
 		dmg = min(self.hp,dmg)
 		if dmg:
 			self.hp -= dmg
