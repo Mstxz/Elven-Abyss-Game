@@ -12,6 +12,7 @@
 polygon = PoolVector2Array( -217, 21, -217, 32, 361, 32, 464, 32, 464, 21 )
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2( 1.00936, 1.00238 )
 
 [node name="TempBackDrop" type="Sprite" parent="."]
 position = Vector2( 8, -6 )

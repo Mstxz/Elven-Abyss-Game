@@ -32,16 +32,18 @@ class Player(KinematicBody2D):
 		self.move(delta)
 
 	def move(self, delta):
+		"""Movement System"""
 		direction_x = Input.get_axis("left", "right")
 		direction_y = Input.get_axis("up", "down")
 		
 		if direction_x or direction_y:
+			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
 			#if direction_x or (direction_x and direction_y):
 				#self.sprite.play("run_l")
 
-			self.sprite.play('Walk')
+			self.sprite.play('Walk') #Player Animation
 			if direction_x < 0:
 				self.sprite.flip_h = False
 
@@ -54,19 +56,19 @@ class Player(KinematicBody2D):
 				#self.sprite.play("run_u")
 				
 		else:
-			self.sprite.play('default')
+			self.sprite.play('Idle')
 			self.velocity.x = 0
 			self.velocity.y = 0 
 
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
 			self.sprite.flip_h = False
-			#self.sprite.play("default")
+			#self.sprite.play("Idle")
 		# Move the KinematicBody2D
-
 			self.velocity.x = 0
 			self.velocity.y = 0 
-
+		self.velocity = self.move_and_slide(self.velocity)
+		
 	
 	def hp_changed_func(self):
 		healthbar = self.get_node("/root/Node2D/MainUI/ProfileBar/HealthBar")
