@@ -55,6 +55,7 @@ class Player(KinematicBody2D):
 				
 		else:
 			self.sprite.play('default')
+<<<<<<< HEAD
 			self.velocity.x = 0
 			self.velocity.y = 0 
 
@@ -63,6 +64,10 @@ class Player(KinematicBody2D):
 			self.sprite.flip_h = False
 			#self.sprite.play("default")
 		# Move the KinematicBody2D
+=======
+			self.velocity.x = 0
+			self.velocity.y = 0 
+>>>>>>> 07aa8123ff849941f9b807a58c138ad9043ef9b9
 		self.velocity = self.move_and_slide(self.velocity)
 	
 	def hp_changed_func(self):
