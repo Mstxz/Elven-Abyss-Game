@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_stick.png-24b7dac2591c993e154e590fbdfee6c4.stex"
+path="res://.import/player_water_staff.png-1df633ff8e3d6488644bae6e50a5b201.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_stick.png"
-dest_files=[ "res://.import/player_stick.png-24b7dac2591c993e154e590fbdfee6c4.stex" ]
+source_file="res://assets/player_water_staff.png"
+dest_files=[ "res://.import/player_water_staff.png-1df633ff8e3d6488644bae6e50a5b201.stex" ]
 
 [params]
 

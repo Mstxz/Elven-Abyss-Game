@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_stick.png-24b7dac2591c993e154e590fbdfee6c4.stex"
+path="res://.import/player_rock_staff.png-70fec22cc927abc404420ed81fcc87ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_stick.png"
-dest_files=[ "res://.import/player_stick.png-24b7dac2591c993e154e590fbdfee6c4.stex" ]
+source_file="res://assets/player_rock_staff.png"
+dest_files=[ "res://.import/player_rock_staff.png-70fec22cc927abc404420ed81fcc87ca.stex" ]
 
 [params]
 
