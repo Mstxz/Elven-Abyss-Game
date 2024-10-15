@@ -37,7 +37,6 @@ class Player(KinematicBody2D):
 	velocity = Vector2()
 	
 	
-	
 	def _ready(self):
 		"""
 		Called when the node is added to the scene.
@@ -48,13 +47,30 @@ class Player(KinematicBody2D):
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
 		
-		pass
-
+		self.wait(5,'testwait')
+	
 	def _process(self, delta):
 		"""
 		Called every frame. Use it for real-time input handling.
 		"""
 		self.move(delta)
+		
+	def wait(self,time,funcname):
+		self.timer = Timer.new()
+		self.timer.wait_time = time
+		self.timer.one_shot = True
+		self.add_child(self.timer)
+		
+		# Connect the timeout signal to a custom method
+		self.timer.connect("timeout", self, funcname)
+		
+		# Start the timer
+		self.timer.start()
+	
+	def testwait(self):
+		print('delay has timed out')
+
+
 
 	def move(self, delta):
 		"""Movement System"""
@@ -87,6 +103,7 @@ class Player(KinematicBody2D):
 		
 	
 	def hp_changed_func(self):
+		
 		healthbar = self.get_node("/root/Node2D/MainUI/ProfileBar/HealthBar")
 		healthbar.updatehealth(self.maxhp,self.hp)
 	
