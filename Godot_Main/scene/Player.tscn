@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/player_rock_staff.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 14.5354 )
+extents = Vector2( 18.5, 32.2083 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 1 )
@@ -165,16 +165,13 @@ animations = [ {
 } ]
 
 [node name="Player" type="KinematicBody2D"]
-collision_layer = 3
+scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -5.5 )
-scale = Vector2( 7, 7 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 2.429, 2.429 )
 frames = SubResource( 1 )
 animation = "Idle02"
 playing = true

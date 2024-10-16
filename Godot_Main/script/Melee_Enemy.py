@@ -37,13 +37,14 @@ class Melee_Enemy(KinematicBody2D):
 			self.move_and_slide(self.velocity)
 	
 	def _on_Area2D_body_entered(self, body):
-		print("end")
-		self.player = body
-		self.player_see = True
+		if str(body.name) == "Player":
+			self.player = body
+			self.player_see = True
 		
 	def _on_Area2D_body_exited(self, body):
-		self.player = None
-		self.player_see = False
+		if str(body.name) == "Player":
+			self.player = None
+			self.player_see = False
 		
 	def take_damage(self, dmg):
 		self.hp -= dmg

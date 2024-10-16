@@ -1,4 +1,3 @@
-from godot import exposed, export
 from godot import *
 
 elemdict = {
@@ -47,31 +46,32 @@ class Player(KinematicBody2D):
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
 		
-		self.wait(5,'testwait')
+		self.truetestofwait('THE HOPE')
 	
 	def _process(self, delta):
 		"""
 		Called every frame. Use it for real-time input handling.
 		"""
 		self.move(delta)
-		
-	def wait(self,time,funcname):
+	
+	def wait(self,time,funcname,para):
 		self.timer = Timer.new()
-		self.timer.wait_time = time
 		self.timer.one_shot = True
 		self.add_child(self.timer)
 		
 		# Connect the timeout signal to a custom method
-		self.timer.connect("timeout", self, funcname)
+		self.timer.connect("timeout", self, funcname, Array(para))
 		
 		# Start the timer
-		self.timer.start()
+		self.timer.start(time)
 	
-	def testwait(self):
-		print('delay has timed out')
-
-
-
+	def truetestofwait(self,somethingtoprint,part=0):
+		if part == 0:
+			print(somethingtoprint, part)
+			wait(8,'truetestofwait',[somethingtoprint,part+1])
+		if part == 1:
+			print(somethingtoprint, 'passed wait', part)
+	
 	def move(self, delta):
 		"""Movement System"""
 		direction_x = Input.get_axis("left", "right")
@@ -89,10 +89,6 @@ class Player(KinematicBody2D):
 			elif direction_x > 0:
 				self.sprite.flip_h = True
 			
-			#elif direction_y > 0:
-				#self.sprite.play("run_d")
-			#elif direction_y < 0:
-				#self.sprite.play("run_u")
 				
 		else:
 			self.sprite.play('Idle' + self.animationid)
