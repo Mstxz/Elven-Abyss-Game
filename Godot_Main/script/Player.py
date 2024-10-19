@@ -43,6 +43,8 @@ class Player(KinematicBody2D):
 		
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
+		profileui = self.get_node("/root/Node2D/MainUI/Viewport/AnimatedSprite")
+		profileui.play('Idle'+self.animationid)
 		
 		#locate for later uses
 		self.main = self.get_node("/root/Node2D")
@@ -51,22 +53,11 @@ class Player(KinematicBody2D):
 	def _process(self, delta):
 		if not self.acting:
 			self.move(delta)
-	
-	def _input(self, event):
-		if isinstance(event, InputEventMouseButton):
-			if event.button_index == BUTTON_LEFT and event.pressed:
-				# if the player click
-				if not self.acting:
-					#acting is as it name suggest to prevent spam and
-					#keep the animation running
-					self.acting = True
-					mousepos = self.get_global_mouse_position()
-					self.sprite.play('Shoot' + self.animationid)
-					if mousepos.x > self.position.x:
-						self.sprite.flip_h = True
-					else:
-						self.sprite.flip_h = False
-					self.wait(0.3,'shoot',[mousepos])
+			if self.get_tree().is_input_handled():
+				#return if the input is handled by ui
+				return
+			self.shoot()
+		
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -88,24 +79,38 @@ class Player(KinematicBody2D):
 		'''frequently use to let the player act after the timer'''
 		self.acting = False
 	
-	def shoot(self,mousepos):
+	def shoot(self,mousepos=0,part=0):
 		'''player shoots projectile toward cursor'''
-		self.acting = True
-		# 'projectile' is loaded scene sees at the start of this script
-		bullet = projectile.instance()
-		#get direction from mousepos turn it into proper angle value
-		direction = (self.position - mousepos).angle()
-		#set projectile property
-		bullet.direction = direction
-		bullet.spawnpos = self.position + (self.position - mousepos) * -0.22
-		bullet.spawnrot = direction
-		bullet.speed = 50
-		bullet.duration = 6
-		#add it
-		self.main.add_child(bullet)
-		
-		#set self.acting back to False after the set time
-		self.wait(0.35,'cooldown')
+		if not part:
+			if Input.is_action_just_pressed('left_click'):
+				# if the player click
+				if not self.acting:
+					#acting is as it name suggest to prevent spam and
+					#keep the animation running
+					self.acting = True
+					mousepos = self.get_global_mouse_position()
+					self.sprite.play('Shoot' + self.animationid)
+					if mousepos.x > self.position.x:
+						self.sprite.flip_h = True
+					else:
+						self.sprite.flip_h = False
+					self.wait(0.3,'shoot',[mousepos,part+1])
+		elif part == 1:
+			# 'projectile' is loaded scene sees at the start of this script
+			bullet = projectile.instance()
+			#get direction from mousepos turn it into proper angle value
+			direction = (self.position - mousepos).angle()
+			#set projectile property
+			bullet.direction = direction
+			bullet.spawnpos = self.position + (self.position - mousepos) * -0.22
+			bullet.spawnrot = direction
+			bullet.speed = 50
+			bullet.duration = 6
+			#add it
+			self.main.add_child(bullet)
+			
+			#set self.acting back to False after the set time
+			self.wait(0.35,'cooldown')
 		
 	def move(self, delta):
 		"""Movement System"""
