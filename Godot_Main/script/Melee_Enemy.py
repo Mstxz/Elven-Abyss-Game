@@ -11,16 +11,22 @@ class Melee_Enemy(KinematicBody2D):
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
-	player = None
+	player = None #use to store player object
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
 	
+	def _ready(self):
+		'''runs when object spawn'''
+		#prepares require nodes
+		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
+		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
+	
 	def _process(self, delta):
-		self.movement()
+		'''runs every frame'''
+		self.movement() #check movement every frames
 	
 	def movement(self):
-		'''if spot player run into em'''
-		
+		'''handle all kind of enemy movement'''
 		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
 			# in case theres no player in range and theres still kb
 			# so this have to be outside main if
@@ -30,56 +36,59 @@ class Melee_Enemy(KinematicBody2D):
 				# Move the enemy using move_and_slide for proper physics handling
 				self.move_and_slide(self.velocity)
 		
-		if self.player:
+		if self.player: #if there is player in sight:
+			#get direction
 			direction = self.player.position - self.position
-			sprite = self.get_node("AnimatedSprite")
 			if direction.x < 0: #flip sprite depending on what direction its running to
-				sprite.flip_h = False
+				self.sprite.flip_h = False
 			else:
-				sprite.flip_h = True
-				
+				self.sprite.flip_h = True
+
 			# Normalize direction
 			direction = direction.normalized()
 			
 			# If the knockbacked are not reduced enough do not move
 			# or else it would set the velocity thus ends the knockback
 			if abs(self.knockbacked.x) + abs(self.knockbacked.y) < 5:
-				# if knockback is reduced enough back to walking
+				#walking
 				self.velocity = direction * self.speed
 				self.knockbacked *= 0
 			
-			
 			# Move the enemy using move_and_slide for proper physics handling
 			self.move_and_slide(self.velocity)
-		
-	
+
 	def _on_Area2D_body_entered(self, body):
-		if str(body.name) == "Player":
+		'''when player in area2d, enemy will see'''
+		if str(body.name) == "Player": #prevent recognizing other kinematic2d
 			self.player = body
 		
 	def _on_Area2D_body_exited(self, body):
-		if str(body.name) == "Player":
+		'''unsee player'''
+		if str(body.name) == "Player": #prevent recognizing other kinematic2d
 			self.player = None
 	
 	def hp_changed_func(self):
-		healthbar = self.get_node("Viewport/HealthBar")
-		healthbar.updatehealth(self.maxhp,self.hp)
+		'''update the health'''
+		self.healthbar.updatehealth(self.maxhp,self.hp) 
 	
 	def death(self):
+		'''deletes itself'''
 		self.queue_free()
 	
 	def take_damage(self, dmg, kb=None):
-		dmg = max(dmg-self.defense, 1) #reduce damage with defense with the least possible dmg is 1
-		dmg = min(self.hp,dmg)
-		if kb:
+		'''handle taking damage'''
+		#reduce damage with defense with the least possible dmg is 1
+		dmg = max(dmg-self.defense, 1) 
+		if kb: #kb stands for knockback
 			self.velocity = kb
 			self.knockbacked = kb
 			self.move_and_slide(self.velocity)
-		if dmg:
+		if dmg: #handle dmg
 			self.hp -= dmg
 			self.hp_changed_func()
-		if self.hp <= 0:
+		if self.hp <= 0: #if health <= 0 then call death func
 			self.death()
 		
-	def heal(self, amount):
+	def heal(self, amount): 
+		'''handle heals'''
 		self.hp += amount
