@@ -51,8 +51,8 @@ class Player(KinematicBody2D):
 		self.sprite = self.get_node('AnimatedSprite')
 		
 	def _process(self, delta):
+		self.move(delta)
 		if not self.acting:
-			self.move(delta)
 			if self.get_tree().is_input_handled():
 				#return if the input is handled by ui
 				return
@@ -79,7 +79,7 @@ class Player(KinematicBody2D):
 		'''frequently use to let the player act after the timer'''
 		self.acting = False
 	
-	def shoot(self,mousepos=0,part=0):
+	def shoot(self,part=0):
 		'''player shoots projectile toward cursor'''
 		if not part:
 			if Input.is_action_just_pressed('left_click'):
@@ -88,14 +88,15 @@ class Player(KinematicBody2D):
 					#acting is as it name suggest to prevent spam and
 					#keep the animation running
 					self.acting = True
-					mousepos = self.get_global_mouse_position()
 					self.sprite.play('Shoot' + self.animationid)
+					mousepos = self.get_global_mouse_position()
 					if mousepos.x > self.position.x:
 						self.sprite.flip_h = True
 					else:
 						self.sprite.flip_h = False
-					self.wait(0.3,'shoot',[mousepos,part+1])
+					self.wait(0.3,'shoot',[part+1])
 		elif part == 1:
+			mousepos = self.get_global_mouse_position()
 			# 'projectile' is loaded scene sees at the start of this script
 			bullet = projectile.instance()
 			#get direction from mousepos turn it into proper angle value
@@ -116,23 +117,31 @@ class Player(KinematicBody2D):
 		"""Movement System"""
 		direction_x = Input.get_axis("left", "right")
 		direction_y = Input.get_axis("up", "down")
-		
+		currentanim = str(self.sprite.animation)
 		if (direction_x or direction_y):
 			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
+			if not self.acting:
+				self.sprite.play('Walk' + self.animationid) #Player Animation
+				if direction_x < 0:
+					self.sprite.flip_h = False
+				elif direction_x > 0:
+					self.sprite.flip_h = True
+			elif 'Shoot' in currentanim and not 'Walk' in currentanim:
+				frame = self.sprite.frame
+				self.sprite.play('ShootWalk'+ self.animationid)
+				self.sprite.frame = frame - 1
 			
-			self.sprite.play('Walk' + self.animationid) #Player Animation
-			if direction_x < 0:
-				self.sprite.flip_h = False
-
-			elif direction_x > 0:
-				self.sprite.flip_h = True
 			
 				
 		else:
-			self.sprite.play('Idle' + self.animationid)
-			
+			if not self.acting:
+				self.sprite.play('Idle' + self.animationid)
+			elif 'Shoot' in currentanim and 'Walk' in currentanim:
+				frame = self.sprite.frame
+				self.sprite.play('Shoot'+ self.animationid)
+				self.sprite.frame = frame + 1
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
 		self.velocity = self.move_and_slide(self.velocity)

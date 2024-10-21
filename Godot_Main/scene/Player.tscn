@@ -15,5 +15,5 @@ shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "Shoot02"
-playing = true
+animation = "ShootWalk02"
+frame = 3

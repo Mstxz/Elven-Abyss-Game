@@ -12,14 +12,13 @@ class Melee_Enemy(KinematicBody2D):
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
 	player = None
-	player_see = export(bool, default = False)
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
 	
 	def _process(self, delta):
-		self.runintoplayer()
+		self.movement()
 	
-	def runintoplayer(self):
+	def movement(self):
 		'''if spot player run into em'''
 		
 		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
@@ -27,11 +26,11 @@ class Melee_Enemy(KinematicBody2D):
 			# so this have to be outside main if
 			self.velocity *= 0.9
 			self.knockbacked *= 0.9
-			if not self.player_see:
+			if not self.player:
 				# Move the enemy using move_and_slide for proper physics handling
 				self.move_and_slide(self.velocity)
 		
-		if self.player_see:
+		if self.player:
 			direction = self.player.position - self.position
 			sprite = self.get_node("AnimatedSprite")
 			if direction.x < 0: #flip sprite depending on what direction its running to
@@ -57,16 +56,12 @@ class Melee_Enemy(KinematicBody2D):
 	def _on_Area2D_body_entered(self, body):
 		if str(body.name) == "Player":
 			self.player = body
-			self.player_see = True
 		
 	def _on_Area2D_body_exited(self, body):
 		if str(body.name) == "Player":
 			self.player = None
-			self.player_see = False
-	
 	
 	def hp_changed_func(self):
-		
 		healthbar = self.get_node("Viewport/HealthBar")
 		healthbar.updatehealth(self.maxhp,self.hp)
 	

@@ -43,6 +43,7 @@ texture = ExtResource( 6 )
 expand = true
 
 [node name="HealthBar" type="TextureProgress" parent="ProfileBar"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_left = 134.0
 margin_top = 56.0
 margin_right = 652.0
@@ -56,10 +57,11 @@ script = ExtResource( 3 )
 [node name="Tween" type="Tween" parent="ProfileBar/HealthBar"]
 
 [node name="ManaBar" type="TextureProgress" parent="ProfileBar"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_left = 134.0
 margin_top = 77.0
 margin_right = 652.0
-margin_bottom = 99.0
+margin_bottom = 98.0
 value = 100.0
 texture_progress = ExtResource( 7 )
 tint_progress = Color( 0, 0.760784, 0.776471, 0.901961 )
