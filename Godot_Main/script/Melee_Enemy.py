@@ -11,65 +11,89 @@ class Melee_Enemy(KinematicBody2D):
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
+	acting = export(bool, default=False)
 	player = None #use to store player object
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
-	is_timer = False
-	timer = 0.0
-	delay = 2.0
-	
+	count = 0
 	def _ready(self):
 		'''runs when object spawn'''
 		#prepares require nodes
-		
 		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
 		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
 		self.hitbox = self.get_node("Hitbox")
 	
 	def _process(self, delta):
 		'''runs every frame'''
-		self.movement(delta) #check movement every frames
+		self.movement() #check movement every frames
+		if not self.acting and self.player:
+			distance = self.player.position.distance_to(self.position)
+			miny = range(int(self.position.y-20),int(self.position.y+20))
+			if distance < 30 and int(self.player.position.y) in miny:
+				#attack if in range
+				self.count += 1
+				self.attack()
+	
+	def wait(self,time,funcname,para=Array()):
+		'''see example in shoot()'''
+		timer = Timer.new()
+		timer.one_shot = True
+		self.add_child(timer)
 		
-	def movement(self, delta):
+		# Connect the timeout signal to a custom method
+		timer.connect("timeout", self, funcname, Array(para))
+		timer.connect("timeout", self, 'cleartimer', Array([timer]))
+		# Start the timer
+		timer.start(time)
+	
+	def cooldown(self):
+		'''frequently use to let the enemies act after the timer'''
+		self.acting = False
+	
+	def cleartimer(self,timer):
+		'''sole purpose to delete timer made from wait()'''
+		timer.queue_free()
+	
+	def movement(self):
 		'''handle all kind of enemy movement'''
 		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
 			# in case theres no player in range and theres still kb
 			# so this have to be outside main if
 			self.velocity *= 0.9
 			self.knockbacked *= 0.9
-			if not self.player:
-				# Move the enemy using move_and_slide for proper physics handling
-				self.move_and_slide(self.velocity)
+			# Move the enemy using move_and_slide for proper physics handling
+			self.move_and_slide(self.velocity)
 		
-		if self.player: #if there is player in sight:
-				#get direction
-				direction = self.player.position - self.position
-				if direction.x < 0: #flip sprite depending on what direction its running to
-					self.sprite.flip_h = False
-				else:
-					self.sprite.flip_h = True
-
-				# Normalize direction
-				direction = direction.normalized()
-				
-				# If the knockbacked are not reduced enough do not move
-				# or else it would set the velocity thus ends the knockback
-				if abs(self.knockbacked.x) + abs(self.knockbacked.y) < 5:
-					#walking
-					self.velocity = direction * self.speed
-					self.knockbacked *= 0
-				#check if the player too far walk
-				if self.player.position.distance_to(self.position) > 40:
-				# Move the enemy using move_and_slide for proper physics handling
-					self.move_and_slide(self.velocity)
-				#check if the player close enouge attack !!
-				else:
-					#change position to left or right of player
-					direction = Vector2(self.position.x - self.player.position.x,self.player.position.y - self.position.y)
-					direction = direction.normalized()
-					self.velocity = direction * self.speed
-					self.move_and_slide(self.velocity)
-					self.attack(delta)
+		elif self.player and not self.acting: #if there is player in sight:
+			#get direction
+			direction = self.player.position - self.position
+			
+			if direction.x < 0: #flip sprite depending on what direction its running to
+				self.sprite.flip_h = False
+			else:
+				self.sprite.flip_h = True
+			
+			#in case you start to get close
+			distance = self.player.position.distance_to(self.position)
+			if distance < 50:
+				#change position to left or right of player
+				direction = Vector2(direction.x*0.5,self.player.position.y - self.position.y)
+				if distance < 30: #made to make the slime walk beside player when too close
+					simposleft = Vector2(self.player.position.x-35,self.player.position.y)
+					simposright = Vector2(self.player.position.x+35,self.player.position.y)
+					leftdis = simposleft.distance_to(self.position)
+					rightdis = simposright.distance_to(self.position)
+					simposmin = min(leftdis,rightdis)
+					if simposmin == leftdis:
+						direction = simposleft - self.position
+					else:
+						direction = simposright - self.position
+			
+			#normalize direction
+			direction = direction.normalized()
+			self.velocity = direction * self.speed
+			self.knockbacked *= 0
+			self.move_and_slide(self.velocity)
 
 	def _on_Area2D_body_entered(self, body):
 		'''when player in area2d, enemy will see'''
@@ -83,38 +107,39 @@ class Melee_Enemy(KinematicBody2D):
 
 	def _on_Hitbox_body_entered(self, body):
 		'''player will tkae damage when enter area'''
-		print("enter")
 		if str(body.name) == "Player": #prevent recognizing other kinematic2d
-			self.player.take_damage(self.atk) 
+			direction = self.player.position - self.position
+			knockback = Vector2(300,0).rotated(direction.angle())
+			dmg = self.atk/10
+			self.hitbox.scale = Vector2(0,0)
+			if self.acting:
+				knockback.x *= 0.75
+				knockback.y = 0
+				dmg = self.atk
+			self.player.take_damage(self.atk,knockback)
 	
 	def _on_Hitbox_body_exited(self, body):
 		'''player will tkae damage when enter area'''
-		print("exit")
 
-	def hitbox_change(self,delta):
+	def hitbox_change(self,part=0):
 		'''change hitbox position to deal damage to player'''
-		if not self.is_timer:
+		if not part:
+			self.acting = True
 			direction = self.player.position - self.position
 			if direction.x < 0:
 				self.hitbox.position = Vector2(-20,0) #change hitbox position
 			else:
 				self.hitbox.position = Vector2(20,0) #change hitbox position
-			#make delay attack
-			self.timer += delta
-			if self.timer >= self.delay: #make hitbox back to default when finish timer
-				self.hitbox.position = Vector2(0,0)
-				self.timer = 0.0
-				self.is_timer = True #loop timer
-		else:
-			self.timer += delta
-			if self.timer >= self.delay: #make timer delay before another loop
-				self.timer = 0.0
-				self.is_timer = False #loop timer
+			self.hitbox.scale = Vector2(1,1)
+			self.wait(0.5,'hitbox_change',Array([part+1]))
+		elif part == 1:
+			self.hitbox.position = Vector2(0,0)
+			self.wait(0.5,'cooldown')
 
-	def attack(self,delta):
+	def attack(self):
 		'''attack function'''
-		self.hitbox_change(delta)
-
+		self.hitbox_change()
+		
 	def hp_changed_func(self):
 		'''update the health'''
 		self.healthbar.updatehealth(self.maxhp,self.hp) 
