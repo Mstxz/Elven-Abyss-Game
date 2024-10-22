@@ -38,6 +38,7 @@ class Player(KinematicBody2D):
 	element = export(str, default="Water")
 	acting = export(bool, default=False)
 	velocity = Vector2()
+	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	
 	def _ready(self):
 		
@@ -118,7 +119,13 @@ class Player(KinematicBody2D):
 		direction_x = Input.get_axis("left", "right")
 		direction_y = Input.get_axis("up", "down")
 		currentanim = str(self.sprite.animation)
-		if (direction_x or direction_y):
+		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
+			# in case theres no player in range and theres still kb
+			# so this have to be outside main if
+			self.velocity *= 0.9
+			self.knockbacked *= 0.9
+			self.move_and_slide(self.velocity)
+		elif (direction_x or direction_y):
 			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
@@ -132,8 +139,6 @@ class Player(KinematicBody2D):
 				frame = self.sprite.frame
 				self.sprite.play('ShootWalk'+ self.animationid)
 				self.sprite.frame = frame - 1
-			
-			
 				
 		else:
 			if not self.acting:
@@ -157,10 +162,16 @@ class Player(KinematicBody2D):
 		manabar = self.get_node("/root/Node2D/MainUI/ProfileBar/ManaBar")
 		manabar.updatemana(self.maxmana,self.mana)
 	
-	def take_damage(self, dmg):
-		dmg = max(dmg-self.defense, 1) #reduce damage with defense with the least possible dmg is 1
-		dmg = min(self.hp,dmg)
-		if dmg:
+	def take_damage(self, dmg, kb=None):
+		'''handle taking damage'''
+		#reduce damage with defense with the least possible dmg is 1
+		dmg = max(dmg-self.defense, 1)
+		dmg = min(dmg,self.hp)
+		if kb: #kb stands for knockback
+			self.velocity = kb
+			self.knockbacked = kb
+			self.move_and_slide(self.velocity)
+		if dmg: #handle dmg
 			self.hp -= dmg
 			self.hp_changed_func()
 		
