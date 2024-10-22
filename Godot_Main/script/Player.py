@@ -37,6 +37,8 @@ class Player(KinematicBody2D):
 	weapon = export(str, default='Staff')
 	element = export(str, default="Water")
 	acting = export(bool, default=False)
+	skill1cd = export(bool, default=False)
+	skill2cd = export(bool, default=False)
 	velocity = Vector2()
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	mousepos = Vector2()
@@ -51,15 +53,15 @@ class Player(KinematicBody2D):
 		#locate for later uses
 		self.main = self.get_node("/root/Node2D")
 		self.sprite = self.get_node('AnimatedSprite')
+		self.uicd1 = self.get_node("/root/Node2D/MainUI/Skill1Cd")
+		self.uicd2 = self.get_node("/root/Node2D/MainUI/Skill2Cd")
 		
 	def _process(self, delta):
 		self.move(delta)
-		if not self.acting:
-			if self.get_tree().is_input_handled():
-				#return if the input is handled by ui
-				return
+		if not self.acting and not self.get_tree().is_input_handled():
 			self.shoot()
-		
+			self.skill1()
+			self.skill2()
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -77,10 +79,17 @@ class Player(KinematicBody2D):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
 	
-	def cooldown(self):
-		'''frequently use to let the player act after the timer'''
-		self.acting = False
-	
+	def cooldown(self,target=None):
+		'''frequently use to reset cooldown after the timer'''
+		if not target:
+			self.acting = False
+		else:
+			target = str(target)
+		if target == 'skill1':
+			self.skill1cd = False
+		elif target == 'skill2':
+			self.skill2cd = False
+
 	def shoot(self,part=0):
 		'''player shoots projectile toward cursor'''
 		if not part:
@@ -150,7 +159,20 @@ class Player(KinematicBody2D):
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
 		self.velocity = self.move_and_slide(self.velocity)
-		
+	
+	def skill1(self):
+		if not self.skill1cd and Input.is_action_just_pressed('skill1'):
+			self.skill1cd = True
+			cdtime = 10
+			self.wait(cdtime,'cooldown',['skill1'])
+			self.uicd1.cooldownui(cdtime) #call ui func
+	
+	def skill2(self):
+		if not self.skill2cd and Input.is_action_just_pressed('skill2'):
+			self.skill2cd = True
+			cdtime = 10
+			self.wait(cdtime,'cooldown',['skill2'])
+			self.uicd2.cooldownui(cdtime) #call ui func
 	
 	def hp_changed_func(self):
 		
