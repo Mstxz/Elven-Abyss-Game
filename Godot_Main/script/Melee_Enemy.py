@@ -131,12 +131,14 @@ class Melee_Enemy(KinematicBody2D):
 			else:
 				self.hitbox.position = Vector2(20,0) #change hitbox position
 			self.hitbox.scale = Vector2(1,1)
-			print(self.hitbox.scale)
 			self.wait(0.5,'hitbox_change',Array([part+1]))
+			self.wait(0.5,'hitbox_change',Array([part+2]))
 		elif part == 1:
 			self.hitbox.position = Vector2(0,0)
 			self.wait(0.5,'cooldown')
-
+		elif part == 2:
+			if self.acting:
+				self.hitbox.scale = Vector2(0,0)
 	def attack(self):
 		'''attack function'''
 		self.hitbox_change()
