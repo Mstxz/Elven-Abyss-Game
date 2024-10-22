@@ -4,13 +4,14 @@
 [ext_resource path="res://script/Player.py" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 18.5, 32.2083 )
+extents = Vector2( 18.5, 26.7708 )
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5.43748 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

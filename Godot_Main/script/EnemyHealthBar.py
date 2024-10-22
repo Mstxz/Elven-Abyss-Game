@@ -17,7 +17,7 @@ class EnemyHealthBar(ProgressBar):
 			prop,  # Property to animate
 			self.get(prop),  # Start value
 			newvalue,  # End value
-			0.1,  # Duration in seconds
+			0.3,  # Duration in seconds
 			Tween.TRANS_LINEAR,  # Transition type
 			Tween.EASE_IN_OUT  # Ease type
 		)
