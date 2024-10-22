@@ -2348,11 +2348,9 @@ tile_data = PoolIntArray( -786440, 4, 131079, -786439, 4, 262157, -786438, 4, 26
 [node name="StaticBody2D" type="StaticBody2D" parent="Pillar"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pillar/StaticBody2D"]
-visible = false
 polygon = PoolVector2Array( 351.708, -207.506, 351.708, 304.276, -127.804, 304.276, -127.804, -207.506, -112.943, -181.568, -112.943, 288.314, 336.847, 289.312, 335.856, -180.57 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/StaticBody2D"]
-visible = false
 position = Vector2( 111.457, -181.568 )
 scale = Vector2( 1, 0.999999 )
 shape = SubResource( 3 )
@@ -2379,6 +2377,8 @@ collision_mask = 1
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 54.49, 192.542 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="MainUI" parent="." instance=ExtResource( 5 )]
 
