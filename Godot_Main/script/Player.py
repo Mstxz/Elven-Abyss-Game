@@ -39,6 +39,7 @@ class Player(KinematicBody2D):
 	acting = export(bool, default=False)
 	velocity = Vector2()
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
+	mousepos = Vector2()
 	
 	def _ready(self):
 		
@@ -90,21 +91,20 @@ class Player(KinematicBody2D):
 					#keep the animation running
 					self.acting = True
 					self.sprite.play('Shoot' + self.animationid)
-					mousepos = self.get_global_mouse_position()
-					if mousepos.x > self.position.x:
+					self.mousepos = self.get_global_mouse_position()#get mouse pos
+					if self.mousepos.x > self.position.x:
 						self.sprite.flip_h = True
 					else:
 						self.sprite.flip_h = False
 					self.wait(0.3,'shoot',[part+1])
 		elif part == 1:
-			mousepos = self.get_global_mouse_position()
 			# 'projectile' is loaded scene sees at the start of this script
 			bullet = projectile.instance()
 			#get direction from mousepos turn it into proper angle value
-			direction = (self.position - mousepos).angle()
+			direction = (self.position - self.mousepos).angle()
 			#set projectile property
 			bullet.direction = direction
-			bullet.spawnpos = self.position + (self.position - mousepos) * -0.22
+			bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
 			bullet.spawnrot = direction
 			bullet.speed = 50
 			bullet.duration = 6

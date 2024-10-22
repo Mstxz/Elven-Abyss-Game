@@ -139,6 +139,7 @@ class Melee_Enemy(KinematicBody2D):
 		elif part == 2:
 			if self.acting:
 				self.hitbox.scale = Vector2(0,0)
+
 	def attack(self):
 		'''attack function'''
 		self.hitbox_change()
