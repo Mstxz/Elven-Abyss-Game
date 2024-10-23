@@ -50,9 +50,6 @@ class Range_Enemy(KinematicBody2D):
 			distance = self.player.position.distance_to(self.position)
 			
 			direction = Vector2(0,0)
-			#if enemy is in the right distance then don't need to move
-			if distance in range(self.minrange,self.maxrange):
-				return
 			
 			#change direction base on whether the player is too close or far
 			if distance < self.minrange:
@@ -60,8 +57,9 @@ class Range_Enemy(KinematicBody2D):
 			elif distance > self.maxrange:
 				direction = (self.player.position - self.position)
 			else:
+				#if player in the range of minrange and maxrange move around player in circular path
 				# Set a fixed radius for the circular motion
-				radius = self.maxrange
+				radius =  (self.player.position - self.position).length()
 				# Calculate the angle between the enemy and the player
 				angle_to_player = math.atan2(self.position.y - self.player.position.y, self.position.x - self.player.position.x)
 				# Update the angle slightly every frame to rotate around the player smoothly
@@ -71,7 +69,6 @@ class Range_Enemy(KinematicBody2D):
 				new_x = self.player.position.x + radius * math.cos(angle_to_player)
 				new_y = self.player.position.y + radius * math.sin(angle_to_player)
 
-				# Set the new direction to move along the circle (towards the calculated position)
 				direction = Vector2(new_x - self.position.x, new_y - self.position.y)
 
 			self.flip(direction)
