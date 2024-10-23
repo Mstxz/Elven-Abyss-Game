@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BackDrop.png-f1224c6649edcababa7977fa30c06dac.stex"
+path="res://.import/Title.png-5a2bc7eff91db31adcded1fcae6ae2c7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BackDrop.png"
-dest_files=[ "res://.import/BackDrop.png-f1224c6649edcababa7977fa30c06dac.stex" ]
+source_file="res://assets/Title.png"
+dest_files=[ "res://.import/Title.png-5a2bc7eff91db31adcded1fcae6ae2c7.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
