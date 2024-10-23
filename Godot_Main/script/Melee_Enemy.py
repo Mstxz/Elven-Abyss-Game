@@ -12,10 +12,10 @@ class Melee_Enemy(KinematicBody2D):
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
 	acting = export(bool, default=False)
+	randomwalk = export(bool, default=False)
 	player = None #use to store player object
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
-	count = 0
 	def _ready(self):
 		'''runs when object spawn'''
 		#prepares require nodes
@@ -27,12 +27,14 @@ class Melee_Enemy(KinematicBody2D):
 		'''runs every frame'''
 		self.movement() #check movement every frames
 		if not self.acting and self.player:
+			self.randomwalk = False
 			distance = self.player.position.distance_to(self.position)
 			miny = range(int(self.position.y-20),int(self.position.y+20))
 			if distance < 30 and int(self.player.position.y) in miny:
 				#attack if in range
-				self.count += 1
 				self.attack()
+		if not self.acting:
+			self.sprite.play('Idle')
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -49,7 +51,7 @@ class Melee_Enemy(KinematicBody2D):
 	def cooldown(self):
 		'''frequently use to let the enemies act after the timer'''
 		self.acting = False
-	
+		
 	def cleartimer(self,timer):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
@@ -92,10 +94,10 @@ class Melee_Enemy(KinematicBody2D):
 			self.knockbacked *= 0
 			self.move_and_slide(self.velocity)
 
-		else:
+		elif not self.player:
 			#random movement
-			if not self.acting:
-				self.acting = True
+			if not self.randomwalk:
+				self.randomwalk = True
 				direction = Vector2(0,0)
 				state1 = random.randrange(0,3) #random direction x
 				state2 = random.randrange(0,3) #random direction y
@@ -121,7 +123,7 @@ class Melee_Enemy(KinematicBody2D):
 				self.wait(1,'movement',[part+1]) #delay for make it stay for second
 
 			elif part == 2:
-				self.acting = False #change state to start new random
+				self.randomwalk = False #change state to start new random
 
 			self.move_and_slide(self.velocity)
 
@@ -158,28 +160,33 @@ class Melee_Enemy(KinematicBody2D):
 	def _on_Hitbox_body_exited(self, body):
 		'''player will tkae damage when enter area'''
 
-	def hitbox_change(self,part=0):
+	def hitbox_change(self,command):
 		'''change hitbox position to deal damage to player'''
-		if not part:
-			self.acting = True
+		if command == 'reset':
+			self.hitbox.position = Vector2(0,0)
+			self.hitbox.scale = Vector2(0,0)
+		elif command == 'update':
 			direction = self.player.position - self.position
 			if direction.x < 0:
 				self.hitbox.position = Vector2(-20,0) #change hitbox position
 			else:
 				self.hitbox.position = Vector2(20,0) #change hitbox position
 			self.hitbox.scale = Vector2(1,1)
-			self.wait(0.5,'hitbox_change',Array([part+1]))
-			self.wait(0.5,'hitbox_change',Array([part+2]))
-		elif part == 1:
-			self.hitbox.position = Vector2(0,0)
-			self.wait(0.5,'cooldown')
-		elif part == 2:
-			if self.acting:
-				self.hitbox.scale = Vector2(0,0)
-
-	def attack(self):
+	def attack(self,part=0):
 		'''attack function'''
-		self.hitbox_change()
+		delay = 0
+		if not part and not self.acting:
+			self.acting = True
+			self.sprite.play("Attack")
+			self.wait(0.2,'attack',Array([part+1]))
+		elif part == 1:
+			self.hitbox_change('update')
+			self.wait(0.2,'attack',Array([part+1]))
+		elif part == 2:
+			self.wait(0.2,'cooldown')
+			self.wait(0.2,'attack',Array([part+1]))
+		elif part == 3:
+			self.hitbox_change('reset')
 		
 	def hp_changed_func(self):
 		'''update the health'''
