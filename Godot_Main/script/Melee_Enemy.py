@@ -1,6 +1,6 @@
 from godot import exposed, export
 from godot import *
-
+import random
 
 @exposed
 class Melee_Enemy(KinematicBody2D):
@@ -54,7 +54,7 @@ class Melee_Enemy(KinematicBody2D):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
 	
-	def movement(self):
+	def movement(self, part=0):
 		'''handle all kind of enemy movement'''
 		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
 			# in case theres no player in range and theres still kb
@@ -68,10 +68,7 @@ class Melee_Enemy(KinematicBody2D):
 			#get direction
 			direction = self.player.position - self.position
 			
-			if direction.x < 0: #flip sprite depending on what direction its running to
-				self.sprite.flip_h = False
-			else:
-				self.sprite.flip_h = True
+			self.flip(direction)
 			
 			#in case you start to get close
 			distance = self.player.position.distance_to(self.position)
@@ -94,6 +91,46 @@ class Melee_Enemy(KinematicBody2D):
 			self.velocity = direction * self.speed
 			self.knockbacked *= 0
 			self.move_and_slide(self.velocity)
+
+		else:
+			#random movement
+			if not self.acting:
+				self.acting = True
+				direction = Vector2(0,0)
+				state1 = random.randrange(0,3) #random direction x
+				state2 = random.randrange(0,3) #random direction y
+
+				if state1 == 1:
+					direction.x = 100
+				elif state1 == 2:
+					direction.x = -100
+				if state2 == 1:
+					direction.y = 100
+				elif state2 == 2:
+					direction.y = -100
+
+				self.flip(direction)
+				direction = direction.normalized()
+				self.velocity = direction * self.speed
+				self.wait(1.5,'movement',[part+1]) #delay for move
+
+			if part == 1:
+				direction = Vector2(0,0)
+				direction = direction.normalized()
+				self.velocity = direction * self.speed
+				self.wait(1,'movement',[part+1]) #delay for make it stay for second
+
+			elif part == 2:
+				self.acting = False #change state to start new random
+
+			self.move_and_slide(self.velocity)
+
+	def flip(self, direction):
+		"""flip sprite"""
+		if direction.x < 0: #flip sprite depending on what direction its running to
+			self.sprite.flip_h = False
+		else:
+			self.sprite.flip_h = True
 
 	def _on_Area2D_body_entered(self, body):
 		'''when player in area2d, enemy will see'''
