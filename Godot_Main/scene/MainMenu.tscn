@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://script/PlayButton.py" type="Script" id=1]
 [ext_resource path="res://assets/Title.png" type="Texture" id=2]
 [ext_resource path="res://assets/BackDrop.png" type="Texture" id=3]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=4]
 [ext_resource path="res://script/QuitGameButton.py" type="Script" id=5]
+[ext_resource path="res://assets/Audio/Game_Lobby.mp3" type="AudioStream" id=6]
 
 [node name="Node2D" type="Node2D"]
 
@@ -85,3 +86,8 @@ margin_right = 494.0
 margin_bottom = 378.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -14.0
+autoplay = true
