@@ -33,6 +33,7 @@ class Range_Enemy(KinematicBody2D):
 	
 	def _process(self, delta):
 		'''runs every frame'''
+		print(random.uniform(1.0,2.0))
 		self.movement(delta) #check movement every frames
 		if not self.acting and self.player and self.player.position.distance_to(self.position) <= self.maxrange:
 			self.shoot()
@@ -61,7 +62,7 @@ class Range_Enemy(KinematicBody2D):
 			else:
 				#if player in the range of minrange and maxrange move around player in circular path
 				# Set a fixed radius for the circular motion
-				radius =  (self.player.position - self.position).length()
+				radius =  self.maxrange
 				# Calculate the angle between the enemy and the player
 				angle_to_player = math.atan2(self.position.y - self.player.position.y, self.position.x - self.player.position.x)
 				# Update the angle slightly every frame to rotate around the player smoothly
@@ -104,14 +105,14 @@ class Range_Enemy(KinematicBody2D):
 			if not self.randomwalkdelaysent:
 				#Stop after 2 sec
 				self.randomwalkdelaysent = True
-				self.wait(random.randrange(1,2),'randomwalk',['stop'])
+				self.wait(random.uniform(1.0,2.0),'randomwalk',['stop'])
 		elif command == 'stop':
 			self.randomwalkdelaysent = False
 			self.randomwalking = False
 			self.randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100))
 			direction = Vector2(0,0)
 			self.velocity = direction * self.speed
-			self.wait(random.randrange(1,3),'randomwalk',['reset']) #delay for make it stay for second
+			self.wait(random.uniform(1.0,3.0),'randomwalk',['reset']) #delay for make it stay for second
 		elif command == 'reset':
 			self.randomwalking = True #change state to start new random
 		direction = direction.normalized()

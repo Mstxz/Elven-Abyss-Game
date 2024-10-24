@@ -120,14 +120,14 @@ class Melee_Enemy(KinematicBody2D):
 			if not self.randomwalkdelaysent:
 				#Stop after 2 sec
 				self.randomwalkdelaysent = True
-				self.wait(random.randrange(1,2),'randomwalk',['stop'])
+				self.wait(random.uniform(1.0,2.0),'randomwalk',['stop'])
 		elif command == 'stop':
 			self.randomwalkdelaysent = False
 			self.randomwalking = False
 			self.randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100))
 			direction = Vector2(0,0)
 			self.velocity = direction * self.speed
-			self.wait(random.randrange(1,3),'randomwalk',['reset']) #delay for make it stay for second
+			self.wait(random.uniform(1.0,3.0),'randomwalk',['reset']) #delay for make it stay for second
 		elif command == 'reset':
 			self.randomwalking = True #change state to start new random
 		direction = direction.normalized()
