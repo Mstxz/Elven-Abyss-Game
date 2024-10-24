@@ -12,10 +12,13 @@ class Melee_Enemy(KinematicBody2D):
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
 	acting = export(bool, default=False)
-	randomwalk = export(bool, default=False)
+	randomwalking = export(bool, default=True)
+	randomwalkdelaysent = False
+	randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100)) #random direction
 	player = None #use to store player object
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
+	
 	def _ready(self):
 		'''runs when object spawn'''
 		#prepares require nodes
@@ -27,14 +30,12 @@ class Melee_Enemy(KinematicBody2D):
 		'''runs every frame'''
 		self.movement() #check movement every frames
 		if not self.acting and self.player:
-			self.randomwalk = False
 			distance = self.player.position.distance_to(self.position)
 			miny = range(int(self.position.y-20),int(self.position.y+20))
 			if distance < 30 and int(self.player.position.y) in miny:
 				#attack if in range
 				self.attack()
-		if not self.acting:
-			self.sprite.play('Idle')
+		
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -56,8 +57,9 @@ class Melee_Enemy(KinematicBody2D):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
 	
-	def movement(self, part=0):
+	def movement(self):
 		'''handle all kind of enemy movement'''
+		direction = Vector2(0,0)
 		if abs(self.knockbacked.x) + abs(self.knockbacked.y) > 5:
 			# in case theres no player in range and theres still kb
 			# so this have to be outside main if
@@ -92,41 +94,46 @@ class Melee_Enemy(KinematicBody2D):
 			direction = direction.normalized()
 			self.velocity = direction * self.speed
 			self.knockbacked *= 0
+		elif not self.acting and not self.player:
+			direction = self.randomwalk()
+			self.velocity = direction * self.speed
+		if not self.acting:
+			
+			if abs(direction.x) + abs(direction.y > 0):
+				self.sprite.play('Walk')
+			else:
+				self.sprite.play('Idle')
+				
 			self.move_and_slide(self.velocity)
-
-		elif not self.player:
-			#random movement
-			if not self.randomwalk:
-				self.randomwalk = True
-				direction = Vector2(0,0)
-				state1 = random.randrange(0,3) #random direction x
-				state2 = random.randrange(0,3) #random direction y
-
-				if state1 == 1:
-					direction.x = 100
-				elif state1 == 2:
-					direction.x = -100
-				if state2 == 1:
-					direction.y = 100
-				elif state2 == 2:
-					direction.y = -100
-
-				self.flip(direction)
-				direction = direction.normalized()
-				self.velocity = direction * self.speed
-				self.wait(1.5,'movement',[part+1]) #delay for move
-
-			if part == 1:
-				direction = Vector2(0,0)
-				direction = direction.normalized()
-				self.velocity = direction * self.speed
-				self.wait(1,'movement',[part+1]) #delay for make it stay for second
-
-			elif part == 2:
-				self.randomwalk = False #change state to start new random
-
-			self.move_and_slide(self.velocity)
-
+	
+	def randomwalk(self,command=None):
+		'''Enable random walking whie player not in sight'''
+		#random movement
+		if command: #convert gdstring to string
+			command = str(command)
+		direction = Vector2(0,0)
+		if self.randomwalking and not self.acting and not command:
+			#Walking
+			direction = self.randomdirection
+			self.flip(direction)
+			self.velocity = direction * self.speed
+			if not self.randomwalkdelaysent:
+				#Stop after 2 sec
+				self.randomwalkdelaysent = True
+				self.wait(random.randrange(1,2),'randomwalk',['stop'])
+		elif command == 'stop':
+			self.randomwalkdelaysent = False
+			self.randomwalking = False
+			self.randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100))
+			direction = Vector2(0,0)
+			self.velocity = direction * self.speed
+			self.wait(random.randrange(1,3),'randomwalk',['reset']) #delay for make it stay for second
+		elif command == 'reset':
+			self.randomwalking = True #change state to start new random
+		direction = direction.normalized()
+		
+		return direction
+	
 	def flip(self, direction):
 		"""flip sprite"""
 		if direction.x < 0: #flip sprite depending on what direction its running to

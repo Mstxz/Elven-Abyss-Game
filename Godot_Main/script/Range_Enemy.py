@@ -18,9 +18,11 @@ class Range_Enemy(KinematicBody2D):
 	acting = export(bool, default=False)
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
+	randomwalking = export(bool, default=True) #if True randomwalking is on
+	randomwalkdelaysent = False #to prevent wait spamming
+	randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100)) #random direction
 	minrange = 130 #minimum distance until enemy runs away from player
 	maxrange = 150 #maximum distance until enemy runs into player
-	angle = 0
 	
 	def _ready(self):
 		'''runs when object spawn'''
@@ -82,42 +84,39 @@ class Range_Enemy(KinematicBody2D):
 				#walking
 				self.velocity = direction * self.speed
 				self.knockbacked *= 0
-			
-			# Move the enemy using move_and_slide for proper physics handling
-			self.move_and_slide(self.velocity)
 
-		else:
-			#random movement
-			if not self.acting:
-				self.acting = True
-				direction = Vector2(0,0)
-				state1 = random.randrange(0,3) #random direction x
-				state2 = random.randrange(0,3) #random direction y
-
-				if state1 == 1:
-					direction.x = 100
-				elif state1 == 2:
-					direction.x = -100
-				if state2 == 1:
-					direction.y = 100
-				elif state2 == 2:
-					direction.y = -100
-
-				self.flip(direction)
-				direction = direction.normalized()
-				self.velocity = direction * self.speed
-				self.wait(1.5,'movement',[part+1]) #delay for move
-
-			if part == 1:
-				direction = Vector2(0,0)
-				direction = direction.normalized()
-				self.velocity = direction * self.speed
-				self.wait(1,'movement',[part+1]) #delay for make it stay for second
-
-			elif part == 2:
-				self.acting = False #change state to start new random
-
-			self.move_and_slide(self.velocity)
+		elif not self.acting and not self.player:
+			direction = self.randomwalk()
+		# Move the enemy using move_and_slide for proper physics handling
+		self.move_and_slide(self.velocity)
+	
+	def randomwalk(self,command=None):
+		'''Enable random walking whie player not in sight'''
+		#random movement
+		if command: #convert gdstring to string
+			command = str(command)
+		direction = Vector2(0,0)
+		if self.randomwalking and not self.acting and not command:
+			#Walking
+			direction = self.randomdirection
+			self.flip(direction)
+			self.velocity = direction * self.speed
+			if not self.randomwalkdelaysent:
+				#Stop after 2 sec
+				self.randomwalkdelaysent = True
+				self.wait(random.randrange(1,2),'randomwalk',['stop'])
+		elif command == 'stop':
+			self.randomwalkdelaysent = False
+			self.randomwalking = False
+			self.randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100))
+			direction = Vector2(0,0)
+			self.velocity = direction * self.speed
+			self.wait(random.randrange(1,3),'randomwalk',['reset']) #delay for make it stay for second
+		elif command == 'reset':
+			self.randomwalking = True #change state to start new random
+		direction = direction.normalized()
+		
+		return direction
 	
 	def flip(self, direction):
 		"""flip sprite"""
