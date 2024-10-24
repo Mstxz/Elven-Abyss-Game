@@ -33,7 +33,6 @@ class Range_Enemy(KinematicBody2D):
 	
 	def _process(self, delta):
 		'''runs every frame'''
-		print(random.uniform(1.0,2.0))
 		self.movement(delta) #check movement every frames
 		if not self.acting and self.player and self.player.position.distance_to(self.position) <= self.maxrange:
 			self.shoot()
