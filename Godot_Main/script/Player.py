@@ -28,7 +28,9 @@ class Player(KinematicBody2D):
 	atk = export(float, default=10.00)
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
-	exp = export(int, default=0)
+	level = export(int, default=1)
+	exp = export(float, default=0.0)
+	money = export(int, default=100)
 	maxmana = export(float, default=100.0)
 	mana = export(float, default=100.0)
 	defense = export(float, default=0.0)
@@ -58,6 +60,14 @@ class Player(KinematicBody2D):
 		self.sprite = self.get_node('AnimatedSprite')
 		self.uicd1 = self.get_node("/root/Node2D/MainUI/Skill1Cd")
 		self.uicd2 = self.get_node("/root/Node2D/MainUI/Skill2Cd")
+		self.moneyui = self.get_node("/root/Node2D/MainUI/ProfileBar/Money")
+		self.levelui = self.get_node("/root/Node2D/MainUI/ProfileBar/Level")
+		
+		#update ui
+		self.moneyui.updateui(self.money)
+		self.levelui.updateui(self.level)
+		self.hp_changed_func()
+		self.mana_changed_func()
 		
 	def _process(self, delta):
 		self.move(delta)
@@ -255,4 +265,20 @@ class Player(KinematicBody2D):
 			return True
 		return False
 		
+	def money_modify(self,amount):
+		if self.money + amount < 0:
+			return
+		self.money += amount
+		self.moneyui.updateui(self.money)
 		
+	def level_up(self):
+		req = 48 + (2*self.level)
+		if self.exp >= req:
+			self.exp -= req
+			self.level += 1
+			self.levelui.updateui(self.level)
+			
+	def gain_exp(self,amount):
+		self.exp += amount
+	
+	
