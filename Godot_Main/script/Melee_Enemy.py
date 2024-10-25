@@ -11,6 +11,8 @@ class Melee_Enemy(KinematicBody2D):
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
 	defense = export(float, default=0.0)
+	exp = export(float, default=10.0)
+	gold = export(float, default=10.0)
 	acting = export(bool, default=False)
 	randomwalking = export(bool, default=True)
 	randomwalkdelaysent = False
@@ -201,6 +203,9 @@ class Melee_Enemy(KinematicBody2D):
 	
 	def death(self):
 		'''deletes itself'''
+		self.player = self.get_node("/root/Node2D/Player")
+		self.player.gain_exp(self.exp)
+		self.player.money_modify(self.gold)
 		self.queue_free()
 	
 	def take_damage(self, dmg, kb=None):
