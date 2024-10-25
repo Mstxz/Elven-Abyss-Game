@@ -1,8 +1,11 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=2]
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=3]
+[ext_resource path="res://script/Camera2D.py" type="Script" id=4]
+[ext_resource path="res://scene/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=27]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 48, 0, 48 )
@@ -7200,3 +7203,16 @@ position = Vector2( 93, 125 )
 scale = Vector2( 0.598865, 0.563023 )
 texture = ExtResource( 3 )
 color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.373, 0.373 )
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+script = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1, -143 )
+
+[node name="MainUI" parent="." instance=ExtResource( 6 )]
