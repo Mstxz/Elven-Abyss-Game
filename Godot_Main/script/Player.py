@@ -39,6 +39,9 @@ class Player(KinematicBody2D):
 	acting = export(bool, default=False)
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
+	invincible = export(bool, default=False)
+	lockposition = False
+	skill0activate = False
 	velocity = Vector2()
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	mousepos = Vector2()
@@ -134,38 +137,72 @@ class Player(KinematicBody2D):
 			self.velocity *= 0.9
 			self.knockbacked *= 0.9
 			self.move_and_slide(self.velocity)
-		elif (direction_x or direction_y):
+		elif (direction_x or direction_y) and not self.lockposition:
 			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
+			animation = ''
+			if direction_x < 0:
+				self.sprite.flip_h = False
+			elif direction_x > 0:
+				self.sprite.flip_h = True
+				
 			if not self.acting:
-				self.sprite.play('Walk' + self.animationid) #Player Animation
-				if direction_x < 0:
-					self.sprite.flip_h = False
-				elif direction_x > 0:
-					self.sprite.flip_h = True
+				animation = 'Walk' + self.animationid
 			elif 'Shoot' in currentanim and not 'Walk' in currentanim:
 				frame = self.sprite.frame
-				self.sprite.play('ShootWalk'+ self.animationid)
+				animation = 'ShootWalk'+ self.animationid
 				self.sprite.frame = frame - 1
+			elif self.skill0activate:
+				animation = 'Skill0Walk'
 				
+			if animation:
+				self.sprite.play(animation)
 		else:
+			animation = ''
 			if not self.acting:
-				self.sprite.play('Idle' + self.animationid)
+				animation = 'Idle' + self.animationid
+			elif self.skill0activate:
+				animation = 'Skill0Idle'
 			elif 'Shoot' in currentanim and 'Walk' in currentanim:
 				frame = self.sprite.frame
-				self.sprite.play('Shoot'+ self.animationid)
+				animation = 'Shoot'+ self.animationid
 				self.sprite.frame = frame + 1
+				
+			if animation:
+				self.sprite.play(animation)
 			self.velocity.x = 0
 			self.velocity.y = 0  # Stop moving when there's no input
 		self.velocity = self.move_and_slide(self.velocity)
 	
-	def skill1(self):
-		if not self.skill1cd and Input.is_action_just_pressed('skill1'):
-			self.skill1cd = True
+	def skill1(self,part=0):
+		if str(self.element) == 'Water':
 			cdtime = 10
-			self.wait(cdtime,'cooldown',['skill1'])
-			self.uicd1.cooldownui(cdtime) #call ui func
+			if not self.skill1cd and Input.is_action_just_pressed('skill1') and not part:
+				self.lockposition = True
+				self.skill1cd = True
+				self.acting = True
+				self.sprite.play('Skill'+ self.animationid)
+				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
+			elif part == 1:
+				self.sprite.disconnect("animation_finished",self,"skill1")
+				self.lockposition = False
+				self.skill0activate = True
+				self.invincible = True
+				self.sprite.play('Skill0Idle')
+				self.wait(5,'skill1',[part+1])
+			elif part == 2:
+				self.lockposition = True
+				self.skill0activate = False
+				self.invincible = False
+				self.sprite.play('Skill'+ self.animationid + 'Cancel')
+				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
+			elif part == 3:
+				self.sprite.disconnect("animation_finished",self,"skill1")
+				self.acting = False
+				self.lockposition = False
+				self.wait(cdtime,'cooldown',['skill1'])
+				self.uicd1.cooldownui(cdtime) #call ui func
 	
 	def skill2(self):
 		if not self.skill2cd and Input.is_action_just_pressed('skill2'):
@@ -186,6 +223,8 @@ class Player(KinematicBody2D):
 	
 	def take_damage(self, dmg, kb=None):
 		'''handle taking damage'''
+		if self.invincible:
+			return
 		#reduce damage with defense with the least possible dmg is 1
 		dmg = max(dmg-self.defense, 1)
 		dmg = min(dmg,self.hp)
