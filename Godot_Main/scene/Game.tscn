@@ -2365,6 +2365,7 @@ format = 1
 tile_data = PoolIntArray( -720891, 81, 0, -589820, 106, 0, -524283, 107, 0, -524282, 107, 0, -393221, 118, 0, -393220, 116, 0, -458746, 107, 0, -327685, 118, 0, -393211, 106, 0, -262148, 117, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 3.96291, -0.997626 )
 current = true
 zoom = Vector2( 0.373, 0.373 )
 limit_smoothed = true
