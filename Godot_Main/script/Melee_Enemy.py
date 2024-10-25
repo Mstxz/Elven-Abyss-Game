@@ -190,8 +190,8 @@ class Melee_Enemy(KinematicBody2D):
 			self.hitbox_change('update')
 			self.wait(0.2,'attack',Array([part+1]))
 		elif part == 2:
-			self.wait(0.2,'cooldown')
-			self.wait(0.2,'attack',Array([part+1]))
+			self.wait(0.5,'cooldown')
+			self.wait(0.5,'attack',Array([part+1]))
 		elif part == 3:
 			self.hitbox_change('reset')
 		
