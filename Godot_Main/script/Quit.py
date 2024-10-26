@@ -3,7 +3,7 @@ from godot import *
 
 
 @exposed
-class PlayButton(Button):
+class Quit(Button):
 
 	def _ready(self):
 		self.connect("pressed", self, "on_button_pressed")
@@ -11,4 +11,4 @@ class PlayButton(Button):
 		
 	def on_button_pressed(self): #as the event says
 		#call function take damage in player to do damage
-		self.get_tree().change_scene("res://scene/Loadingscene.tscn")
+		self.get_tree().quit()
