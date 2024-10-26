@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://script/Camera2D.py" type="Script" id=6]
+[ext_resource path="res://script/Gamesystem.py" type="Script" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=27]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 48, 0, 48 )
@@ -7067,6 +7068,7 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 extents = Vector2( 40, 38.5 )
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 7 )
 
 [node name="Floor" type="TileMap" parent="."]
 tile_set = SubResource( 1 )

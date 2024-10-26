@@ -5,10 +5,10 @@
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 32.0156
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 32.249
+radius = 11.0454
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
@@ -57,12 +57,13 @@ shape = SubResource( 3 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 1.3, 1.3 )
+scale = Vector2( 0.52, 0.52 )
 frames = SubResource( 1 )
 playing = true
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.271, 0.271 )
+z_index = 3
 texture = ExtResource( 3 )
 color = Color( 1, 0.968627, 0.647059, 1 )
 

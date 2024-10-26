@@ -36,7 +36,7 @@ class Player(KinematicBody2D):
 	defense = export(float, default=0.0)
 	critrate = export(float, default=0.0)
 	critdmg = export(float, default=50.0)
-	weapon = export(str, default='Staff')
+	weapon = export(str, default='Stick')
 	element = export(str, default="Water")
 	acting = export(bool, default=False)
 	skill1cd = export(bool, default=False)
@@ -70,12 +70,13 @@ class Player(KinematicBody2D):
 		self.mana_changed_func()
 		
 	def _process(self, delta):
-		if not self.main.pause:
-			self.move(delta)
-			if not self.acting and not self.get_tree().is_input_handled():
-				self.shoot()
-				self.skill1()
-				self.skill2()
+		if self.main.pause:
+			return
+		self.move(delta)
+		if not self.acting and not self.get_tree().is_input_handled():
+			self.shoot()
+			self.skill1()
+			self.skill2()
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -93,8 +94,12 @@ class Player(KinematicBody2D):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
 	
-	def cooldown(self,target=None):
+	def cooldown(self,target=None,timeout=False):
 		'''frequently use to reset cooldown after the timer'''
+		if self.sprite.is_connected("animation_finished",self,"cooldown"):
+			self.sprite.disconnect("animation_finished",self,"cooldown")
+			if not timeout and not target:
+				return
 		if not target:
 			self.acting = False
 		else:
@@ -135,7 +140,9 @@ class Player(KinematicBody2D):
 			self.main.add_child(bullet)
 			
 			#set self.acting back to False after the set time
-			self.wait(0.35,'cooldown')
+			
+			self.wait(0.25,'cooldown',[None,True])
+			self.sprite.connect("animation_finished",self,"cooldown")
 		
 	def move(self, delta):
 		"""Movement System"""
@@ -163,6 +170,7 @@ class Player(KinematicBody2D):
 			elif 'Shoot' in currentanim and not 'Walk' in currentanim:
 				frame = self.sprite.frame
 				animation = 'ShootWalk'+ self.animationid
+				self.sprite.play(animation)
 				self.sprite.frame = frame - 1
 			elif self.skill0activate:
 				animation = 'Skill0Walk'
@@ -178,8 +186,8 @@ class Player(KinematicBody2D):
 			elif 'Shoot' in currentanim and 'Walk' in currentanim:
 				frame = self.sprite.frame
 				animation = 'Shoot'+ self.animationid
+				self.sprite.play(animation)
 				self.sprite.frame = frame + 1
-				
 			if animation:
 				self.sprite.play(animation)
 			self.velocity.x = 0
