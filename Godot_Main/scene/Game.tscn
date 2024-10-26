@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/Camera2D.py" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=6]
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=7]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=8]
+[ext_resource path="res://scene/PauseMenu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://script/Gamesystem.py" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
@@ -2332,6 +2334,7 @@ extents = Vector2( 237.279, 40.1545 )
 
 [node name="Node2D" type="Node2D"]
 scale = Vector2( 1.00936, 1.00238 )
+script = ExtResource( 10 )
 
 [node name="Ground" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -2380,6 +2383,8 @@ position = Vector2( 200.127, 8.97863 )
 position = Vector2( 54.49, 192.542 )
 
 [node name="MainUI" parent="." instance=ExtResource( 5 )]
+
+[node name="PauseMenu" parent="." instance=ExtResource( 9 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1.98145, 0.997625 )
