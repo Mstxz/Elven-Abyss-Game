@@ -70,11 +70,12 @@ class Player(KinematicBody2D):
 		self.mana_changed_func()
 		
 	def _process(self, delta):
-		self.move(delta)
-		if not self.acting and not self.get_tree().is_input_handled():
-			self.shoot()
-			self.skill1()
-			self.skill2()
+		if not self.main.pause:
+			self.move(delta)
+			if not self.acting and not self.get_tree().is_input_handled():
+				self.shoot()
+				self.skill1()
+				self.skill2()
 	
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
