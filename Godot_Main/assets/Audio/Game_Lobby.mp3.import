@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Game_Lobby.mp3-6240a48045f35e318f176e9e639592bd.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/Game_Lobby.mp3"
+dest_files=[ "res://.import/Game_Lobby.mp3-6240a48045f35e318f176e9e639592bd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

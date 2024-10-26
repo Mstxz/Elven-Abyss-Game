@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://script/ManaBar.py" type="Script" id=1]
 [ext_resource path="res://script/DebugScript/TakeDamageButton.py" type="Script" id=2]
@@ -9,23 +9,59 @@
 [ext_resource path="res://assets/ManaBar.png" type="Texture" id=7]
 [ext_resource path="res://script/DebugScript/ConsumeMana.py" type="Script" id=8]
 [ext_resource path="res://script/DebugScript/ManaRegen.py" type="Script" id=9]
+[ext_resource path="res://assets/godot_asset/PlayerSprite.tres" type="SpriteFrames" id=10]
+[ext_resource path="res://assets/WaterSkill2.png" type="Texture" id=11]
+[ext_resource path="res://assets/WaterSkill2bg.png" type="Texture" id=12]
+[ext_resource path="res://assets/WaterSkill1.png" type="Texture" id=13]
+[ext_resource path="res://script/SkillCdUI.py" type="Script" id=14]
+[ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=15]
+[ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=16]
+[ext_resource path="res://script/MoneyUI.py" type="Script" id=17]
+[ext_resource path="res://script/LevelUI.py" type="Script" id=18]
+[ext_resource path="res://script/DebugScript/Get50Exp.py" type="Script" id=19]
+[ext_resource path="res://script/DebugScript/LvlUp.py" type="Script" id=20]
+[ext_resource path="res://script/DebugScript/GetMoney.py" type="Script" id=21]
+[ext_resource path="res://script/DebugScript/LoseMoney.py" type="Script" id=22]
+[ext_resource path="res://script/ChangeScene.py" type="Script" id=23]
+
+[sub_resource type="ViewportTexture" id=6]
+viewport_path = NodePath("Viewport")
 
 [node name="MainUI" type="CanvasLayer"]
 
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 200, 200 )
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+usage = 0
+gui_disable_input = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Viewport"]
+position = Vector2( 160, 50 )
+rotation = -2.35619
+scale = Vector2( 5.027, 5.027 )
+frames = ExtResource( 10 )
+animation = "Idle02"
+playing = true
+
 [node name="ProfileBar" type="TextureRect" parent="."]
 self_modulate = Color( 1, 1, 1, 0.901961 )
-margin_left = 42.0
-margin_top = 38.0
-margin_right = 725.0
-margin_bottom = 193.0
+margin_left = 35.0
+margin_top = 34.0
+margin_right = 718.0
+margin_bottom = 189.0
+rect_scale = Vector2( 0.937, 0.931 )
 texture = ExtResource( 6 )
 expand = true
 
 [node name="HealthBar" type="TextureProgress" parent="ProfileBar"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_left = 134.0
 margin_top = 56.0
 margin_right = 652.0
 margin_bottom = 77.0
+step = 0.01
 value = 100.0
 texture_progress = ExtResource( 5 )
 tint_progress = Color( 1, 1, 1, 0.901961 )
@@ -33,12 +69,15 @@ nine_patch_stretch = true
 script = ExtResource( 3 )
 
 [node name="Tween" type="Tween" parent="ProfileBar/HealthBar"]
+playback_process_mode = 0
 
 [node name="ManaBar" type="TextureProgress" parent="ProfileBar"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_left = 134.0
 margin_top = 77.0
 margin_right = 652.0
-margin_bottom = 99.0
+margin_bottom = 98.0
+step = 0.01
 value = 100.0
 texture_progress = ExtResource( 7 )
 tint_progress = Color( 0, 0.760784, 0.776471, 0.901961 )
@@ -46,35 +85,197 @@ nine_patch_stretch = true
 script = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="ProfileBar/ManaBar"]
+playback_process_mode = 0
 
-[node name="TakeDamageButton" type="Button" parent="."]
-margin_left = 888.0
-margin_top = 455.0
-margin_right = 985.0
-margin_bottom = 525.0
+[node name="Portrait" type="TextureRect" parent="ProfileBar"]
+margin_left = 76.0
+margin_top = 5.0
+margin_right = 179.0
+margin_bottom = 108.0
+rect_rotation = 45.0
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 1
+
+[node name="Level" type="Label" parent="ProfileBar"]
+margin_left = 138.0
+margin_top = 119.0
+margin_right = 390.0
+margin_bottom = 161.0
+theme = ExtResource( 15 )
+text = "Lv.1"
+script = ExtResource( 18 )
+
+[node name="Money" type="Label" parent="ProfileBar"]
+margin_left = 397.012
+margin_top = 119.227
+margin_right = 651.012
+margin_bottom = 161.227
+theme = ExtResource( 15 )
+text = "$ : 0"
+script = ExtResource( 17 )
+
+[node name="Skill2Cd" type="TextureProgress" parent="."]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -176.0
+margin_top = -188.0
+margin_right = -25.0
+margin_bottom = -37.0
+step = 0.01
+value = 100.0
+texture_under = ExtResource( 12 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 12 )
+fill_mode = 3
+tint_under = Color( 1, 1, 1, 0.470588 )
+tint_progress = Color( 1, 1, 1, 0.784314 )
+nine_patch_stretch = true
+script = ExtResource( 14 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Skill2Cd"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -7.0
+margin_top = -1.0
+margin_right = 7.0
+margin_bottom = 34.0
+theme = ExtResource( 15 )
+text = "R"
+scroll_active = false
+
+[node name="Skill1Cd" type="TextureProgress" parent="."]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -301.0
+margin_top = -141.0
+margin_right = -198.0
+margin_bottom = -38.0
+step = 0.01
+value = 100.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 13 )
+fill_mode = 3
+tint_under = Color( 1, 1, 1, 0.470588 )
+tint_progress = Color( 1, 1, 1, 0.784314 )
+nine_patch_stretch = true
+script = ExtResource( 14 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Skill1Cd"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -5.5
+margin_top = 5.0
+margin_right = 8.5
+margin_bottom = 40.0
+rect_scale = Vector2( 0.8, 0.8 )
+theme = ExtResource( 15 )
+text = "E"
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = -337.0
+margin_right = 191.0
+margin_bottom = 129.0
+rect_scale = Vector2( 0.704, 0.704 )
+theme = ExtResource( 15 )
+
+[node name="ChangeScene" type="Button" parent="VBoxContainer"]
+margin_right = 179.0
+margin_bottom = 49.0
+theme = ExtResource( 16 )
+text = "Change Scene"
+align = 0
+script = ExtResource( 23 )
+
+[node name="Get50Exp" type="Button" parent="VBoxContainer"]
+margin_top = 53.0
+margin_right = 179.0
+margin_bottom = 102.0
+theme = ExtResource( 16 )
+text = "Get 50 Exp"
+align = 0
+script = ExtResource( 19 )
+
+[node name="LvlUp" type="Button" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 179.0
+margin_bottom = 155.0
+theme = ExtResource( 16 )
+text = "Level Up"
+align = 0
+script = ExtResource( 20 )
+
+[node name="GetMoney" type="Button" parent="VBoxContainer"]
+margin_top = 159.0
+margin_right = 179.0
+margin_bottom = 208.0
+theme = ExtResource( 16 )
+text = "Gain Money"
+align = 0
+script = ExtResource( 21 )
+
+[node name="Losemoney" type="Button" parent="VBoxContainer"]
+margin_top = 212.0
+margin_right = 179.0
+margin_bottom = 261.0
+theme = ExtResource( 16 )
+text = "Lose Money"
+align = 0
+script = ExtResource( 22 )
+
+[node name="TakeDamageButton2" type="Button" parent="VBoxContainer"]
+margin_top = 265.0
+margin_right = 179.0
+margin_bottom = 314.0
+theme = ExtResource( 16 )
 text = "Take Damage"
+align = 0
 script = ExtResource( 2 )
 
-[node name="HealButton" type="Button" parent="."]
-margin_left = 1036.0
-margin_top = 455.0
-margin_right = 1133.0
-margin_bottom = 525.0
+[node name="HealButton" type="Button" parent="VBoxContainer"]
+margin_top = 318.0
+margin_right = 179.0
+margin_bottom = 367.0
+theme = ExtResource( 16 )
 text = "Heal"
+align = 0
 script = ExtResource( 4 )
 
-[node name="ConsumeMana" type="Button" parent="."]
-margin_left = 887.0
-margin_top = 555.0
-margin_right = 993.0
-margin_bottom = 625.0
+[node name="ConsumeMana" type="Button" parent="VBoxContainer"]
+margin_top = 371.0
+margin_right = 179.0
+margin_bottom = 420.0
+theme = ExtResource( 16 )
 text = "ConsumeMana"
+align = 0
 script = ExtResource( 8 )
 
-[node name="ManaRegen" type="Button" parent="."]
-margin_left = 1035.0
-margin_top = 555.0
-margin_right = 1132.0
-margin_bottom = 625.0
+[node name="ManaRegen" type="Button" parent="VBoxContainer"]
+margin_top = 424.0
+margin_right = 179.0
+margin_bottom = 473.0
+theme = ExtResource( 16 )
 text = "RegenMana"
+align = 0
 script = ExtResource( 9 )
+
+[node name="EXP" type="Label" parent="VBoxContainer"]
+margin_top = 477.0
+margin_right = 179.0
+margin_bottom = 519.0
+theme = ExtResource( 15 )
+text = "EXP : 0"

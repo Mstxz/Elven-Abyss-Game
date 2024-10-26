@@ -1,0 +1,35 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/PlayfairDisplay-VariableFont_wght.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_top = 2
+border_width_bottom = 2
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[resource]
+Button/fonts/font = SubResource( 1 )
+Button/styles/focus = SubResource( 4 )
+Button/styles/hover = ExtResource( 2 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = ExtResource( 2 )
+Panel/styles/panel = SubResource( 3 )
+RichTextLabel/fonts/normal_font = SubResource( 5 )
