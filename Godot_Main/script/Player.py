@@ -51,9 +51,7 @@ class Player(KinematicBody2D):
 	def _ready(self):
 		
 		#prepare animation id (str() is require twice to convert gdstring to string)
-		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
-		profileui = self.get_node("/root/Node2D/MainUI/Viewport/AnimatedSprite")
-		profileui.play('Idle'+self.animationid)
+		self.updateplayer()
 		
 		#locate for later uses
 		self.main = self.get_node("/root/Node2D")
@@ -108,6 +106,13 @@ class Player(KinematicBody2D):
 			self.skill1cd = False
 		elif target == 'skill2':
 			self.skill2cd = False
+	
+	def updateplayer(self):
+		'''reset animation when chaning weapon or element'''
+		#prepare animation id (str() is require twice to convert gdstring to string)
+		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
+		profileui = self.get_node("/root/Node2D/MainUI/Viewport/AnimatedSprite")
+		profileui.play('Idle'+self.animationid)
 
 	def shoot(self,part=0):
 		'''player shoots projectile toward cursor'''
@@ -160,21 +165,24 @@ class Player(KinematicBody2D):
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
 			animation = ''
-			if direction_x < 0:
-				self.sprite.flip_h = False
-			elif direction_x > 0:
-				self.sprite.flip_h = True
+			
+			def flip():
+				if direction_x < 0:
+					self.sprite.flip_h = False
+				elif direction_x > 0:
+					self.sprite.flip_h = True
 				
 			if not self.acting:
+				flip()
 				animation = 'Walk' + self.animationid
 			elif 'Shoot' in currentanim and not 'Walk' in currentanim:
 				frame = self.sprite.frame
 				animation = 'ShootWalk'+ self.animationid
 				self.sprite.play(animation)
-				self.sprite.frame = frame - 1
+				self.sprite.frame = frame
 			elif self.skill0activate:
 				animation = 'Skill0Walk'
-				
+				flip()
 			if animation:
 				self.sprite.play(animation)
 		else:
@@ -187,7 +195,7 @@ class Player(KinematicBody2D):
 				frame = self.sprite.frame
 				animation = 'Shoot'+ self.animationid
 				self.sprite.play(animation)
-				self.sprite.frame = frame + 1
+				self.sprite.frame = frame
 			if animation:
 				self.sprite.play(animation)
 			self.velocity.x = 0
@@ -288,6 +296,15 @@ class Player(KinematicBody2D):
 			self.levelui.updateui(self.level)
 			
 	def gain_exp(self,amount):
+		'''call when giving exp to player'''
 		self.exp += amount
 	
-	
+	def changeweapon(self,weapon):
+		'''change weapon to ...'''
+		self.weapon = weapon
+		self.updateplayer()
+
+	def changeelement(self,element):
+		'''change element to ...'''
+		self.element = element
+		self.updateplayer()

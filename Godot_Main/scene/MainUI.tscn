@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://script/ManaBar.py" type="Script" id=1]
 [ext_resource path="res://script/DebugScript/TakeDamageButton.py" type="Script" id=2]
@@ -23,6 +23,8 @@
 [ext_resource path="res://script/DebugScript/GetMoney.py" type="Script" id=21]
 [ext_resource path="res://script/DebugScript/LoseMoney.py" type="Script" id=22]
 [ext_resource path="res://script/ChangeScene.py" type="Script" id=23]
+[ext_resource path="res://script/DebugScript/ChangeWeapon.py" type="Script" id=24]
+[ext_resource path="res://script/DebugScript/ChangeElement.py" type="Script" id=25]
 
 [sub_resource type="ViewportTexture" id=6]
 viewport_path = NodePath("Viewport")
@@ -186,15 +188,15 @@ scroll_active = false
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = -376.0
-margin_right = 191.0
-margin_bottom = 143.0
-rect_scale = Vector2( 0.704, 0.704 )
+margin_left = 17.0
+margin_top = -373.0
+margin_right = 216.0
+margin_bottom = 252.0
+rect_scale = Vector2( 0.576, 0.576 )
 theme = ExtResource( 15 )
 
 [node name="ChangeScene" type="Button" parent="VBoxContainer"]
-margin_right = 179.0
+margin_right = 199.0
 margin_bottom = 49.0
 theme = ExtResource( 16 )
 text = "Change Scene"
@@ -203,7 +205,7 @@ script = ExtResource( 23 )
 
 [node name="Get50Exp" type="Button" parent="VBoxContainer"]
 margin_top = 53.0
-margin_right = 179.0
+margin_right = 199.0
 margin_bottom = 102.0
 theme = ExtResource( 16 )
 text = "Get 50 Exp"
@@ -212,7 +214,7 @@ script = ExtResource( 19 )
 
 [node name="LvlUp" type="Button" parent="VBoxContainer"]
 margin_top = 106.0
-margin_right = 179.0
+margin_right = 199.0
 margin_bottom = 155.0
 theme = ExtResource( 16 )
 text = "Level Up"
@@ -221,61 +223,79 @@ script = ExtResource( 20 )
 
 [node name="GetMoney" type="Button" parent="VBoxContainer"]
 margin_top = 159.0
-margin_right = 179.0
+margin_right = 199.0
 margin_bottom = 208.0
 theme = ExtResource( 16 )
 text = "Gain Money"
 align = 0
 script = ExtResource( 21 )
 
-[node name="Losemoney" type="Button" parent="VBoxContainer"]
+[node name="ChangeWeapon" type="Button" parent="VBoxContainer"]
 margin_top = 212.0
-margin_right = 179.0
+margin_right = 199.0
 margin_bottom = 261.0
+theme = ExtResource( 16 )
+text = "Change Weapon"
+align = 0
+script = ExtResource( 24 )
+
+[node name="ChangeElement" type="Button" parent="VBoxContainer"]
+margin_top = 265.0
+margin_right = 199.0
+margin_bottom = 314.0
+theme = ExtResource( 16 )
+text = "Change Element"
+align = 0
+script = ExtResource( 25 )
+
+[node name="Losemoney" type="Button" parent="VBoxContainer"]
+margin_top = 318.0
+margin_right = 199.0
+margin_bottom = 367.0
 theme = ExtResource( 16 )
 text = "Lose Money"
 align = 0
 script = ExtResource( 22 )
 
 [node name="TakeDamageButton2" type="Button" parent="VBoxContainer"]
-margin_top = 265.0
-margin_right = 179.0
-margin_bottom = 314.0
+margin_top = 371.0
+margin_right = 199.0
+margin_bottom = 420.0
 theme = ExtResource( 16 )
 text = "Take Damage"
 align = 0
 script = ExtResource( 2 )
 
 [node name="HealButton" type="Button" parent="VBoxContainer"]
-margin_top = 318.0
-margin_right = 179.0
-margin_bottom = 367.0
+margin_top = 424.0
+margin_right = 199.0
+margin_bottom = 473.0
 theme = ExtResource( 16 )
 text = "Heal"
 align = 0
 script = ExtResource( 4 )
 
 [node name="ConsumeMana" type="Button" parent="VBoxContainer"]
-margin_top = 371.0
-margin_right = 179.0
-margin_bottom = 420.0
+margin_top = 477.0
+margin_right = 199.0
+margin_bottom = 526.0
 theme = ExtResource( 16 )
 text = "ConsumeMana"
 align = 0
 script = ExtResource( 8 )
 
 [node name="ManaRegen" type="Button" parent="VBoxContainer"]
-margin_top = 424.0
-margin_right = 179.0
-margin_bottom = 473.0
+margin_top = 530.0
+margin_right = 199.0
+margin_bottom = 579.0
 theme = ExtResource( 16 )
 text = "RegenMana"
 align = 0
 script = ExtResource( 9 )
 
 [node name="EXP" type="Label" parent="VBoxContainer"]
-margin_top = 477.0
-margin_right = 179.0
-margin_bottom = 519.0
+margin_top = 583.0
+margin_right = 199.0
+margin_bottom = 625.0
 theme = ExtResource( 15 )
 text = "EXP : 0"

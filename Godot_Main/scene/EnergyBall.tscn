@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://script/EnergyBall.py" type="Script" id=1]
 [ext_resource path="res://assets/Energyball.png" type="Texture" id=2]
@@ -38,8 +38,46 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Gradient" id=9]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.463602, 0.996169, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.784314, 0.984863, 0.973081, 0.877144, 0.507953, 1, 0.753589, 0.101563, 0.0934126, 1, 0.92767, 0.738281, 0 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 0.606818 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0102272 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="Curve" id=13]
+max_value = 7.0
+_data = [ Vector2( 0, 5.48068 ), 0.0, 0.223109, 0, 0, Vector2( 1, 0 ), -3.40968, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=14]
+curve = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+lifetime_randomness = 0.12
+trail_divisor = 2
+trail_size_modifier = SubResource( 14 )
+emission_shape = 1
+emission_sphere_radius = 10.14
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+flatness = 0.04
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 65.5
+angle_random = 0.93
+scale_random = 0.1
+scale_curve = SubResource( 12 )
+color_ramp = SubResource( 10 )
+
 [node name="EnergyBall" type="KinematicBody2D"]
-modulate = Color( 1, 0.956863, 0.596078, 1 )
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
@@ -60,6 +98,12 @@ shape = SubResource( 3 )
 scale = Vector2( 0.52, 0.52 )
 frames = SubResource( 1 )
 playing = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 70
+randomness = 0.05
+local_coords = false
+process_material = SubResource( 15 )
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.271, 0.271 )
