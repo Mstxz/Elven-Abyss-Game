@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SFX_Water_Skill_exit_splash.mp3-8a4b838dfbb5d6ef6e990f4892c0eccd.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/SFX/SFX_Water_Skill_exit_splash.mp3"
+dest_files=[ "res://.import/SFX_Water_Skill_exit_splash.mp3-8a4b838dfbb5d6ef6e990f4892c0eccd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

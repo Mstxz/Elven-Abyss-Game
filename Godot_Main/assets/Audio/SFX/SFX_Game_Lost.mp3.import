@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SFX_Game_Lost.mp3-6076d6b8db7ad11b7ebacde5a7a1201d.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/SFX/SFX_Game_Lost.mp3"
+dest_files=[ "res://.import/SFX_Game_Lost.mp3-6076d6b8db7ad11b7ebacde5a7a1201d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
