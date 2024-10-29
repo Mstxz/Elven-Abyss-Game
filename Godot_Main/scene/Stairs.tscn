@@ -2353,7 +2353,7 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 128/z_index = 0
 
 [sub_resource type="CircleShape2D" id=31]
-radius = 72.0278
+radius = 47.0956
 
 [sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 19, 25 )
