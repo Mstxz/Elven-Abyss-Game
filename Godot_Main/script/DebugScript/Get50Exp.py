@@ -11,11 +11,11 @@ class Get50Exp(Button):
 		Initialization here.
 		"""
 		self.connect("pressed", self, "on_button_pressed")
+		self.player = self.get_node("/root/Node2D/Player") #get player node
+		self.expshow = self.get_node("../EXP")
+		self.expshow.text = f'EXP : {self.player.exp}'
 		pass
-		
+	
 	def on_button_pressed(self): #as the event says
-		#call function take damage in player to do damage
-		player = self.get_node("/root/Node2D/Player") #get player node
-		player.gain_exp(50)
-		expshow = self.get_node("../EXP")
-		expshow.text = f'EXP : {player.exp}'
+		self.player.gain_exp(50)
+		self.expshow.text = f'EXP : {self.player.exp}'

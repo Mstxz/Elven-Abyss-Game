@@ -42,6 +42,7 @@ class Player(KinematicBody2D):
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
 	invincible = export(bool, default=False)
+	paused = export(bool, default=False)
 	lockposition = False
 	skill0activate = False
 	velocity = Vector2()
@@ -50,11 +51,14 @@ class Player(KinematicBody2D):
 	
 	def _ready(self):
 		
+		self.PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
+		
+		self.getvar()
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.updateplayer()
 		
 		#locate for later uses
-		self.main = self.get_node("/root/Node2D")
+		self.main = self.get_node('/root/Node2D')
 		self.sprite = self.get_node('AnimatedSprite')
 		self.uicd1 = self.get_node("/root/Node2D/MainUI/Skill1Cd")
 		self.uicd2 = self.get_node("/root/Node2D/MainUI/Skill2Cd")
@@ -68,7 +72,8 @@ class Player(KinematicBody2D):
 		self.mana_changed_func()
 		
 	def _process(self, delta):
-		if self.main.pause:
+		self.updatevar()
+		if self.paused:
 			return
 		self.move(delta)
 		if not self.acting and not self.get_tree().is_input_handled():
@@ -308,3 +313,37 @@ class Player(KinematicBody2D):
 		'''change element to ...'''
 		self.element = element
 		self.updateplayer()
+	
+	def updatevar(self):
+		'''update player var to global'''
+		self.PlayerVar.speed = self.speed
+		self.PlayerVar.atk = self.atk
+		self.PlayerVar.maxhp = self.maxhp
+		self.PlayerVar.hp = self.hp
+		self.PlayerVar.level = self.level
+		self.PlayerVar.exp = self.exp
+		self.PlayerVar.money = self.money
+		self.PlayerVar.maxmana = self.maxmana
+		self.PlayerVar.mana = self.mana
+		self.PlayerVar.defense = self.defense
+		self.PlayerVar.critrate = self.critrate
+		self.PlayerVar.critdmg = self.critdmg
+		self.PlayerVar.weapon = self.weapon
+		self.PlayerVar.element = self.element
+		
+	def getvar(self):
+		'''get player var from global'''
+		self.speed = self.PlayerVar.speed
+		self.atk = self.PlayerVar.atk
+		self.maxhp = self.PlayerVar.maxhp
+		self.hp = self.PlayerVar.hp
+		self.level = self.PlayerVar.level
+		self.exp = self.PlayerVar.exp
+		self.money = self.PlayerVar.money
+		self.maxmana = self.PlayerVar.maxmana
+		self.mana = self.PlayerVar.mana
+		self.defense = self.PlayerVar.defense
+		self.critrate = self.PlayerVar.critrate
+		self.critdmg = self.PlayerVar.critdmg
+		self.weapon = self.PlayerVar.weapon
+		self.element = self.PlayerVar.element

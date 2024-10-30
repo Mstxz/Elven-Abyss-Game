@@ -15,6 +15,11 @@ run/main_scene="res://scene/MainMenu.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
+[autoload]
+
+Scenechange="*res://Scenechange.py"
+PlayerVar="*res://PlayerVar.py"
+
 [display]
 
 window/size/width=1152

@@ -10,5 +10,6 @@ class PlayButton(Button):
 		pass
 		
 	def on_button_pressed(self): #as the event says
-		#call function take damage in player to do damage
-		self.get_tree().change_scene("res://scene/LoadingScene.tscn")
+		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
+		Scenechange.scene = "res://scene/Game.tscn"
+		self.get_tree().change_scene("res://scene/Loadingscene.tscn")
