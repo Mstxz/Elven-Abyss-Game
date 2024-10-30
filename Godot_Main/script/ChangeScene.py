@@ -7,6 +7,8 @@ scenes = [
 	"res://scene/Stage_R01.tscn",
 	"res://scene/Stage_R02.tscn",
 	"res://scene/Stage_R03.tscn",
+	"res://scene/Shop.tscn",
+	#add here below if there's extra
 ]
 
 @exposed
