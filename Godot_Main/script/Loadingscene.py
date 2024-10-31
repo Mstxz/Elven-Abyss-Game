@@ -31,6 +31,7 @@ class Loadingscene(Control):
 		
 			elif load_result == ERR_FILE_EOF:
 				#print("Reached end of file during loading")
+				self.label.text = str(100) + "%"
 				new_scene = self.loader.get_resource()
 				self.get_tree().change_scene_to(new_scene)# Change to the loaded scene
 				self.loader = None

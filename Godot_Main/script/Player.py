@@ -42,7 +42,6 @@ class Player(KinematicBody2D):
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
 	invincible = export(bool, default=False)
-	paused = export(bool, default=False)
 	lockposition = False
 	skill0activate = False
 	velocity = Vector2()
@@ -73,7 +72,7 @@ class Player(KinematicBody2D):
 		
 	def _process(self, delta):
 		self.updatevar()
-		if self.paused:
+		if self.main.pause:
 			return
 		self.move(delta)
 		if not self.acting and not self.get_tree().is_input_handled():
@@ -294,7 +293,7 @@ class Player(KinematicBody2D):
 		self.moneyui.updateui(self.money)
 		
 	def level_up(self):
-		req = 48 + (2*self.level)
+		req = 48 + (10*self.level)
 		if self.exp >= req:
 			self.exp -= req
 			self.level += 1
@@ -303,6 +302,7 @@ class Player(KinematicBody2D):
 	def gain_exp(self,amount):
 		'''call when giving exp to player'''
 		self.exp += amount
+		self.level_up()
 	
 	def changeweapon(self,weapon):
 		'''change weapon to ...'''

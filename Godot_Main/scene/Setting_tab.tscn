@@ -1,0 +1,305 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=3]
+[ext_resource path="res://assets/ButtonBG.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_char = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 900, 200 )
+margin_left = 15.0
+margin_right = 15.0
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 15.0
+content_margin_right = 15.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0, 0, 0, 0.588235 )
+border_width_left = 1
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+shadow_color = Color( 1, 1, 1, 0.0352941 )
+shadow_size = 1
+shadow_offset = Vector2( 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.588235 )
+
+[node name="Setting_tab" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_top = 0.035
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_fg = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/tab_fg = SubResource( 4 )
+custom_styles/tab_bg = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+all_tabs_in_front = true
+
+[node name="Game" type="Tabs" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 30.0
+
+[node name="Panel" type="Panel" parent="TabContainer/Game"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 24
+custom_constants/margin_top = 24
+custom_constants/margin_left = 24
+custom_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1128.0
+margin_bottom = 571.0
+
+[node name="Label" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+margin_top = 46.0
+margin_right = 1104.0
+margin_bottom = 60.0
+size_flags_vertical = 6
+text = "A"
+
+[node name="Label2" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+margin_top = 156.0
+margin_right = 1104.0
+margin_bottom = 170.0
+size_flags_vertical = 6
+text = "B"
+
+[node name="Label3" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+margin_top = 266.0
+margin_right = 1104.0
+margin_bottom = 280.0
+size_flags_vertical = 6
+text = "C"
+
+[node name="Label4" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+margin_top = 376.0
+margin_right = 1104.0
+margin_bottom = 390.0
+size_flags_vertical = 6
+text = "D"
+
+[node name="Label5" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+margin_top = 486.0
+margin_right = 1104.0
+margin_bottom = 500.0
+size_flags_vertical = 6
+text = "E"
+
+[node name="Graphic" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -111.2
+margin_top = -19.84
+margin_right = -119.2
+margin_bottom = -55.84
+
+[node name="Panel" type="Panel" parent="TabContainer/Graphic"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphic"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 24
+custom_constants/margin_top = 24
+custom_constants/margin_left = 24
+custom_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphic/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1120.0
+margin_bottom = 565.0
+
+[node name="Label" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 865.0
+margin_bottom = 50.0
+size_flags_vertical = 6
+text = "A"
+
+[node name="Label2" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 865.0
+margin_bottom = 140.0
+size_flags_vertical = 6
+text = "B"
+
+[node name="Label3" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
+margin_top = 216.0
+margin_right = 865.0
+margin_bottom = 230.0
+size_flags_vertical = 6
+text = "C"
+
+[node name="Label4" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
+margin_top = 306.0
+margin_right = 865.0
+margin_bottom = 320.0
+size_flags_vertical = 6
+text = "D"
+
+[node name="Label5" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
+margin_top = 396.0
+margin_right = 865.0
+margin_bottom = 410.0
+size_flags_vertical = 6
+text = "E"
+
+[node name="Sound" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Panel" type="Panel" parent="TabContainer/Sound"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 24
+custom_constants/margin_top = 24
+custom_constants/margin_left = 24
+custom_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1120.0
+margin_bottom = 565.0
+
+[node name="Label" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 865.0
+margin_bottom = 50.0
+size_flags_vertical = 6
+text = "A"
+
+[node name="Label2" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 865.0
+margin_bottom = 140.0
+size_flags_vertical = 6
+text = "B"
+
+[node name="Label3" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+margin_top = 216.0
+margin_right = 865.0
+margin_bottom = 230.0
+size_flags_vertical = 6
+text = "C"
+
+[node name="Label4" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+margin_top = 306.0
+margin_right = 865.0
+margin_bottom = 320.0
+size_flags_vertical = 6
+text = "D"
+
+[node name="Label5" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+margin_top = 396.0
+margin_right = 865.0
+margin_bottom = 410.0
+size_flags_vertical = 6
+text = "E"
+
+[node name="Control" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_colors/font_color_bg = Color( 1, 0, 0, 1 )
+
+[node name="Panel" type="Panel" parent="TabContainer/Control"]
+self_modulate = Color( 1, 1, 1, 0.705882 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 24
+custom_constants/margin_top = 24
+custom_constants/margin_left = 24
+custom_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Control/MarginContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 1120.0
+margin_bottom = 565.0
+
+[node name="Label" type="Label" parent="TabContainer/Control/MarginContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 865.0
+margin_bottom = 50.0
+size_flags_vertical = 6
+text = "A"
+
+[node name="Label2" type="Label" parent="TabContainer/Control/MarginContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 865.0
+margin_bottom = 140.0
+size_flags_vertical = 6
+text = "B"
+
+[node name="Label3" type="Label" parent="TabContainer/Control/MarginContainer/VBoxContainer"]
+margin_top = 216.0
+margin_right = 865.0
+margin_bottom = 230.0
+size_flags_vertical = 6
+text = "C"
+
+[node name="Label4" type="Label" parent="TabContainer/Control/MarginContainer/VBoxContainer"]
+margin_top = 306.0
+margin_right = 865.0
+margin_bottom = 320.0
+size_flags_vertical = 6
+text = "D"
+
+[node name="Label5" type="Label" parent="TabContainer/Control/MarginContainer/VBoxContainer"]
+margin_top = 396.0
+margin_right = 865.0
+margin_bottom = 410.0
+size_flags_vertical = 6
+text = "E"

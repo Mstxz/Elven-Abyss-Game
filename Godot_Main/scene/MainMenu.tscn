@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://script/PlayButton.py" type="Script" id=1]
 [ext_resource path="res://assets/Title.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=4]
 [ext_resource path="res://script/QuitGameButton.py" type="Script" id=5]
 [ext_resource path="res://assets/Audio/Game_Lobby.mp3" type="AudioStream" id=6]
+[ext_resource path="res://scene/OptionMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://script/OptionButton.py" type="Script" id=8]
 
 [node name="Node2D" type="Node2D"]
 
@@ -23,7 +25,11 @@ smoothing_speed = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Menu" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Menu"]
 self_modulate = Color( 1, 1, 1, 0.705882 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -36,7 +42,7 @@ margin_bottom = 281.0
 rect_scale = Vector2( 1.01, 1 )
 theme = ExtResource( 4 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
 self_modulate = Color( 1, 1, 1, 0.901961 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -51,7 +57,7 @@ grow_vertical = 2
 rect_scale = Vector2( 1.01, 1 )
 theme = ExtResource( 4 )
 
-[node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Play" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 margin_right = 220.0
 margin_bottom = 49.0
 theme = ExtResource( 4 )
@@ -59,16 +65,16 @@ text = "Play"
 expand_icon = true
 script = ExtResource( 1 )
 
-[node name="Option" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Option" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 margin_top = 53.0
 margin_right = 220.0
 margin_bottom = 102.0
 theme = ExtResource( 4 )
 text = "Option"
 expand_icon = true
-script = ExtResource( 1 )
+script = ExtResource( 8 )
 
-[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 margin_top = 106.0
 margin_right = 220.0
 margin_bottom = 155.0
@@ -77,7 +83,7 @@ text = "Quit"
 expand_icon = true
 script = ExtResource( 5 )
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -494.0
@@ -86,6 +92,9 @@ margin_right = 494.0
 margin_bottom = 378.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="OptionMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
