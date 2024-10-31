@@ -17,7 +17,7 @@ class ChangeScene(Button):
 	def _ready(self):
 		self.connect("pressed", self, "on_button_pressed")
 		pass
-		
+
 	def on_button_pressed(self):
 		random_scene = random.choice(scenes)
 		self.get_tree().change_scene(random_scene) #make this random

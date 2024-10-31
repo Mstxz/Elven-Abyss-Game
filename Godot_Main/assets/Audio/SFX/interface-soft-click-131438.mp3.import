@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/interface-soft-click-131438.mp3-ed2f0b51a3a0830cd2be03cb7a8b3869.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/SFX/interface-soft-click-131438.mp3"
+dest_files=[ "res://.import/interface-soft-click-131438.mp3-ed2f0b51a3a0830cd2be03cb7a8b3869.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

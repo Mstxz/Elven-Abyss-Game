@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/Dungeon_Tile.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://script/Camera2D.py" type="Script" id=4]
 [ext_resource path="res://script/Gamesystem.py" type="Script" id=5]
 [ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Shop_Stand.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/PointLight.png" type="Texture" id=7]
+[ext_resource path="res://scene/Stairs.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 5 )
@@ -29,6 +30,14 @@ tile_data = PoolIntArray( -917519, 19, 0, -917518, 19, 0, -917517, 19, 0, -91751
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall/StaticBody2D"]
 polygon = PoolVector2Array( -192, -152, -192, 128, 192, 128, 192, -160, -192, -160, -202, -206, 216, -205, 204, 146, -204, 143, -203, -203 )
 
+[node name="Door" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 3
+collision_mask = 3
+format = 1
+tile_data = PoolIntArray( -720898, 6, 0, -720897, 6, 2, -786432, 6, 2, -786431, 6, 4, -655362, 6, 65536, -655361, 19, 196609, -720896, 19, 196610, -720895, 6, 65540, -589826, 6, 131072, -589825, 19, 262145, -655360, 19, 262146, -655359, 6, 131076, -524290, 6, 262144, -524289, 19, 327681, -589824, 19, 327682, -589823, 6, 262148, -458754, 19, 393216, -458753, 19, 393217, -524288, 19, 393218, -524287, 19, 393219 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.373, 0.373 )
@@ -45,12 +54,64 @@ position = Vector2( 0, -32 )
 scale = Vector2( 0.75, 0.75 )
 
 [node name="MainUI" parent="." instance=ExtResource( 6 )]
+visible = false
 
-[node name="Shop" parent="." instance=ExtResource( 7 )]
-position = Vector2( 0, 8 )
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.788235, 0.541176, 0.541176, 1 )
 
-[node name="Shop2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 64, 8 )
+[node name="Light2D" type="Light2D" parent="CanvasModulate"]
+position = Vector2( -78, -219 )
+scale = Vector2( 0.40681, 0.428315 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
 
-[node name="Shop3" parent="." instance=ExtResource( 7 )]
-position = Vector2( -64, 8 )
+[node name="Light2D2" type="Light2D" parent="CanvasModulate"]
+position = Vector2( -164, -216 )
+scale = Vector2( 0.40681, 0.428315 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D3" type="Light2D" parent="CanvasModulate"]
+position = Vector2( 63, -215 )
+scale = Vector2( 0.40681, 0.428315 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D4" type="Light2D" parent="CanvasModulate"]
+position = Vector2( 149, -212 )
+scale = Vector2( 0.40681, 0.428315 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D5" type="Light2D" parent="CanvasModulate"]
+position = Vector2( -64, -76 )
+scale = Vector2( 0.598865, 0.563023 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D6" type="Light2D" parent="CanvasModulate"]
+position = Vector2( 102, -35 )
+scale = Vector2( 0.598865, 0.563023 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D7" type="Light2D" parent="CanvasModulate"]
+position = Vector2( -58, 88 )
+scale = Vector2( 0.598865, 0.563023 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Light2D8" type="Light2D" parent="CanvasModulate"]
+position = Vector2( 114, 93 )
+scale = Vector2( 0.598865, 0.563023 )
+texture = ExtResource( 7 )
+color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
+
+[node name="Stairs" parent="CanvasModulate" instance=ExtResource( 8 )]
+position = Vector2( 144, 49 )
+
+[node name="Stairs2" parent="CanvasModulate" instance=ExtResource( 8 )]
+position = Vector2( 146, -67 )
+
+[node name="Stairs3" parent="CanvasModulate" instance=ExtResource( 8 )]
+position = Vector2( 146, -67 )

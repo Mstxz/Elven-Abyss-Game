@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=2]
@@ -4705,9 +4705,6 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 128/shapes = [  ]
 128/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 40, 38.5 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 7 )
 
@@ -4742,32 +4739,6 @@ collision_layer = 3
 collision_mask = 3
 format = 1
 tile_data = PoolIntArray( -1245186, 6, 0, -1245185, 6, 1, -1310720, 6, 1, -1310719, 6, 4, -1179650, 6, 65536, -1179649, 19, 196609, -1245184, 19, 196610, -1245183, 6, 65540, -1114114, 6, 196608, -1114113, 19, 262145, -1179648, 19, 262146, -1179647, 6, 196612, -1048578, 6, 262144, -1048577, 19, 327681, -1114112, 19, 327682, -1114111, 6, 262148, -983042, 6, 327680, -983041, 19, 393217, -1048576, 19, 393218, -1048575, 6, 327684 )
-
-[node name="Not_Boss_Room_Next" type="Node" parent="."]
-
-[node name="Stairs" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
-position = Vector2( 96, 0 )
-
-[node name="Boss_Room_Next" type="Node" parent="."]
-
-[node name="Hole_to_Boss_Room_Opened" type="TileMap" parent="Boss_Room_Next"]
-tile_set = SubResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( -131075, 36, 0, -131074, 36, 1, -131073, 36, 2, -196608, 36, 3, -196607, 36, 4, -196606, 36, 5, -65539, 36, 65536, -65538, 45, 65537, -65537, 45, 65538, -131072, 45, 65539, -131071, 45, 65540, -131070, 36, 65541, -3, 36, 131072, -2, 45, 131073, -1, 45, 131074, -65536, 45, 131075, -65535, 45, 131076, -65534, 36, 131077, 65533, 36, 196608, 65534, 45, 196609, 65535, 45, 196609, 0, 45, 196609, 1, 45, 196609, 2, 36, 196613, 131069, 36, 262144, 131070, 45, 196609, 131071, 45, 196609, 65536, 45, 196609, 65537, 45, 196609, 65538, 36, 262149, 196605, 36, 327680, 196606, 36, 327681, 196607, 36, 327682, 131072, 36, 327683, 131073, 36, 327684, 131074, 36, 327685 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Boss_Room_Next/Hole_to_Boss_Room_Opened"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss_Room_Next/Hole_to_Boss_Room_Opened/StaticBody2D"]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 6 )
-
-[node name="Hole_to_Boss_Room_Closed" type="TileMap" parent="Boss_Room_Next"]
-visible = false
-tile_set = SubResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( -131075, 36, 0, -131074, 36, 1, -131073, 36, 2, -196608, 36, 3, -196607, 36, 4, -196606, 36, 5, -65539, 36, 65536, -65538, 36, 65537, -65537, 36, 65538, -131072, 36, 65539, -131071, 36, 65540, -131070, 36, 65541, -3, 36, 131072, -2, 36, 131073, -1, 36, 131074, -65536, 36, 131075, -65535, 36, 131076, -65534, 36, 131077, 65533, 36, 196608, 65534, 36, 196609, 65535, 36, 196610, 0, 36, 196611, 1, 36, 196612, 2, 36, 196613, 131069, 36, 262144, 131070, 36, 262145, 131071, 36, 262146, 65536, 36, 262147, 65537, 36, 262148, 65538, 36, 262149, 196605, 36, 327680, 196606, 36, 327681, 196607, 36, 327682, 131072, 36, 327683, 131073, 36, 327684, 131074, 36, 327685 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.788235, 0.541176, 0.541176, 1 )
@@ -4827,6 +4798,14 @@ limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
 script = ExtResource( 4 )
+
+[node name="Not_Boss_Room_Next" type="Node" parent="."]
+
+[node name="Stairs" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
+position = Vector2( 208, -49 )
+
+[node name="Stairs2" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
+position = Vector2( 208, 55 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( -1, -266 )
