@@ -40,10 +40,11 @@ align = 1
 valign = 1
 
 [node name="Button" type="Button" parent="."]
-margin_left = 15.0
-margin_top = 440.0
-margin_right = 566.0
-margin_bottom = 489.0
+margin_left = 13.0
+margin_top = 208.0
+margin_right = 564.0
+margin_bottom = 257.0
+hint_tooltip = "Heal Player"
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 text = "Health Potion"
@@ -51,10 +52,10 @@ icon = ExtResource( 6 )
 align = 0
 
 [node name="Button2" type="Button" parent="."]
-margin_left = 15.0
-margin_top = 487.0
-margin_right = 566.0
-margin_bottom = 536.0
+margin_left = 13.0
+margin_top = 305.0
+margin_right = 564.0
+margin_bottom = 354.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 text = "Bow"
@@ -62,10 +63,10 @@ icon = ExtResource( 5 )
 align = 0
 
 [node name="Button3" type="Button" parent="."]
-margin_left = 16.0
-margin_top = 535.0
-margin_right = 567.0
-margin_bottom = 584.0
+margin_left = 12.0
+margin_top = 403.0
+margin_right = 563.0
+margin_bottom = 452.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 text = "Sword"
@@ -73,10 +74,10 @@ icon = ExtResource( 8 )
 align = 0
 
 [node name="Button4" type="Button" parent="."]
-margin_left = 16.0
-margin_top = 585.0
-margin_right = 567.0
-margin_bottom = 634.0
+margin_left = 13.0
+margin_top = 507.0
+margin_right = 564.0
+margin_bottom = 556.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 text = "Staff"

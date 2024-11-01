@@ -3,5 +3,5 @@
 [ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
 
 [resource]
-size = 64
+size = 128
 font_data = ExtResource( 1 )

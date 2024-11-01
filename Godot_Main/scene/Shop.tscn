@@ -111,6 +111,3 @@ position = Vector2( 144, 49 )
 
 [node name="Stairs2" parent="CanvasModulate" instance=ExtResource( 8 )]
 position = Vector2( 146, -67 )
-
-[node name="Stairs3" parent="CanvasModulate" instance=ExtResource( 8 )]
-position = Vector2( 146, -67 )
