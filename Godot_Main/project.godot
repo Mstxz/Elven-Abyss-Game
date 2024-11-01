@@ -17,8 +17,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Scenechange="*res://Scenechange.py"
-PlayerVar="*res://PlayerVar.py"
+Scenechange="*res://script/Scenechange.py"
+PlayerVar="*res://script/PlayerVar.py"
 
 [display]
 
