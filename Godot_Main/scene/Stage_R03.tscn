@@ -4802,10 +4802,10 @@ script = ExtResource( 4 )
 [node name="Not_Boss_Room_Next" type="Node" parent="."]
 
 [node name="Stairs" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
-position = Vector2( 208, -49 )
+position = Vector2( 170, -89 )
 
 [node name="Stairs2" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
-position = Vector2( 208, 55 )
+position = Vector2( 170, 89 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( -1, -266 )

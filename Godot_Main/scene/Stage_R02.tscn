@@ -2434,10 +2434,10 @@ color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
 [node name="Not_Boss_Room_Next" type="Node" parent="."]
 
 [node name="Stairs" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
-position = Vector2( 144, -49 )
+position = Vector2( 113, -79 )
 
 [node name="Stairs2" parent="Not_Boss_Room_Next" instance=ExtResource( 8 )]
-position = Vector2( 144, 55 )
+position = Vector2( 112, 89 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -2451,3 +2451,4 @@ script = ExtResource( 4 )
 position = Vector2( 0, -203 )
 
 [node name="MainUI" parent="." instance=ExtResource( 5 )]
+visible = false
