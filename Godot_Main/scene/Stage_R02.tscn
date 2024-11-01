@@ -2357,7 +2357,7 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 128/shapes = [  ]
 128/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="Stage2" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="Ground" type="TileMap" parent="."]

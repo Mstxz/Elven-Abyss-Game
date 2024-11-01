@@ -12,7 +12,7 @@ class Camera2D(Camera2D):
 		Called every time the node is added to the scene.
 		Initialization here.
 		"""
-		self.player = self.get_node("/root/Node2D/Player")
+		self.player = self.get_node("../Player")
 		
 		pass
 		

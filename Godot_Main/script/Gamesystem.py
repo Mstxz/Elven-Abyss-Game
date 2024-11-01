@@ -16,6 +16,7 @@ class Gamesystem(Node2D):
 		self.mainui = self.get_node('MainUI')
 		self.screenoriginalcolor = self.canvas.color
 		self.pauseMenu.hide()
+		self.pausesys(False)
 
 	def _process(self,delta):
 		if Input.is_action_just_pressed("pause"):
@@ -23,8 +24,9 @@ class Gamesystem(Node2D):
 		if self.pause:
 			self.get_tree().set_input_as_handled()
 
-	def pausesys(self):
-		self.pause = not self.pause
+	def pausesys(self, set = True):
+		if set:
+			self.pause = not self.pause
 		if self.pause:
 			self.pauseMenu.show()
 			self.mainui.hide()

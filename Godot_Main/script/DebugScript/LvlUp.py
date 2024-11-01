@@ -15,7 +15,7 @@ class LvlUp(Button):
 		
 	def on_button_pressed(self): #as the event says
 		#call function take damage in player to do damage
-		player = self.get_node("/root/Node2D/Player") #get player node
+		player = self.get_parent().get_node("../../Player") #get player node
 		player.level_up()
 		expshow = self.get_node("../EXP")
 		expshow.text = f'EXP : {player.exp}'

@@ -11,11 +11,11 @@ class Loadingscene(Control):
 	screen_name = export(str, default = "") # Path of scene to load
 
 	def _ready(self):
-		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-		self.screen_name = Scenechange.scene
-		Scenechange.scene = ""
-		self.label = self.get_node("/root/Control/CanvasLayer/Label")   # Start loading interactively
+		self.Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
+		self.screen_name = self.Scenechange.scene
+		self.Scenechange.scene = ""
 		self.loader = ResourceLoader.load_interactive(self.screen_name)
+		self.label = self.get_node("/root/Loading/CanvasLayer/Label")   # Start loading interactively
 
 	def _process(self, delta):
 		if self.loader:
@@ -25,18 +25,17 @@ class Loadingscene(Control):
 				new_scene = self.loader.get_resource()  # Get the loaded resource
 				if new_scene:
 					#print("Scene loaded successfully")
-					self.get_tree().change_scene_to(new_scene)  # Change to the loaded scene
+					self.Scenechange.load_game()  # Change to the loaded scene
 					self.loader = None  # Clear the loader after loading
 					self.screen_name = ""
 		
 			elif load_result == ERR_FILE_EOF:
 				#print("Reached end of file during loading")
 				self.label.text = str(100) + "%"
-				new_scene = self.loader.get_resource()
-				self.get_tree().change_scene_to(new_scene)# Change to the loaded scene
+				self.Scenechange.load_game() # Change to the loaded scene
 				self.loader = None
 				self.screen_name = ""
-		
+
 			elif load_result != OK:
 				#print("Error loading resource")
 				self.loader = None  # Clear the loader on error

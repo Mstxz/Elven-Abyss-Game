@@ -14,7 +14,7 @@ class ChangeElement(Button):
 		
 	def on_button_pressed(self): #as the event says
 		#call function to change the property handled by it own script
-		player = self.get_node("/root/Node2D/Player") #get player node
+		player = self.get_parent().get_node("../../Player") #get player node
 		player.changeelement(avaliable[self.current])
 		#change to next
 		self.current +=1

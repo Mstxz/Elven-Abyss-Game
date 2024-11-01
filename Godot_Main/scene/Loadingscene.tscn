@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://script/Loadingscene.py" type="Script" id=2]
 
-[node name="Control" type="Control"]
+[node name="Loading" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )

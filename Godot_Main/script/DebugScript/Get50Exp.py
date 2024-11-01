@@ -11,7 +11,7 @@ class Get50Exp(Button):
 		Initialization here.
 		"""
 		self.connect("pressed", self, "on_button_pressed")
-		self.player = self.get_node("/root/Node2D/Player") #get player node
+		self.player = self.get_parent().get_node("../../Player") #get player node
 		self.expshow = self.get_node("../EXP")
 		self.expshow.text = f'EXP : {self.player.exp}'
 		pass

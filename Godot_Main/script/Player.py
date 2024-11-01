@@ -57,12 +57,12 @@ class Player(KinematicBody2D):
 		self.updateplayer()
 		
 		#locate for later uses
-		self.main = self.get_node('/root/Node2D')
+		self.main = self.get_parent()
 		self.sprite = self.get_node('AnimatedSprite')
-		self.uicd1 = self.get_node("/root/Node2D/MainUI/Skill1Cd")
-		self.uicd2 = self.get_node("/root/Node2D/MainUI/Skill2Cd")
-		self.moneyui = self.get_node("/root/Node2D/MainUI/ProfileBar/Money")
-		self.levelui = self.get_node("/root/Node2D/MainUI/ProfileBar/Level")
+		self.uicd1 = self.get_parent().get_node("MainUI/Skill1Cd")
+		self.uicd2 = self.get_parent().get_node("MainUI/Skill2Cd")
+		self.moneyui = self.get_parent().get_node("MainUI/ProfileBar/Money")
+		self.levelui = self.get_parent().get_node("MainUI/ProfileBar/Level")
 		
 		#update ui
 		self.moneyui.updateui(self.money)
@@ -115,7 +115,7 @@ class Player(KinematicBody2D):
 		'''reset animation when chaning weapon or element'''
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
-		profileui = self.get_node("/root/Node2D/MainUI/Viewport/AnimatedSprite")
+		profileui = self.get_node("../MainUI/Viewport/AnimatedSprite")
 		profileui.play('Idle'+self.animationid)
 
 	def shoot(self,part=0):
@@ -244,12 +244,12 @@ class Player(KinematicBody2D):
 	
 	def hp_changed_func(self):
 		
-		healthbar = self.get_node("/root/Node2D/MainUI/ProfileBar/HealthBar")
+		healthbar = self.get_node("../MainUI/ProfileBar/HealthBar")
 		healthbar.updatehealth(self.maxhp,self.hp)
 	
 	def mana_changed_func(self):
 		#same as hp just for mana
-		manabar = self.get_node("/root/Node2D/MainUI/ProfileBar/ManaBar")
+		manabar = self.get_node("../MainUI/ProfileBar/ManaBar")
 		manabar.updatemana(self.maxmana,self.mana)
 	
 	def take_damage(self, dmg, kb=None):
@@ -302,7 +302,6 @@ class Player(KinematicBody2D):
 	def gain_exp(self,amount):
 		'''call when giving exp to player'''
 		self.exp += amount
-		self.level_up()
 	
 	def changeweapon(self,weapon):
 		'''change weapon to ...'''

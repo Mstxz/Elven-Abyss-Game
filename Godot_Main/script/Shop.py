@@ -47,6 +47,6 @@ class Shop(Area2D):
 			# If the shop UI is not open, open it
 			if self.shop_ui_scene is not None:
 				self.shop_ui_instance = self.shop_ui_scene.instance()
-				self.get_tree().current_scene.add_child(self.shop_ui_instance)  # Add to the current scene
+				self.get_node("../../").add_child(self.shop_ui_instance)  # Add to the current scene
 				print("Shop Opened")
 			self.shop_open = True

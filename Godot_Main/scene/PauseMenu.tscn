@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=1]
+[ext_resource path="res://script/QuittoMenu.py" type="Script" id=2]
 [ext_resource path="res://script/ResumeButton.py" type="Script" id=3]
 
 [node name="PauseMenu" type="CanvasLayer"]
@@ -53,3 +54,4 @@ margin_bottom = 300.0
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Return to title"
+script = ExtResource( 2 )

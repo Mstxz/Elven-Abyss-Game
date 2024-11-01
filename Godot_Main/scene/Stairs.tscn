@@ -2356,7 +2356,7 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 extents = Vector2( 19, 25 )
 
 [sub_resource type="CircleShape2D" id=31]
-radius = 62.0
+radius = 52.0096
 
 [node name="Stairs" type="Node2D"]
 
