@@ -1,15 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=2]
 [ext_resource path="res://scene/Setting_tab.tscn" type="PackedScene" id=3]
 [ext_resource path="res://script/ExitButton.py" type="Script" id=4]
+[ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 43
-outline_size = 4
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 5
+size = 40
+use_filter = true
 font_data = ExtResource( 1 )
 
 [node name="OptionMenu" type="Control"]
@@ -32,7 +31,8 @@ margin_bottom = 636.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 1128.0
-margin_bottom = 52.0
+margin_bottom = 49.0
+theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 1 )
 text = "Options"
 align = 1
@@ -41,7 +41,7 @@ valign = 1
 [node name="Setting_tab" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 56.0
+margin_top = 53.0
 margin_right = 1128.0
 margin_bottom = 567.0
 size_flags_vertical = 3

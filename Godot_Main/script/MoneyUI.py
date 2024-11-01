@@ -7,4 +7,4 @@ class MoneyUI(Label):
 
 	# member variables here, example:
 	def updateui(self,amount):
-		self.text = f'$ : {amount}'
+		self.text = f'$ : {int(amount)}'
