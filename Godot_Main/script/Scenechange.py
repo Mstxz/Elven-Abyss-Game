@@ -9,7 +9,7 @@ class Scenechange(Node):
 	scene = export(str, default="") # scene for loading script example res://...
 	new_scene = export(str, default="") # scene that want to go by name example "Main" and "Game" in menu everytime that load new scene create name and assign it in namee
 	namee = {} #store loaded scene load only one time and can use everytime
-	last_scene = export(str, default="res://scene/Game.tscn") #make for future now it not important
+	last_scene = export(str, default="res://scene/Lobby.tscn") #make for future now it not important
 
 	def _ready(self):
 		# LoadScene that want to use when open game
@@ -17,7 +17,7 @@ class Scenechange(Node):
 		game = ResourceLoader.load(self.last_scene, "", True)
 		# store loaded scene in dict
 		self.namee["Main"] = mainmenu
-		self.namee["Game"] = game
+		self.namee["Lobby"] = game
 
 	def change_scene(self, scene: PackedScene):
 		"""Change scene system"""

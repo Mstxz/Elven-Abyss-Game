@@ -13,6 +13,6 @@ class PlayButton(Button):
 		
 	def on_button_pressed(self): #as the event says
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-		Scenechange.scene = "res://scene/Game.tscn"
-		Scenechange.new_scene = "Game"
+		Scenechange.scene = "res://scene/Lobby.tscn"
+		Scenechange.new_scene = "Lobby"
 		Scenechange.load()

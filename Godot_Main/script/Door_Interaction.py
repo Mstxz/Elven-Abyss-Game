@@ -13,8 +13,6 @@ class InteractableArea(Area2D):
 	]
 	player_in_area = False
 	
-	enemy_count = 0
-	
 	def _ready(self):
 		# Connect signals and create a timer
 		self.connect("body_entered", self, "_on_Area2D_body_entered")
