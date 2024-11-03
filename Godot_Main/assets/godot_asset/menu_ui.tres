@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=2]
@@ -25,6 +25,12 @@ size = 20
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 25
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 4 )
@@ -61,6 +67,7 @@ Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = ExtResource( 2 )
 Panel/styles/panel = SubResource( 3 )
 RichTextLabel/fonts/normal_font = SubResource( 5 )
+TabContainer/fonts/font = SubResource( 9 )
 TabContainer/styles/panel = SubResource( 6 )
 TabContainer/styles/tab_bg = SubResource( 7 )
 TabContainer/styles/tab_fg = SubResource( 8 )

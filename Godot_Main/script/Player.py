@@ -215,6 +215,7 @@ class Player(KinematicBody2D):
 				self.acting = True
 				self.sprite.play('Skill'+ self.animationid)
 				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
+				self.uicd1.activating(self.element)
 			elif part == 1:
 				self.sprite.disconnect("animation_finished",self,"skill1")
 				self.lockposition = False
