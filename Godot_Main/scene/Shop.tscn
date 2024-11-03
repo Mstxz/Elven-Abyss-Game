@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/Dungeon_Tile.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/godot_asset/Dungeon_Tile.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scene/Trader.tscn" type="PackedScene" id=3]
 [ext_resource path="res://script/Camera2D.py" type="Script" id=4]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=7]
 [ext_resource path="res://scene/Stairs.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scene/ShopUI.tscn" type="PackedScene" id=9]
+
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 5 )
