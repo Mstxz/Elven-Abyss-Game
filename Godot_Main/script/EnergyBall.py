@@ -11,6 +11,7 @@ class EnergyBall(KinematicBody2D):
 	spawnpos = export(Vector2, default=Vector2(0,0))
 	spawnrot = export(float, default=0.0)
 	duration = export(float,default=5.0)
+	spin_speed = export(float, default=5.0)
 
 	def _ready(self):
 		"""
@@ -26,6 +27,7 @@ class EnergyBall(KinematicBody2D):
 		'''Move toward its direction with set speed and direction'''
 		self.velocity = Vector2(-self.speed,0).rotated(self.direction)
 		self.move_and_slide(self.velocity)
+		self.rotation += self.spin_speed * delta
 	
 	def _on_Area2D_body_entered(self, body):
 		'''Upon hitting the target'''
