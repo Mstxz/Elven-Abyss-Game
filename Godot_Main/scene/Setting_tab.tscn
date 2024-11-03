@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scene/Hotkey_Rebind.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scene/Windowm_Mode.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=3]
+[ext_resource path="res://scene/Window_Resolution.tscn" type="PackedScene" id=4]
 
 [node name="Setting_tab" type="Control"]
 modulate = Color( 1, 1, 1, 0.901961 )
@@ -21,6 +23,7 @@ anchor_bottom = 1.0
 margin_top = 24.0
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Game"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 24
@@ -69,7 +72,7 @@ margin_bottom = 523.0
 size_flags_vertical = 6
 text = "E"
 
-[node name="Graphic" type="Tabs" parent="TabContainer"]
+[node name="Display" type="Tabs" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -78,7 +81,7 @@ margin_top = -19.84
 margin_right = -119.2
 margin_bottom = -55.84
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphic"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Display"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 24
@@ -86,46 +89,40 @@ custom_constants/margin_top = 24
 custom_constants/margin_left = 24
 custom_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphic/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Display/MarginContainer"]
 margin_left = 24.0
 margin_top = 24.0
 margin_right = 1120.0
 margin_bottom = 584.0
 
-[node name="Label" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
-margin_top = 45.0
-margin_right = 1096.0
-margin_bottom = 59.0
-size_flags_vertical = 6
-text = "A"
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Display/MarginContainer/ScrollContainer"]
+margin_right = 3.0
+margin_bottom = 192.0
+custom_constants/separation = 64
 
-[node name="Label2" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
-margin_top = 154.0
-margin_right = 1096.0
-margin_bottom = 168.0
-size_flags_vertical = 6
-text = "B"
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/Display/MarginContainer/ScrollContainer/VBoxContainer"]
+margin_right = 3.0
+custom_constants/separation = 0
 
-[node name="Label3" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
-margin_top = 263.0
-margin_right = 1096.0
-margin_bottom = 277.0
-size_flags_vertical = 6
-text = "C"
+[node name="Windowm_Mode" parent="TabContainer/Display/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 64.0
+margin_right = 3.0
+margin_bottom = 64.0
 
-[node name="Label4" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
-margin_top = 372.0
-margin_right = 1096.0
-margin_bottom = 386.0
-size_flags_vertical = 6
-text = "D"
+[node name="Window_Resolution" parent="TabContainer/Display/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 128.0
+margin_right = 3.0
+margin_bottom = 128.0
 
-[node name="Label5" type="Label" parent="TabContainer/Graphic/MarginContainer/VBoxContainer"]
-margin_top = 481.0
-margin_right = 1096.0
-margin_bottom = 495.0
-size_flags_vertical = 6
-text = "E"
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Display/MarginContainer/ScrollContainer/VBoxContainer"]
+margin_top = 192.0
+margin_right = 3.0
+margin_bottom = 192.0
+custom_constants/separation = 0
 
 [node name="Sound" type="Tabs" parent="TabContainer"]
 visible = false
