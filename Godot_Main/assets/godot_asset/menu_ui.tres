@@ -15,6 +15,8 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
+[sub_resource type="StyleBoxEmpty" id=9]
+
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_top = 2
@@ -25,12 +27,6 @@ size = 20
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=9]
-size = 25
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 4 )
@@ -65,9 +61,10 @@ Button/styles/focus = SubResource( 4 )
 Button/styles/hover = ExtResource( 2 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = ExtResource( 2 )
+HSeparator/styles/separator = SubResource( 9 )
 Panel/styles/panel = SubResource( 3 )
 RichTextLabel/fonts/normal_font = SubResource( 5 )
-TabContainer/fonts/font = SubResource( 9 )
+TabContainer/fonts/font = null
 TabContainer/styles/panel = SubResource( 6 )
 TabContainer/styles/tab_bg = SubResource( 7 )
 TabContainer/styles/tab_fg = SubResource( 8 )
