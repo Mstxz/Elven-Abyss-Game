@@ -34,6 +34,11 @@ class InteractableArea(Area2D):
 
 	def _process(self, delta):		# Check if the player is in area and 'F' key is pressed
 		if self.player_in_area == True and Input.is_action_just_pressed("Interact"):
-			random_scene_path = random.choice(self.stages)
-			Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-			Scenechange.load_new(str(random_scene_path[0]),str(random_scene_path[1]))
+			self.loading = self.get_node("/root").get_child(2).get_node("Loading")
+			self.loading.leave()
+			self.loading.animation.connect("animation_finished", self, "on_animation_finished")
+	
+	def on_animation_finished(self, anim_name):
+		random_scene_path = random.choice(self.stages)
+		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
+		Scenechange.load_new(str(random_scene_path[0]),str(random_scene_path[1]))
