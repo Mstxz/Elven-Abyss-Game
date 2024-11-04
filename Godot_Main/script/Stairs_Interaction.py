@@ -10,6 +10,7 @@ class InteractableArea(Area2D):
 		("res://scene/Stage_R02.tscn", "Stage2"),
 		("res://scene/Stage_R03.tscn", "Stage3"),
 		("res://scene/Shop.tscn", "Shop"),
+		("res://scene/Stage_Boss.tscn","Boss")
 	]
 	player_in_area = False
 	
