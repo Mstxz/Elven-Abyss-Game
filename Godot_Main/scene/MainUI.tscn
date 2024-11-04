@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://script/ManaBar.py" type="Script" id=1]
 [ext_resource path="res://script/DebugScript/TakeDamageButton.py" type="Script" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://assets/WaterSkill1.png" type="Texture" id=13]
 [ext_resource path="res://script/SkillCdUI.py" type="Script" id=14]
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=15]
-[ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=16]
 [ext_resource path="res://script/MoneyUI.py" type="Script" id=17]
 [ext_resource path="res://script/LevelUI.py" type="Script" id=18]
 [ext_resource path="res://script/DebugScript/Get50Exp.py" type="Script" id=19]
@@ -198,7 +197,7 @@ theme = ExtResource( 15 )
 [node name="ChangeScene" type="Button" parent="VBoxContainer"]
 margin_right = 199.0
 margin_bottom = 49.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Change Scene"
 align = 0
 script = ExtResource( 23 )
@@ -207,7 +206,7 @@ script = ExtResource( 23 )
 margin_top = 53.0
 margin_right = 199.0
 margin_bottom = 102.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Get 50 Exp"
 align = 0
 script = ExtResource( 19 )
@@ -216,7 +215,7 @@ script = ExtResource( 19 )
 margin_top = 106.0
 margin_right = 199.0
 margin_bottom = 155.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Level Up"
 align = 0
 script = ExtResource( 20 )
@@ -225,7 +224,7 @@ script = ExtResource( 20 )
 margin_top = 159.0
 margin_right = 199.0
 margin_bottom = 208.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Gain Money"
 align = 0
 script = ExtResource( 21 )
@@ -234,7 +233,7 @@ script = ExtResource( 21 )
 margin_top = 212.0
 margin_right = 199.0
 margin_bottom = 261.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Change Weapon"
 align = 0
 script = ExtResource( 24 )
@@ -243,7 +242,7 @@ script = ExtResource( 24 )
 margin_top = 265.0
 margin_right = 199.0
 margin_bottom = 314.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Change Element"
 align = 0
 script = ExtResource( 25 )
@@ -252,7 +251,7 @@ script = ExtResource( 25 )
 margin_top = 318.0
 margin_right = 199.0
 margin_bottom = 367.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Lose Money"
 align = 0
 script = ExtResource( 22 )
@@ -261,7 +260,7 @@ script = ExtResource( 22 )
 margin_top = 371.0
 margin_right = 199.0
 margin_bottom = 420.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Take Damage"
 align = 0
 script = ExtResource( 2 )
@@ -270,7 +269,7 @@ script = ExtResource( 2 )
 margin_top = 424.0
 margin_right = 199.0
 margin_bottom = 473.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "Heal"
 align = 0
 script = ExtResource( 4 )
@@ -279,7 +278,7 @@ script = ExtResource( 4 )
 margin_top = 477.0
 margin_right = 199.0
 margin_bottom = 526.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "ConsumeMana"
 align = 0
 script = ExtResource( 8 )
@@ -288,7 +287,7 @@ script = ExtResource( 8 )
 margin_top = 530.0
 margin_right = 199.0
 margin_bottom = 579.0
-theme = ExtResource( 16 )
+theme = ExtResource( 15 )
 text = "RegenMana"
 align = 0
 script = ExtResource( 9 )

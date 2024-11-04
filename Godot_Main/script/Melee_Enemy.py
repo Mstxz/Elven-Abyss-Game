@@ -203,7 +203,8 @@ class Melee_Enemy(KinematicBody2D):
 	
 	def death(self):
 		'''deletes itself'''
-		self.player = self.get_node("/root/Game/Player")
+		
+		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
 		self.queue_free()

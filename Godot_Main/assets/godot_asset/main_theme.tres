@@ -1,19 +1,37 @@
-[gd_resource type="Theme" load_steps=10 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
+[ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=2]
 
-[sub_resource type="DynamicFont" id=7]
-size = 30
+[sub_resource type="DynamicFont" id=1]
+size = 40
 use_mipmaps = true
 use_filter = true
-extra_spacing_char = 1
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [sub_resource type="DynamicFont" id=8]
 size = 35
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="Gradient" id=12]
+colors = PoolColorArray( 0.340332, 0.340332, 0.340332, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture2D" id=13]
+gradient = SubResource( 12 )
+fill = 1
+fill_from = Vector2( 1, 0 )
+fill_to = Vector2( 0, 1 )
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = SubResource( 13 )
+region_rect = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="StyleBoxFlat" id=9]
 draw_center = false
 border_width_left = 1
 border_width_top = 1
@@ -21,19 +39,19 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0.8, 0.8, 0.8, 0.666667 )
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=10]
 interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.988827, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.692737, 0.692737, 0.692737, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture2D" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture2D" id=11]
+gradient = SubResource( 10 )
 width = 84
 fill_from = Vector2( 0, 0.353857 )
 fill_to = Vector2( 1, 1 )
 
 [sub_resource type="StyleBoxTexture" id=3]
-texture = SubResource( 2 )
+texture = SubResource( 11 )
 region_rect = Rect2( 0, 0, 64, 64 )
 expand_margin_left = 5.0
 expand_margin_right = 5.0
@@ -52,10 +70,15 @@ use_filter = true
 font_data = ExtResource( 2 )
 
 [resource]
-Button/fonts/font = SubResource( 7 )
+Button/fonts/font = SubResource( 1 )
+Button/styles/focus = SubResource( 4 )
+Button/styles/hover = ExtResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = ExtResource( 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 Label/fonts/font = SubResource( 8 )
-PanelContainer/styles/panel = SubResource( 4 )
+Panel/styles/panel = SubResource( 14 )
+PanelContainer/styles/panel = SubResource( 9 )
 ProgressBar/styles/bg = SubResource( 3 )
 ProgressBar/styles/fg = SubResource( 5 )
 RichTextLabel/colors/font_color_shadow = Color( 0.105882, 0.0784314, 0.0784314, 1 )

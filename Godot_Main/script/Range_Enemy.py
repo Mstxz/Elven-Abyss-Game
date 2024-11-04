@@ -31,7 +31,7 @@ class Range_Enemy(KinematicBody2D):
 		#prepares require nodes
 		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
 		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
-		self.main = self.get_node("/root/Game")
+		self.main = self.get_node("..")
 	
 	def _process(self, delta):
 		'''runs every frame'''
