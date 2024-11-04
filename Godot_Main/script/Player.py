@@ -38,6 +38,7 @@ class Player(KinematicBody2D):
 	critdmg = export(float, default=50.0)
 	weapon = export(str, default='Stick')
 	element = export(str, default="Water")
+	skillpoint = export(int, default=0)
 	acting = export(bool, default=False)
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
@@ -69,6 +70,7 @@ class Player(KinematicBody2D):
 		self.levelui.updateui(self.level)
 		self.hp_changed_func()
 		self.mana_changed_func()
+		self.level_up()
 		
 	def _process(self, delta):
 		self.updatevar()
@@ -294,11 +296,15 @@ class Player(KinematicBody2D):
 		self.moneyui.updateui(self.money)
 		
 	def level_up(self):
-		req = 48 + (10*self.level)
-		if self.exp >= req:
-			self.exp -= req
-			self.level += 1
-			self.levelui.updateui(self.level)
+		while True:
+			req = 48 + (10*self.level)
+			if self.exp >= req:
+				self.exp -= req
+				self.level += 1
+				self.skillpoint += 3
+				self.levelui.updateui(self.level)
+			else:
+				break
 			
 	def gain_exp(self,amount):
 		'''call when giving exp to player'''

@@ -20,6 +20,7 @@ class EnergyBall(KinematicBody2D):
 		"""
 		self.position = self.spawnpos #As they says
 		self.rotation = self.spawnrot
+		self.player = self.get_node("../Player")
 		self.get_node("Timer").start(self.duration)
 		pass
 		
@@ -35,7 +36,7 @@ class EnergyBall(KinematicBody2D):
 			#give the knockback max velocity to its target as take_damage param
 			#the speed of knockback are to be change
 			knockback = Vector2(-self.speed*10,0).rotated(self.direction)
-			body.take_damage(10,knockback)
+			body.take_damage(self.player.atk* 0.85,knockback)
 			self.queue_free() #delete itself after
 	
 	def _on_Timer_timeout(self):
