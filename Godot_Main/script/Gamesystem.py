@@ -3,6 +3,7 @@ from godot import *
 
 pauseload = ResourceLoader.load("res://scene/PauseMenu.tscn")
 status = ResourceLoader.load("res://scene/StatusUI.tscn")
+loading = ResourceLoader.load("res://scene/Loadingscene.tscn")
 
 @exposed
 class Gamesystem(Node2D):
@@ -12,6 +13,8 @@ class Gamesystem(Node2D):
 	def _ready(self):
 		self.pauseMenu = pauseload.instance()
 		self.statusMenu = status.instance()
+		self.loading = loading.instance()
+		self.add_child(self.loading)
 		self.add_child(self.pauseMenu)
 		self.add_child(self.statusMenu)
 		self.canvas = self.get_node('CanvasModulate')
