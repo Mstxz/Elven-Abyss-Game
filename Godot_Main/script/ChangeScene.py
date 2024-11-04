@@ -22,3 +22,5 @@ class ChangeScene(Button):
 		random_scene = random.choice(scenes)
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
 		Scenechange.load_new(str(random_scene[0]),str(random_scene[1]))
+		
+

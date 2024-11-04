@@ -12,4 +12,4 @@ class Loadingscene(CanvasLayer):
 		self.animation.play("dissolve")
 
 	def leave(self):
-		self.animation.play_backwards("dissolve")
+		self.animation.play("somtin")

@@ -20,6 +20,9 @@ class Scenechange(Node):
 	def change_scene(self, scene: PackedScene):
 		"""Change scene system"""
 		# Delete current scene
+		canva = self.find_first_child_of_class(self.get_parent().get_child(2), CanvasModulate)
+		if canva:
+			self.get_parent().get_child(2).remove_child(canva)
 		self.get_parent().get_child(2).queue_free()
 		# Instance the new scene and add it to the current scene tree
 		self.current_scene = scene.instance()
@@ -39,3 +42,9 @@ class Scenechange(Node):
 			game = ResourceLoader.load(self.last_scene, "", True)
 			self.namee[str(sname)] = game
 		self.load_game()
+	
+	def find_first_child_of_class(self, parent, classname=Node2D):
+		for child in parent.get_children():
+			if isinstance(child,classname):
+				return child
+		return None  # Return None if no child of the specified class is found
