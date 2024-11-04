@@ -1,7 +1,10 @@
-[gd_resource type="TileSet" load_steps=4 format=2]
+[gd_resource type="TileSet" load_steps=5 format=2]
 
 [ext_resource path="res://assets/RFCastle_1.0/mainlevbuild.png" type="Texture" id=1]
 [ext_resource path="res://assets/RFCastle_1.0/decorative.png" type="Texture" id=2]
+
+[sub_resource type="ConcavePolygonShape2D" id=2]
+segments = PoolVector2Array( 160, 128, 0, 128, 0, 128, 0, 0, 0, 0, 160, 0, 160, 0, 160, 128 )
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0.125, 22, 16, 22, 16, 32, 0, 32 )
@@ -66,9 +69,16 @@ points = PoolVector2Array( 0.125, 22, 16, 22, 16, 32, 0, 32 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 2 )
 2/shape_one_way = false
-2/shape_one_way_margin = 0.0
-2/shapes = [  ]
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 2/z_index = 0
 3/name = "mainlevbuild.png 3"
 3/texture = ExtResource( 1 )
