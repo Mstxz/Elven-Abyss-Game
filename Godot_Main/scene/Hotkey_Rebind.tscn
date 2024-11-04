@@ -1,10 +1,11 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://script/Hotkey_Rebind.gd" type="Script" id=1]
-[ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=3]
-[ext_resource path="res://assets/UI_BG1.png" type="Texture" id=4]
-[ext_resource path="res://assets/PlayfairDisplay-VariableFont_wght.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/UI/UI_BG1.png" type="Texture" id=4]
+[ext_resource path="res://assets/Font/PlayfairDisplay-VariableFont_wght.ttf" type="DynamicFontData" id=5]
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 40

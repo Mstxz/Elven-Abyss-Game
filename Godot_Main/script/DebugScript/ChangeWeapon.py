@@ -1,7 +1,7 @@
 from godot import exposed, export
 from godot import *
 
-avaliable = ['Stick','Staff']
+avaliable = ['Stick','Staff','Crossbow']
 
 @exposed
 class ChangeWeapon(Button):

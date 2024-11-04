@@ -1,11 +1,11 @@
 [gd_scene load_steps=34 format=2]
 
-[ext_resource path="res://assets/Sp_slime.PNG" type="Texture" id=1]
+[ext_resource path="res://assets/Sprite/Sp_slime.PNG" type="Texture" id=1]
 [ext_resource path="res://script/Melee_Enemy.py" type="Script" id=2]
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=3]
 [ext_resource path="res://script/EnemyHealthBar.py" type="Script" id=4]
-[ext_resource path="res://assets/IMG_9492.PNG" type="Texture" id=5]
-[ext_resource path="res://assets/IMG_9579.PNG" type="Texture" id=6]
+[ext_resource path="res://assets/Sprite/Slime_Attack.PNG" type="Texture" id=5]
+[ext_resource path="res://assets/Sprite/Slime_Idle.PNG" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.75, 12.1735 )

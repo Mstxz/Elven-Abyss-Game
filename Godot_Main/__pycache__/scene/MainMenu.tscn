@@ -4,8 +4,9 @@
 [ext_resource path="res://script/QuitGameButton.py" type="Script" id=2]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=3]
 [ext_resource path="res://assets/Audio/Game_Lobby.mp3" type="AudioStream" id=4]
-[ext_resource path="res://assets/Title.png" type="Texture" id=5]
-[ext_resource path="res://assets/BackDrop.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/Title.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/BackDrop.png" type="Texture" id=6]
+
 
 [node name="Node2D" type="Node2D"]
 

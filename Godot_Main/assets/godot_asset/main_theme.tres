@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=1]
-[ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40

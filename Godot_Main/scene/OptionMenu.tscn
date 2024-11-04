@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/AGENCYR.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=2]
 [ext_resource path="res://scene/Setting_tab.tscn" type="PackedScene" id=3]
 [ext_resource path="res://script/ExitButton.py" type="Script" id=4]
