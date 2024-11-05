@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/Dungeon_Main2.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://assets/RFCastle_1.0/lightA03.png" type="Texture" id=9]
 [ext_resource path="res://assets/RFCastle_1.0/lightA02.png" type="Texture" id=10]
 [ext_resource path="res://assets/RFCastle_1.0/lightA01.png" type="Texture" id=11]
-[ext_resource path="res://scene/ExplodingEnemy.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/Audio/Game_Lobby.mp3" type="AudioStream" id=13]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -179,10 +178,6 @@ script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 69 )
-
-[node name="ExplodingEnemy" parent="." instance=ExtResource( 12 )]
-position = Vector2( -49, 5 )
-scale = Vector2( 1, 1.052 )
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 13 )

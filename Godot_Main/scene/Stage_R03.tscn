@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://script/Gamesystem.py" type="Script" id=7]
 [ext_resource path="res://scene/Stairs.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/Range_Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scene/ExplodingEnemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scene/Enemy.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=27]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 48, 0, 48 )
@@ -4811,3 +4814,15 @@ position = Vector2( 170, 89 )
 position = Vector2( -1, -266 )
 
 [node name="MainUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Range_Enemy" parent="." instance=ExtResource( 9 )]
+position = Vector2( 15, 31 )
+
+[node name="ExplodingEnemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( -95, -97 )
+
+[node name="Enemy" parent="." instance=ExtResource( 11 )]
+position = Vector2( 58, -94 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 11 )]
+position = Vector2( -179, 65 )
