@@ -10,6 +10,7 @@ func _ready():
 	set_process_unhandled_key_input(false)
 	set_action_name()
 	set_text_for_key()
+	load_up()
 
 func initialize_nodes():
 	# Attempt to get nodes and handle potential errors
@@ -39,6 +40,23 @@ func update_button_text():
 	else:
 		button.text = "No key bound"
 
+func load_up() -> void:
+	match action_name:
+		"up":
+			update_all(SettingData.get_up())
+		"down" :
+			update_all(SettingData.get_down())
+		"left" :
+			update_all(SettingData.get_left())
+		"right" :
+			update_all(SettingData.get_right())
+		"skill1":
+			update_all(SettingData.get_skill_1())
+		"skill2":
+			update_all(SettingData.get_skill_2())
+		"Interact":
+			update_all(SettingData.get_interact())
+
 func _on_Button_toggled(button_press: bool):
 	if button_press:
 		button.text = "Press any key"
@@ -48,9 +66,47 @@ func _on_Button_toggled(button_press: bool):
 		set_process_unhandled_key_input(false)  # Disable key input processing
 		button.pressed = false  # Explicitly toggle the button off
 
+func update_all(event):
+	# Check if the key is already bound to the action
+
+	var current_events = InputMap.get_action_list(action_name)
+
+	for evt in current_events:
+		if evt.scancode == event:
+			print("Key ", OS.get_scancode_string(event), " is already bound.")
+			return  # Exit early if the key is already bound
+
+	# Clear current events associated with the action
+	InputMap.action_erase_events(action_name)
+
+	# Create a new key event and add it to the action
+	var new_event = InputEventKey.new()
+	new_event.scancode = event
+	InputMap.action_add_event(action_name, new_event)
+
+	# Update the button text to reflect the new key binding
+	key_name = OS.get_scancode_string(event)
+	button.text = key_name
+
 func _unhandled_key_input(event):
 	if event is InputEventKey and event.pressed:
 		# Check if the key is already bound to the action
+		match action_name:
+			"up":
+				SettingSignal.set_up_key(event.scancode)
+			"down" :
+				SettingSignal.set_down_key(event.scancode)
+			"left" :
+				SettingSignal.set_left_key(event.scancode)
+			"right" :
+				SettingSignal.set_right_key(event.scancode)
+			"skill1":
+				SettingSignal.set_skill_1_key(event.scancode)
+			"skill2":
+				SettingSignal.set_skill_2_key(event.scancode)
+			"Interact":
+				SettingSignal.set_interact_key(event.scancode)
+
 		var current_events = InputMap.get_action_list(action_name)
 
 		for evt in current_events:
@@ -81,7 +137,3 @@ func _exit_tree():
 	label = null
 	button = null
 	key_name = ""
-
-func _notification(what):
-	if what == NOTIFICATION_EXIT_TREE:
-		_exit_tree()

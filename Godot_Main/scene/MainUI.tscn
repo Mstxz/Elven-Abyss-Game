@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://script/ManaBar.py" type="Script" id=1]
 [ext_resource path="res://script/DebugScript/TakeDamageButton.py" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/UI/WaterSkill1.png" type="Texture" id=13]
 [ext_resource path="res://script/SkillCdUI.py" type="Script" id=14]
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=15]
+[ext_resource path="res://script/RichTextLabel.py" type="Script" id=16]
 [ext_resource path="res://script/MoneyUI.py" type="Script" id=17]
 [ext_resource path="res://script/LevelUI.py" type="Script" id=18]
 [ext_resource path="res://script/DebugScript/Get50Exp.py" type="Script" id=19]
@@ -24,6 +25,7 @@
 [ext_resource path="res://script/ChangeScene.py" type="Script" id=23]
 [ext_resource path="res://script/DebugScript/ChangeWeapon.py" type="Script" id=24]
 [ext_resource path="res://script/DebugScript/ChangeElement.py" type="Script" id=25]
+[ext_resource path="res://script/RichTextLabel2.py" type="Script" id=26]
 
 [sub_resource type="ViewportTexture" id=6]
 viewport_path = NodePath("Viewport")
@@ -149,6 +151,7 @@ margin_bottom = 34.0
 theme = ExtResource( 15 )
 text = "R"
 scroll_active = false
+script = ExtResource( 16 )
 
 [node name="Skill1Cd" type="TextureProgress" parent="."]
 self_modulate = Color( 1, 1, 1, 0.784314 )
@@ -170,7 +173,7 @@ tint_progress = Color( 1, 1, 1, 0.784314 )
 nine_patch_stretch = true
 script = ExtResource( 14 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Skill1Cd"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Skill1Cd"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -183,6 +186,7 @@ rect_scale = Vector2( 0.8, 0.8 )
 theme = ExtResource( 15 )
 text = "E"
 scroll_active = false
+script = ExtResource( 26 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_top = 1.0

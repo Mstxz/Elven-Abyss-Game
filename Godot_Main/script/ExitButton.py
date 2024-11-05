@@ -9,8 +9,8 @@ class ExitButton(Button):
 		self.connect("pressed", self, "_on_button_pressed")  # Use underscore prefix
 		
 	def _on_button_pressed(self):  # Rename method with underscore prefix
-		option = self.get_tree().get_root().get_node("/root/Node2D/CanvasLayer/OptionMenu")
-		menu = self.get_tree().get_root().get_node("/root/Node2D/CanvasLayer/Menu")
+		option = self.get_node("../../../../OptionMenu")
+		menu = self.get_node("../../../../Menu")
 		option.hide()
 		menu.show()
 		SettingSignal = self.get_tree().get_root().get_node("/root/SettingSignal")

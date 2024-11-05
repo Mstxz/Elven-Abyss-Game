@@ -7,7 +7,7 @@ class ResumeButton(Button):
 
 
 	def _ready(self):
-		self.gameSys = self.get_parent().get_parent().get_parent()
+		self.gameSys = self.get_parent().get_parent().get_parent().get_parent()
 		self.connect("pressed", self, "on_button_pressed")
 		pass
 

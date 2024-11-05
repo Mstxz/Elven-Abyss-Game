@@ -11,7 +11,6 @@ elemdict = {
 @exposed
 class SkillCd(TextureProgress):
 
-
 	def tweenvalue(self,prop,start,end,time):
 		#basically automatically change value multiple time to make the illusion of animation
 		tween = Tween.new()

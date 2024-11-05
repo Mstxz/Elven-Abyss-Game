@@ -9,11 +9,11 @@ class QuittoMenu(Button):
 
 	def _ready(self):
 		self.connect("pressed", self, "on_button_pressed")
-		self.loading = self.get_node("../../../Loading")
-		self.main = self.get_node("../../..")
+		self.main = self.get_node("../../../..")
 		pass
 		
 	def on_button_pressed(self): #as the event says
+		self.loading = self.get_node("../../../../Loading")
 		self.loading.leave()
 		self.main.pausesys()
 		self.loading.animation.connect("animation_finished", self, "on_animation_finishedd")
