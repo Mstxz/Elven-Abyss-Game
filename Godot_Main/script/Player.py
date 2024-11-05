@@ -19,6 +19,12 @@ weapondict = {
 	'Gun' : 5
 }
 
+elemcolordict = {
+	'Water' : Color(0,0.45,1,0.8),
+	'Fire' : Color(1,0.5,0,0.8),
+	'Wind' : Color(0,0.76,0.6,0.8),
+	'Earth' : Color(0.75,0.54,0,0.8)
+}
 
 @exposed
 class Player(KinematicBody2D):
@@ -50,7 +56,10 @@ class Player(KinematicBody2D):
 	mousepos = Vector2()
 	
 	def _ready(self):
-		
+		"""
+		Called every time the node is added to the scene.
+		Initialization here.
+		"""
 		self.PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
 		
 		self.getvar()
@@ -73,6 +82,7 @@ class Player(KinematicBody2D):
 		self.level_up()
 		
 	def _process(self, delta):
+		"""Called every rendering process"""
 		self.updatevar()
 		if self.main.pause:
 			return
@@ -83,7 +93,7 @@ class Player(KinematicBody2D):
 			self.skill2()
 	
 	def wait(self,time,funcname,para=Array()):
-		'''see example in shoot()'''
+		'''connect to a function after delays'''
 		timer = Timer.new()
 		timer.one_shot = True
 		self.add_child(timer)
@@ -119,11 +129,11 @@ class Player(KinematicBody2D):
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
 		profileui = self.get_node("../MainUI/Viewport/AnimatedSprite")
 		profileui.play('Idle'+self.animationid)
-
+	
 	def shoot(self,part=0):
 		'''player shoots projectile toward cursor'''
-		if not part:
-			if Input.is_action_just_pressed('left_click'):
+		if str(self.weapon) == 'Stick':
+			if not part and Input.is_action_just_pressed('left_click'):
 				# if the player click
 				if not self.acting:
 					#acting is as it name suggest to prevent spam and
@@ -136,24 +146,65 @@ class Player(KinematicBody2D):
 					else:
 						self.sprite.flip_h = False
 					self.wait(0.3,'shoot',[part+1])
-		elif part == 1:
-			# 'projectile' is loaded scene sees at the start of this script
-			bullet = projectile.instance()
-			#get direction from mousepos turn it into proper angle value
-			direction = (self.position - self.mousepos).angle()
-			#set projectile property
-			bullet.direction = direction
-			bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
-			bullet.spawnrot = direction
-			bullet.speed = 50
-			bullet.duration = 6
-			#add it
-			self.main.add_child(bullet)
-			
-			#set self.acting back to False after the set time
-			
-			self.wait(0.25,'cooldown',[None,True])
-			self.sprite.connect("animation_finished",self,"cooldown")
+			elif part == 1:
+				# 'projectile' is loaded scene sees at the start of this script
+				bullet = projectile.instance()
+				#get direction from mousepos turn it into proper angle value
+				direction = (self.position - self.mousepos).angle()
+				#set projectile property
+				bullet.direction = direction
+				bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
+				bullet.spawnrot = direction
+				bullet.speed = 50
+				bullet.duration = 6
+				#add it
+				self.main.add_child(bullet)
+				#set self.acting back to False after the set time
+				self.wait(0.25,'cooldown',[None,True])
+				self.sprite.connect("animation_finished",self,"cooldown")
+		if str(self.weapon) == 'Staff':
+			if not part and Input.is_action_just_pressed('left_click'):
+				# if the player click
+				if not self.acting:
+					#acting is as it name suggest to prevent spam and
+					#keep the animation running
+					self.acting = True
+					self.sprite.play('Shoot' + self.animationid)
+					self.mousepos = self.get_global_mouse_position()#get mouse pos
+					if self.mousepos.x > self.position.x:
+						self.sprite.flip_h = True
+					else:
+						self.sprite.flip_h = False
+					self.wait(0.3,'shoot',[part+1])
+			elif part == 1:
+				# 'projectile' is loaded scene sees at the start of this script
+				bulletoffset = [
+					Vector2(0,-50),
+					Vector2(35,-20),
+					Vector2(-35,-20),
+					Vector2(25,30),
+					Vector2(-25,30)
+				]
+				for i in range(5):
+					bullet = projectile.instance()
+					#get direction from mousepos turn it into proper angle value
+					direction = ((self.position + bulletoffset[i]) - self.mousepos).angle()
+					#set projectile property
+					bullet.direction = direction
+					bullet.spawnpos = self.position + bulletoffset[i]
+					bullet.spawnrot = direction
+					bullet.speed = 150
+					bullet.duration = 6
+					bullet.spin_speed = 20
+					bullet.knockback = 10
+					bullet.modulate = elemcolordict[str(self.element)]
+					bullet.get_node("Light2D").color = elemcolordict[str(self.element)]
+					#add it
+					self.main.add_child(bullet)
+				#set self.acting back to False after the set time
+				self.wait(0.35,'cooldown',[None,True])
+				self.sprite.connect("animation_finished",self,"cooldown")
+		
 		
 	def move(self, delta):
 		"""Movement System"""
