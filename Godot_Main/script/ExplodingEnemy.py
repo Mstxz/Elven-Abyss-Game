@@ -141,11 +141,14 @@ class ExplodingEnemy(KinematicBody2D):
 	def attack(self,part=0):
 		'''attack function'''
 		if not part:
-			#put play animation here
+			self.sprite.play("Attack")
 			self.acting = True
-			self.wait(2,'attack',[part+1])
+			self.sprite.connect("animation_finished",self,"attack",Array([part+1]))
+			self.get_node("AnimationPlayer").play('ExplodeLight')
+			self.get_node("AnimationPlayer").connect("animation_finished",self,"death")
 		elif part == 1:
 			allbodies = self.get_node("Hitbox").get_overlapping_bodies()
+			self.sprite.queue_free()
 			for i in allbodies:
 				if str(i.name) == "Player": #prevent recognizing other kinematic2d
 					direction = self.player.position - self.position
@@ -153,13 +156,12 @@ class ExplodingEnemy(KinematicBody2D):
 					dmg = self.atk
 					self.hitbox.scale = Vector2(0,0)
 					self.player.take_damage(self.atk,knockback)
-			self.death()
 		
 	def hp_changed_func(self):
 		'''update the health'''
 		self.healthbar.updatehealth(self.maxhp,self.hp) 
 	
-	def death(self):
+	def death(self,param=None):
 		'''deletes itself'''
 		
 		self.player = self.get_node("../Player")

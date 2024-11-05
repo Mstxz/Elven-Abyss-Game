@@ -4,7 +4,6 @@
 [ext_resource path="res://assets/Sprite/Energyball.png" type="Texture" id=2]
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=3]
 
-
 [sub_resource type="CircleShape2D" id=2]
 radius = 13.0
 
@@ -12,27 +11,22 @@ radius = 13.0
 radius = 11.0454
 
 [sub_resource type="AtlasTexture" id=16]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=18]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=19]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=20]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 256, 0, 64, 64 )
 
@@ -49,26 +43,26 @@ interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.463602, 0.996169, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.784314, 0.984863, 0.973081, 0.877144, 0.507953, 1, 0.753589, 0.101563, 0.0934126, 1, 0.92767, 0.738281, 0 )
 
-[sub_resource type="GradientTexture" id=10]
+[sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 9 )
 
 [sub_resource type="Curve" id=11]
 _data = [ Vector2( 0, 0.606818 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0102272 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=12]
+[sub_resource type="CurveTexture" id=22]
 curve = SubResource( 11 )
 
 [sub_resource type="Curve" id=13]
 max_value = 7.0
 _data = [ Vector2( 0, 5.48068 ), 0.0, 0.223109, 0, 0, Vector2( 1, 0 ), -3.40968, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
+[sub_resource type="CurveTexture" id=23]
 curve = SubResource( 13 )
 
 [sub_resource type="ParticlesMaterial" id=15]
 lifetime_randomness = 0.12
 trail_divisor = 2
-trail_size_modifier = SubResource( 14 )
+trail_size_modifier = SubResource( 23 )
 emission_shape = 1
 emission_sphere_radius = 10.14
 flag_disable_z = true
@@ -80,8 +74,8 @@ orbit_velocity_random = 0.0
 angle = 65.5
 angle_random = 0.93
 scale_random = 0.1
-scale_curve = SubResource( 12 )
-color_ramp = SubResource( 10 )
+scale_curve = SubResource( 22 )
+color_ramp = SubResource( 21 )
 
 [node name="EnergyBall" type="KinematicBody2D"]
 collision_layer = 0
