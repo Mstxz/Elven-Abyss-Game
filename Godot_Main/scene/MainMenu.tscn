@@ -103,3 +103,4 @@ visible = false
 stream = ExtResource( 6 )
 volume_db = -14.0
 autoplay = true
+bus = "Music"

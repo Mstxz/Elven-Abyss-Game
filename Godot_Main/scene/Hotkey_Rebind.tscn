@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/UI/UI_BG1.png" type="Texture" id=4]
 [ext_resource path="res://assets/Font/PlayfairDisplay-VariableFont_wght.ttf" type="DynamicFontData" id=5]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 40
 use_mipmaps = true
