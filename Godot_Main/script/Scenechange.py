@@ -20,10 +20,10 @@ class Scenechange(Node):
 	def change_scene(self, scene: PackedScene):
 		"""Change scene system"""
 		# Delete current scene
-		canva = self.find_first_child_of_class(self.get_parent().get_child(2), CanvasModulate)
+		canva = self.find_first_child_of_class(self.get_parent().get_child(5), CanvasModulate)
 		if canva:
-			self.get_parent().get_child(2).remove_child(canva)
-		self.get_parent().get_child(2).queue_free()
+			self.get_parent().get_child(5).remove_child(canva)
+		self.get_parent().get_child(5).queue_free()
 		# Instance the new scene and add it to the current scene tree
 		self.current_scene = scene.instance()
 		self.get_tree().root.call_deferred("add_child", self.current_scene)

@@ -19,6 +19,9 @@ config/icon="res://icon.png"
 
 Scenechange="*res://script/Scenechange.py"
 PlayerVar="*res://script/PlayerVar.py"
+SettingSignal="*res://script/SettingSignal.gd"
+SettingData="*res://script/SettingData.gd"
+SaveManager="*res://script/SaveManager.gd"
 
 [display]
 

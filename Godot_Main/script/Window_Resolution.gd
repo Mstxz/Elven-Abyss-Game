@@ -16,9 +16,16 @@ func _ready():
 	for i in Resolution_Dictionary: #add button
 		button.add_item(i)
 	button.connect("item_selected", self, "_on_resolution_selected")
+	load_data()
+
+func load_data() -> void:
+	#load Resolution form save file
+	_on_resolution_selected(SettingData.get_window_res_index())
+	button.select(SettingData.get_window_res_index())
 
 func _on_resolution_selected(index: int) -> void:
 	# Turn index to dict key
+	SettingSignal.select_window_res(index)
 	var selected_resolution = button.get_item_text(index)
 	# Get resolution
 	var resolution: Vector2 = Resolution_Dictionary[selected_resolution]
