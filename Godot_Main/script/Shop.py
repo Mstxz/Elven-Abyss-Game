@@ -9,8 +9,8 @@ class Shop(Area2D):
 
 	# Initialize the variable to hold the shop UI scene
 	shop_ui_scene = ResourceLoader.load("res://scene/ShopUI.tscn")  
-	shop_ui_instance = None  # Keep a reference to the instantiated UI
-
+	shop_ui_instance = None 
+	
 	def _ready(self):
 		# Connect signals
 		self.connect("body_entered", self, "_on_Area2D_body_entered")

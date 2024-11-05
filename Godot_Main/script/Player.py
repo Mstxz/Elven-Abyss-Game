@@ -352,9 +352,10 @@ class Player(KinematicBody2D):
 		
 	def money_modify(self,amount):
 		if self.money + amount < 0:
-			return
+			return False
 		self.money += amount
 		self.moneyui.updateui(self.money)
+		return True
 		
 	def level_up(self):
 		while True:
