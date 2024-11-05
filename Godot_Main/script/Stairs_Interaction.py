@@ -12,7 +12,7 @@ class InteractableArea(Area2D):
 		("res://scene/Shop.tscn", "Shop"),
 		("res://scene/Stage_Boss.tscn","Boss")
 	]
-	player_in_area = False
+	player = None
 	
 	enemy_count = 0
 	
@@ -26,19 +26,21 @@ class InteractableArea(Area2D):
 		# Check if the player has entered
 		if str(body.name) == "Player":
 			#print("Player Entered")
-			self.player_in_area = True
+			self.player = body
 
 	def _on_Area2D_body_exited(self, body):
 		#print("Exit:",body.name)
 		# Check if the player has exited
 		if str(body.name) == "Player":
 			#print("Player Exited")
-			self.player_in_area = False
+			self.player = None
 
 	def _process(self, delta):		# Check if the player is in area and 'F' key is pressed
-		if self.player_in_area == True and Input.is_action_just_pressed("Interact"):
+		if self.player and Input.is_action_just_pressed("Interact"):
 			self.loading = self.get_node("/root").get_child(5).get_node("Loading")
 			self.loading.leave()
+			self.player.freeze = True
+			self.player.updateplayer()
 			self.loading.animation.connect("animation_finished", self, "on_animation_finished")
 
 	def on_animation_finished(self, anim_name):

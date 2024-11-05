@@ -2,7 +2,9 @@ from godot import *
 
 #Load Scene here
 projectile = ResourceLoader.load("res://scene/EnergyBall.tscn")
+arrow = ResourceLoader.load("res://scene/Arrow.tscn")
 gameover = ResourceLoader.load("res://scene/GameOver.tscn")
+
 elemdict = {
 	'Water' : 0,
 	'Fire' : 1,
@@ -49,7 +51,9 @@ class Player(KinematicBody2D):
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
 	invincible = export(bool, default=False)
-	died = export(bool, default=False)
+	freeze = export(bool, default=False)
+	
+	
 	lockposition = False
 	skill0activate = False
 	velocity = Vector2()
@@ -85,7 +89,7 @@ class Player(KinematicBody2D):
 	def _process(self, delta):
 		"""Called every rendering process"""
 		self.updatevar()
-		if self.main.pause or self.died:
+		if self.main.pause or self.freeze:
 			return
 		self.move(delta)
 		if not self.acting and not self.get_tree().is_input_handled():
@@ -130,23 +134,23 @@ class Player(KinematicBody2D):
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
 		profileui = self.get_node("../MainUI/Viewport/AnimatedSprite")
 		profileui.play('Idle'+self.animationid)
+		self.sprite = self.get_node('AnimatedSprite')
+		self.sprite.play('Idle'+self.animationid)
 	
 	def shoot(self,part=0):
 		'''player shoots projectile toward cursor'''
 		if str(self.weapon) == 'Stick':
-			if not part and Input.is_action_just_pressed('left_click'):
+			if not part and Input.is_action_just_pressed('left_click') and not self.acting:
 				# if the player click
-				if not self.acting:
-					#acting is as it name suggest to prevent spam and
-					#keep the animation running
-					self.acting = True
-					self.sprite.play('Shoot' + self.animationid)
-					self.mousepos = self.get_global_mouse_position()#get mouse pos
-					if self.mousepos.x > self.position.x:
-						self.sprite.flip_h = True
-					else:
-						self.sprite.flip_h = False
-					self.wait(0.3,'shoot',[part+1])
+				#acting is as it name suggest to prevent spam
+				self.acting = True
+				self.sprite.play('Shoot' + self.animationid)
+				self.mousepos = self.get_global_mouse_position()#get mouse pos
+				if self.mousepos.x > self.position.x:
+					self.sprite.flip_h = True
+				else:
+					self.sprite.flip_h = False
+				self.wait(0.3,'shoot',[part+1])
 			elif part == 1:
 				# 'projectile' is loaded scene sees at the start of this script
 				bullet = projectile.instance()
@@ -156,6 +160,7 @@ class Player(KinematicBody2D):
 				bullet.direction = direction
 				bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
 				bullet.spawnrot = direction
+				bullet.damage = self.atk
 				bullet.speed = 50
 				bullet.duration = 6
 				#add it
@@ -163,7 +168,7 @@ class Player(KinematicBody2D):
 				#set self.acting back to False after the set time
 				self.wait(0.25,'cooldown',[None,True])
 				self.sprite.connect("animation_finished",self,"cooldown")
-		if str(self.weapon) == 'Staff':
+		elif str(self.weapon) == 'Staff':
 			if not part and Input.is_action_just_pressed('left_click'):
 				# if the player click
 				if not self.acting:
@@ -196,6 +201,7 @@ class Player(KinematicBody2D):
 					bullet.spawnrot = direction
 					bullet.speed = 150
 					bullet.duration = 6
+					bullet.damage = self.atk*0.9
 					bullet.spin_speed = 20
 					bullet.knockback = 10
 					bullet.modulate = elemcolordict[str(self.element)]
@@ -205,7 +211,32 @@ class Player(KinematicBody2D):
 				#set self.acting back to False after the set time
 				self.wait(0.35,'cooldown',[None,True])
 				self.sprite.connect("animation_finished",self,"cooldown")
-		
+		elif str(self.weapon) == 'Crossbow':
+			if not part and Input.is_action_just_pressed('left_click') and not self.acting:
+				# if the player click
+				#acting is as it name suggest to prevent spam
+				self.acting = True
+				self.sprite.play('Shoot' + self.animationid)
+				self.mousepos = self.get_global_mouse_position()#get mouse pos
+				if self.mousepos.x > self.position.x:
+					self.sprite.flip_h = True
+				else:
+					self.sprite.flip_h = False
+				bullet = arrow.instance()
+				#get direction from mousepos turn it into proper angle value
+				direction = (self.position - self.mousepos).angle()
+				#set projectile property
+				bullet.direction = direction
+				bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
+				bullet.spawnrot = direction
+				bullet.damage = self.atk
+				bullet.target = 'Enemy'
+				bullet.duration = 6
+				#add it
+				self.main.add_child(bullet)
+				#set self.acting back to False after the set time
+				self.wait(0.25,'cooldown',[None,True])
+				self.sprite.connect("animation_finished",self,"cooldown")
 		
 	def move(self, delta):
 		"""Movement System"""
@@ -341,7 +372,7 @@ class Player(KinematicBody2D):
 	
 	def death(self):
 		'''handle player when die'''
-		self.died = True
+		self.freeze = True
 		overui = gameover.instance()
 		self.main.add_child(overui)
 		overui.get_node("AnimationPlayer").play('GameOver')

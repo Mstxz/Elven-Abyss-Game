@@ -22,7 +22,7 @@ shape = SubResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -1.33333, 0 )
 frames = ExtResource( 1 )
-animation = "Walk04"
+animation = "Shoot04"
 playing = true
 
 [node name="Sfx" type="Node2D" parent="."]

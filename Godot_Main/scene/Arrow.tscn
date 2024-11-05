@@ -32,7 +32,6 @@ frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -9.93411e-07, -1.32455e-06 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 5 )
 disabled = true
 
@@ -42,7 +41,6 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 3.31137e-07, 1.98682e-06 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]

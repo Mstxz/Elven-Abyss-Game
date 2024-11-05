@@ -15,6 +15,7 @@ class ExplodingEnemy(KinematicBody2D):
 	gold = export(float, default=10.0)
 	acting = export(bool, default=False)
 	randomwalking = export(bool, default=True)
+	died = export(bool, default=False)
 	randomwalkdelaysent = False
 	randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100)) #random direction
 	player = None #use to store player object
@@ -30,6 +31,8 @@ class ExplodingEnemy(KinematicBody2D):
 	
 	def _process(self, delta):
 		'''runs every frame'''
+		if self.died:
+			return
 		self.movement() #check movement every frames
 		if not self.acting and self.player:
 			distance = self.player.position.distance_to(self.position)
@@ -141,6 +144,7 @@ class ExplodingEnemy(KinematicBody2D):
 	def attack(self,part=0):
 		'''attack function'''
 		if not part:
+			self.died = True
 			self.sprite.play("Attack")
 			self.acting = True
 			self.sprite.connect("animation_finished",self,"attack",Array([part+1]))
@@ -149,6 +153,7 @@ class ExplodingEnemy(KinematicBody2D):
 		elif part == 1:
 			allbodies = self.get_node("Hitbox").get_overlapping_bodies()
 			self.sprite.queue_free()
+			self.get_node("VirtualHealthBar").queue_free()
 			for i in allbodies:
 				if str(i.name) == "Player": #prevent recognizing other kinematic2d
 					direction = self.player.position - self.position
@@ -163,7 +168,6 @@ class ExplodingEnemy(KinematicBody2D):
 	
 	def death(self,param=None):
 		'''deletes itself'''
-		
 		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
