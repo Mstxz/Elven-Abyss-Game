@@ -32,7 +32,7 @@ class Shop(Area2D):
 
 	def _process(self, delta):
 		# Check if the player is in area and 'F' key is pressed
-		if self.player_in_area and Input.is_action_just_pressed("Interact"):
+		if Input.is_action_just_pressed("Interact"):
 			self.toggle_shop_ui()
 
 	def toggle_shop_ui(self):
@@ -41,12 +41,12 @@ class Shop(Area2D):
 			if self.shop_ui_instance is not None:
 				self.shop_ui_instance.queue_free()  # Remove it from the scene
 				self.shop_ui_instance = None  # Reset the reference
-				print("Shop Closed")
 			self.shop_open = False
-		else:
+			self.get_node("/root").get_child(5).get_node('MainUI').show()
+		elif self.player_in_area and not self.shop_open:
 			# If the shop UI is not open, open it
 			if self.shop_ui_scene is not None:
 				self.shop_ui_instance = self.shop_ui_scene.instance()
 				self.get_node("../../").add_child(self.shop_ui_instance)  # Add to the current scene
-				print("Shop Opened")
 			self.shop_open = True
+			self.get_node("/root").get_child(5).get_node('MainUI').hide()

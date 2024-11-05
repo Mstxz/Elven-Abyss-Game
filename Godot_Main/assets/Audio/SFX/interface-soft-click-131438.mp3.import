@@ -11,5 +11,5 @@ dest_files=[ "res://.import/interface-soft-click-131438.mp3-ed2f0b51a3a0830cd2be
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -7,6 +7,7 @@ class PlayButton(Button):
 
 	def _ready(self):
 		self.connect("pressed", self, "on_button_pressed")
+		self.connect("mouse_entered", self, "on_mouse_entered")
 		self.loading = self.get_node("../../../Loading")
 		pass
 		
@@ -19,3 +20,6 @@ class PlayButton(Button):
 		Scenechange.scene = "res://scene/Lobby.tscn"
 		Scenechange.new_scene = "Lobby"
 		Scenechange.load_game()
+		
+	def on_mouse_entered(self):
+		self.get_node("HoverSfx").play()

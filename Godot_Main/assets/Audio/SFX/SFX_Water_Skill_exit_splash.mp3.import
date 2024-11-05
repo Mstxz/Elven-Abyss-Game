@@ -11,5 +11,5 @@ dest_files=[ "res://.import/SFX_Water_Skill_exit_splash.mp3-8a4b838dfbb5d6ef6e99
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

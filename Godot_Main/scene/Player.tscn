@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/godot_asset/PlayerSprite.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/Player.py" type="Script" id=2]
+[ext_resource path="res://assets/Audio/SFX/SFX_Water_Skill_exit_splash.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/Audio/SFX/SFX_water_Skill_enter.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/Audio/SFX/SFX_Water_Skill_current.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/Audio/SFX/SFX_Game_Lost.mp3" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18.5, 26.7708 )
@@ -20,3 +24,22 @@ position = Vector2( -1.33333, 0 )
 frames = ExtResource( 1 )
 animation = "Walk04"
 playing = true
+
+[node name="Sfx" type="Node2D" parent="."]
+
+[node name="Skill1Water_Enter" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = ExtResource( 4 )
+bus = "Sfx"
+
+[node name="GameOverSfx" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = ExtResource( 6 )
+bus = "Sfx"
+
+[node name="Skill1Water_Walk" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = ExtResource( 5 )
+volume_db = 3.023
+bus = "Sfx"
+
+[node name="Skill1Water_Exit" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = ExtResource( 3 )
+bus = "Sfx"

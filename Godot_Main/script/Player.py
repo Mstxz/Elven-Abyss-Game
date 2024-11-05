@@ -240,6 +240,9 @@ class Player(KinematicBody2D):
 				self.sprite.frame = frame
 			elif self.skill0activate:
 				animation = 'Skill0Walk'
+				sfx = self.get_node('Sfx').get_node('Skill1Water_Walk')
+				if sfx.playing == False:
+					sfx.play()
 				flip()
 			if animation:
 				self.sprite.play(animation)
@@ -249,6 +252,7 @@ class Player(KinematicBody2D):
 				animation = 'Idle' + self.animationid
 			elif self.skill0activate:
 				animation = 'Skill0Idle'
+				self.stopsfx('Skill1Water_Walk')
 			elif 'Shoot' in currentanim and 'Walk' in currentanim:
 				frame = self.sprite.frame
 				animation = 'Shoot'+ self.animationid
@@ -260,6 +264,14 @@ class Player(KinematicBody2D):
 			self.velocity.y = 0  # Stop moving when there's no input
 		self.velocity = self.move_and_slide(self.velocity)
 	
+	def playsfx(self,sfxname):
+		sfx = self.get_node('Sfx').get_node(sfxname)
+		sfx.play()
+	
+	def stopsfx(self,sfxname):
+		sfx = self.get_node('Sfx').get_node(sfxname)
+		sfx.stop()
+	
 	def skill1(self,part=0):
 		if str(self.element) == 'Water':
 			cdtime = 10
@@ -267,6 +279,7 @@ class Player(KinematicBody2D):
 				self.lockposition = True
 				self.skill1cd = True
 				self.acting = True
+				self.wait(0.5,'playsfx',['Skill1Water_Enter'])
 				self.sprite.play('Skill'+ self.animationid)
 				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
 				self.uicd1.activating(self.element)
@@ -284,6 +297,8 @@ class Player(KinematicBody2D):
 				self.sprite.play('Skill'+ self.animationid + 'Cancel')
 				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
 			elif part == 3:
+				self.playsfx('Skill1Water_Exit')
+				self.stopsfx('Skill1Water_Walk')
 				self.sprite.disconnect("animation_finished",self,"skill1")
 				self.acting = False
 				self.lockposition = False
@@ -330,6 +345,7 @@ class Player(KinematicBody2D):
 		overui = gameover.instance()
 		self.main.add_child(overui)
 		overui.get_node("AnimationPlayer").play('GameOver')
+		self.playsfx('GameOverSfx')
 		
 	def heal(self, amount):
 		amount = min(self.maxhp-self.hp,amount)

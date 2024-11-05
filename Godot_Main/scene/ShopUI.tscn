@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=2]
@@ -7,11 +7,12 @@
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/bow_01a.png" type="Texture" id=5]
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/potion_03a.png" type="Texture" id=6]
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/staff_03a.png" type="Texture" id=7]
+[ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=8]
 [ext_resource path="res://script/ShopSystem.py" type="Script" id=9]
 [ext_resource path="res://assets/godot_asset/Shop_UI.tres" type="Theme" id=10]
 
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.0509804, 0.0509804, 0.0627451, 0.670588 )
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -28,7 +29,7 @@ size = 32
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0, 0, 0, 1 )
+bg_color = Color( 0, 0, 0, 0 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -43,21 +44,31 @@ font_data = ExtResource( 1 )
 [node name="BG" type="Node" parent="."]
 
 [node name="BG_Background" type="Panel" parent="BG"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 86.0
-margin_top = 69.0
+margin_top = 85.0
 margin_right = -98.0
-margin_bottom = -61.0
+margin_bottom = -45.0
+theme = ExtResource( 8 )
+
+[node name="BG_Background2" type="Panel" parent="BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 86.0
+margin_top = 85.0
+margin_right = -98.0
+margin_bottom = -45.0
 custom_styles/panel = SubResource( 7 )
 
 [node name="ShopTitle" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -208.0
-margin_top = 72.0
+margin_top = 88.0
 margin_right = 207.0
-margin_bottom = 187.0
+margin_bottom = 168.0
 custom_fonts/font = ExtResource( 4 )
 text = "Shop"
 align = 1
@@ -66,10 +77,10 @@ valign = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 98.0
-margin_top = -91.0
-margin_right = 480.0
-margin_bottom = 97.0
+margin_left = 128.0
+margin_top = -107.0
+margin_right = 510.0
+margin_bottom = 81.0
 script = ExtResource( 9 )
 
 [node name="HealthPotion" type="Button" parent="VBoxContainer"]
@@ -112,15 +123,14 @@ custom_fonts/font = SubResource( 3 )
 text = "[F] Exit"
 
 [node name="ItemDesc" type="Panel" parent="."]
-anchor_left = 0.605903
-anchor_top = 0.219136
-anchor_right = 0.887153
-anchor_bottom = 0.859568
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -436.0
+margin_top = 176.0
+margin_right = -143.0
+margin_bottom = 562.0
 theme = ExtResource( 10 )
 custom_styles/panel = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="Buy" type="Button" parent="ItemDesc"]
 anchor_top = 1.0
@@ -140,9 +150,6 @@ anchor_right = 0.188271
 anchor_bottom = 0.807229
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="ItemName" type="Label" parent="ItemDesc"]
 anchor_left = 0.20679
@@ -154,9 +161,6 @@ custom_fonts/font = SubResource( 6 )
 text = "[Item Name]"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="Prize" type="Label" parent="ItemDesc"]
 anchor_left = 0.225308
@@ -166,6 +170,3 @@ anchor_bottom = 0.812048
 theme = SubResource( 2 )
 custom_fonts/font = SubResource( 3 )
 text = "[Price]"
-__meta__ = {
-"_edit_use_anchors_": true
-}
