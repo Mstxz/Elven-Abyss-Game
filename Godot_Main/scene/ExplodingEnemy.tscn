@@ -10,177 +10,142 @@
 extents = Vector2( 10.75, 12.1735 )
 
 [sub_resource type="AtlasTexture" id=51]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 270, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=52]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 360, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=53]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 450, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=54]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 540, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=55]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 630, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=56]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=57]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 90, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=58]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 180, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=59]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 270, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=60]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 360, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=61]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 450, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=62]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 540, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=63]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 630, 270, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=64]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 360, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=65]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 90, 360, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=66]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 180, 360, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=67]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 270, 360, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=68]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=69]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 90, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=70]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 180, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=71]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 270, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=72]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 360, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=73]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 450, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=74]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 540, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=75]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 630, 0, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=76]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=77]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 90, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=78]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 180, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=79]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 270, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=80]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 360, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=81]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 450, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=82]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 540, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=83]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 630, 90, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=84]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 180, 90, 90 )
 
 [sub_resource type="AtlasTexture" id=85]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 90, 180, 90, 90 )
 

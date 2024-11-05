@@ -2,7 +2,7 @@ from godot import *
 
 #Load Scene here
 projectile = ResourceLoader.load("res://scene/EnergyBall.tscn")
-
+gameover = ResourceLoader.load("res://scene/GameOver.tscn")
 elemdict = {
 	'Water' : 0,
 	'Fire' : 1,
@@ -49,6 +49,7 @@ class Player(KinematicBody2D):
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
 	invincible = export(bool, default=False)
+	died = export(bool, default=False)
 	lockposition = False
 	skill0activate = False
 	velocity = Vector2()
@@ -84,7 +85,7 @@ class Player(KinematicBody2D):
 	def _process(self, delta):
 		"""Called every rendering process"""
 		self.updatevar()
-		if self.main.pause:
+		if self.main.pause or self.died:
 			return
 		self.move(delta)
 		if not self.acting and not self.get_tree().is_input_handled():
@@ -320,6 +321,15 @@ class Player(KinematicBody2D):
 		if dmg: #handle dmg
 			self.hp -= dmg
 			self.hp_changed_func()
+		if self.hp <= 0:
+			self.death()
+	
+	def death(self):
+		'''handle player when die'''
+		self.died = True
+		overui = gameover.instance()
+		self.main.add_child(overui)
+		overui.get_node("AnimationPlayer").play('GameOver')
 		
 	def heal(self, amount):
 		amount = min(self.maxhp-self.hp,amount)
