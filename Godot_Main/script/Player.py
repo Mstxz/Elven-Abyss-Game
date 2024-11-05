@@ -251,7 +251,7 @@ class Player(KinematicBody2D):
 			elif 'Shoot' in currentanim and 'Walk' in currentanim:
 				frame = self.sprite.frame
 				animation = 'Shoot'+ self.animationid
-				self.sprite.play(animation)
+				self.sprite.play(animation) #play early to reset frame
 				self.sprite.frame = frame
 			if animation:
 				self.sprite.play(animation)

@@ -1,32 +1,39 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/PointLight.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprite/Arrow.png" type="Texture" id=1]
 [ext_resource path="res://script/Arrow.py" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 12 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 32.0156
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 61.1111, 22.2222 )
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 38.8889
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 61.1111, 22.2222 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 0.18, 0.18 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.175, 0.175 )
+position = Vector2( 7.62939e-06, 5.96046e-08 )
+scale = Vector2( 3.8, 3.7037 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+position = Vector2( -9.93411e-07, -1.32455e-06 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -34,7 +41,9 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 3 )
+position = Vector2( 3.31137e-07, 1.98682e-06 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 

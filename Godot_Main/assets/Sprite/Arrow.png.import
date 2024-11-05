@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skeleton_walk_pickArrow.PNG-b0e26931df45126e71c91c972e032305.stex"
+path="res://.import/Arrow.png-e2544f974cacb46287eb573de2829c24.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite/skeleton_walk_pickArrow.PNG"
-dest_files=[ "res://.import/skeleton_walk_pickArrow.PNG-b0e26931df45126e71c91c972e032305.stex" ]
+source_file="res://assets/Sprite/Arrow.png"
+dest_files=[ "res://.import/Arrow.png-e2544f974cacb46287eb573de2829c24.stex" ]
 
 [params]
 

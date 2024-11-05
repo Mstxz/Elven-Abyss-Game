@@ -49,7 +49,6 @@ class Range_Enemy(KinematicBody2D):
 			if not self.player:
 				# Move the enemy using move_and_slide for proper physics handling
 				self.move_and_slide(self.velocity)
-		
 		if self.player: #when there is player in sight
 			distance = self.player.position.distance_to(self.position)
 			
@@ -74,21 +73,44 @@ class Range_Enemy(KinematicBody2D):
 				new_y = self.player.position.y + radius * math.sin(angle_to_player)
 
 				direction = Vector2(new_x - self.position.x, new_y - self.position.y)
-
-			self.flip(direction)
-
+			
+			# Animation
+			animation = ''
+			currentanim = str(self.sprite.animation)
+			
+			if abs(direction.x) + abs(direction.y) > 0.5:
+				if not self.acting:
+					animation = 'Walk'
+					self.sprite.play(animation)
+				elif 'Shoot' in currentanim and not 'Walk' in currentanim:
+					frame = self.sprite.frame
+					animation = 'ShootWalk'
+					self.sprite.play(animation) #play early to reset frame
+					self.sprite.frame = frame #continue from last frame
+				self.flip(direction)
+			else:
+				if not self.acting:
+					animation = 'Idle'
+					self.sprite.play(animation)
+				elif 'Shoot' in currentanim and 'Walk' in currentanim:
+					frame = self.sprite.frame
+					animation = 'Shoot'
+					self.sprite.play(animation) #play early to reset frame
+					self.sprite.frame = frame #continue from last frame
+				
 			# Normalize direction
 			direction = direction.normalized()
-
 			# If the knockbacked are not reduced enough do not move
 			# or else it would set the velocity thus ends the knockback
 			if abs(self.knockbacked.x) + abs(self.knockbacked.y) < 5:
 				#walking
 				self.velocity = direction * self.speed
 				self.knockbacked *= 0
-
-		elif not self.acting and not self.player:
-			direction = self.randomwalk()
+			elif not self.acting and not self.player:
+				direction = self.randomwalk()
+				self.velocity = direction * self.speed
+			
+		
 		# Move the enemy using move_and_slide for proper physics handling
 		self.move_and_slide(self.velocity)
 	
@@ -120,12 +142,18 @@ class Range_Enemy(KinematicBody2D):
 		
 		return direction
 	
-	def flip(self, direction):
+	def flip(self, direction=Vector2(0,0)):
 		"""flip sprite"""
-		if direction.x < 0: #flip sprite depending on what direction its running to
-			self.sprite.flip_h = False
+		if not self.player:
+			if direction.x < 0: #flip sprite depending on what direction its running to
+				self.sprite.flip_h = False
+			else:
+				self.sprite.flip_h = True
 		else:
-			self.sprite.flip_h = True
+			if self.position.x > self.player.position.x:
+				self.sprite.flip_h = False
+			else:
+				self.sprite.flip_h = True
 
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -143,23 +171,25 @@ class Range_Enemy(KinematicBody2D):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
 	
-	def cooldown(self):
-		'''frequently use to let the player act after the timer'''
-		self.acting = False
+	def cooldown(self,target=None,timeout=False):
+		'''frequently use to reset cooldown after the timer'''
+		
+		if self.sprite.is_connected("animation_finished",self,"cooldown"):
+			self.sprite.disconnect("animation_finished",self,"cooldown")
+			if not timeout and not target:
+				return
+		if not target:
+			self.acting = False
 	
 	def shoot(self,part=0):
 		'''enemy shoots projectile toward player'''
-		if not part:
-			if not self.acting:
-				#acting is as it name suggest to prevent spam and
-				#keep the animation running
-				self.acting = True
-				#self.sprite.play()
-				if self.player.position.x > self.position.x:
-					self.sprite.flip_h = True
-				else:
-					self.sprite.flip_h = False
-				self.wait(0.3,'shoot',[part+1])
+		if not part and not self.acting:
+			#acting is as it name suggest to prevent spam and
+			#keep the animation running
+			self.acting = True
+			self.sprite.play("Shoot")
+			self.flip()
+			self.wait(0.2,'shoot',[part+1])
 		elif part == 1:
 			# 'projectile' is loaded scene sees at the start of this script
 			bullet = projectile.instance()
@@ -169,13 +199,15 @@ class Range_Enemy(KinematicBody2D):
 			bullet.direction = direction
 			bullet.spawnpos = self.position + (self.position - self.player.position) * -0.22
 			bullet.spawnrot = direction
-			bullet.speed = 50
+			bullet.speed = 150
 			bullet.duration = 6
 			#add it
 			self.main.add_child(bullet)
 			
 			#set self.acting back to False after the set time
-			self.wait(1,'cooldown')
+			#set self.acting back to False after the set time
+			self.wait(1,'cooldown',[None,True])
+			self.sprite.connect("animation_finished",self,"cooldown")
 	
 	def _on_Area2D_body_entered(self, body):
 		'''when player in area2d, enemy will see'''
