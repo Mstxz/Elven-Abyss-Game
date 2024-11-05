@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=2]
@@ -7,10 +7,8 @@
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/bow_01a.png" type="Texture" id=5]
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/potion_03a.png" type="Texture" id=6]
 [ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/staff_03a.png" type="Texture" id=7]
-[ext_resource path="res://assets/Kyrises_16x16_RPG_Icon_Pack_V1.3/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/32x32/sword_01a.png" type="Texture" id=8]
 [ext_resource path="res://script/ShopSystem.py" type="Script" id=9]
 [ext_resource path="res://assets/godot_asset/Shop_UI.tres" type="Theme" id=10]
-
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.0509804, 0.0509804, 0.0627451, 0.670588 )
@@ -84,7 +82,7 @@ text = "Health Potion"
 icon = ExtResource( 6 )
 align = 0
 
-[node name="Bow" type="Button" parent="VBoxContainer"]
+[node name="Crossbow" type="Button" parent="VBoxContainer"]
 margin_top = 43.0
 margin_right = 382.0
 margin_bottom = 82.0
@@ -94,36 +92,15 @@ text = "Bow"
 icon = ExtResource( 5 )
 align = 0
 
-[node name="Sword" type="Button" parent="VBoxContainer"]
+[node name="Staff" type="Button" parent="VBoxContainer"]
 margin_top = 86.0
 margin_right = 382.0
 margin_bottom = 125.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
-text = "Sword"
-icon = ExtResource( 8 )
-align = 0
-
-[node name="Staff" type="Button" parent="VBoxContainer"]
-margin_top = 129.0
-margin_right = 382.0
-margin_bottom = 168.0
-theme = ExtResource( 2 )
-custom_fonts/font = SubResource( 1 )
 text = "Staff"
 icon = ExtResource( 7 )
 align = 0
-
-[node name="Player_Coin" type="Label" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -121.0
-margin_top = 19.0
-margin_right = -20.0
-margin_bottom = 63.0
-theme = SubResource( 2 )
-custom_fonts/font = SubResource( 3 )
-text = "999"
 
 [node name="Exit" type="Label" parent="."]
 margin_left = 13.0
@@ -133,16 +110,6 @@ margin_bottom = 56.0
 theme = SubResource( 2 )
 custom_fonts/font = SubResource( 3 )
 text = "[F] Exit"
-
-[node name="Coin" type="TextureRect" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -60.0
-margin_top = 19.0
-margin_right = -20.0
-margin_bottom = 59.0
-texture = ExtResource( 3 )
-expand = true
 
 [node name="ItemDesc" type="Panel" parent="."]
 anchor_left = 0.605903

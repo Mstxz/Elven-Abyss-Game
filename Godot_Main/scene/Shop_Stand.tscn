@@ -4,9 +4,6 @@
 [ext_resource path="res://assets/Tiles/Dungeon_Tile.tres" type="TileSet" id=2]
 [ext_resource path="res://script/Shop_Item_Instance.py" type="Script" id=3]
 
-
-
-
 [sub_resource type="CircleShape2D" id=2]
 radius = 35.5106
 

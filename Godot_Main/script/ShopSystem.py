@@ -5,10 +5,9 @@ from godot.bindings import VBoxContainer, Label, Button
 class Shop(VBoxContainer):
 	# Items
 	items = {
-		"HealthPotion": {"name": "Health Potion", "price": 10},
-		"Bow": {"name": "Bow", "price": 20},
-		"Sword": {"name": "Sword", "price": 30},
-		"Staff": {"name": "Staff", "price": 40}
+		"HealthPotion": {"name": "Health Potion", "price": 20},
+		"Crossbow": {"name": "Crossbow", "price": 100},
+		"Staff": {"name": "Staff", "price": 200}
 	}
 
 	item_name_label = None
@@ -19,9 +18,12 @@ class Shop(VBoxContainer):
 	selected_item = None
 
 	def _ready(self):
+		self.player = self.get_node("/root/Node2D/Player")
 		self.item_name_label = self.get_node("../ItemDesc/ItemName")
 		self.price_label = self.get_node("../ItemDesc/Prize")
 		self.buy_button = self.get_node("../ItemDesc/Buy")
+
+		self.coin = self.player.money
 
 		self.buy_button.disabled = True
 
@@ -29,6 +31,8 @@ class Shop(VBoxContainer):
 			button = self.get_node(item_name)
 			button.connect("pressed", self, "_on_item_button_pressed", Array([item_name]))
 		self.buy_button.connect("pressed", self, "_on_buy_button_pressed")
+		
+		print("Player:",self.player.money)
 
 	def _on_item_button_pressed(self, item_name):
 		"""Handles item button click, shows name and price, and enables buy button."""
@@ -45,17 +49,23 @@ class Shop(VBoxContainer):
 		if self.selected_item:
 			item_info = self.items[str(self.selected_item)]
 			price = item_info["price"]
+			self.buy_item(self.selected_item, price, self.coin)
+			self.buy_button.disabled = True
+			
 
-			if self.player_can_afford(price):
-				self.buy_item(self.selected_item, price)
-				self.buy_button.disabled = True
-			else:
-				print("Fron ShopSystem: Player Cannot Buy")
-
-	def player_can_afford(self, price):
-		"""Placeholder for checking if the player has enough currency."""
-		return True  # Assuming player can afford for now
-
-	def buy_item(self, item_name, price):
+	def buy_item(self, item_name, price, player_coin):
 		"""Handles the actual purchase,"""
-		pass
+		if str(item_name) == "Crossbow":
+			print("Crossbow")
+			self.player.changeweapon('Crossbow')
+		elif str(item_name) == "HealthPotion":
+			print("Health Potion")
+			self.player.heal(10)
+		elif str(item_name) == "Staff":
+			print("Staff")
+			self.player.changeweapon('Staff')
+
+		player_coin = -price
+
+		self.player.money_modify(player_coin)
+		return player_coin
