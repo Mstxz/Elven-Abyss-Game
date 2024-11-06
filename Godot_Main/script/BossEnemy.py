@@ -30,7 +30,7 @@ class BossEnemy(KinematicBody2D):
 		self.animplayer = self.get_node("AnimationPlayer")
 		self.main = self.get_parent()
 		self.healthbar = self.main.get_node('BossHealthBar').get_node('HealthBar')
-	
+		
 	def _process(self, delta):
 		'''runs every frame'''
 		if self.died:
@@ -40,6 +40,8 @@ class BossEnemy(KinematicBody2D):
 			self.take_damage(20)
 			self.player.removefrombubble(self)
 		self.summonshadowball()
+		if not self.player:
+			self.player = self.main.get_node('Player')
 		
 	def summonshadowball(self,part=0):
 		'''Summon ShadowBall'''
@@ -128,7 +130,6 @@ class BossEnemy(KinematicBody2D):
 			self.hp_changed_func()
 		if self.hp <= 0: #if health <= 0 then call death func
 			self.death()
-		print(self.hp)
 		
 	def heal(self, amount): 
 		'''handle heals'''

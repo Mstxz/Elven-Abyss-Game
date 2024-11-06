@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bubble.PNG-3c09155b0f0e959a769b98b517256e01.stex"
+path="res://.import/Bubble.PNG-61e3ca4858d46d8ce0df6b4e45becf4c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bubble.PNG"
-dest_files=[ "res://.import/Bubble.PNG-3c09155b0f0e959a769b98b517256e01.stex" ]
+source_file="res://assets/Sprite/Bubble.PNG"
+dest_files=[ "res://.import/Bubble.PNG-61e3ca4858d46d8ce0df6b4e45becf4c.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

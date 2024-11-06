@@ -3,6 +3,7 @@ from godot import *
 #Load Scene here
 projectile = ResourceLoader.load("res://scene/EnergyBall.tscn")
 arrow = ResourceLoader.load("res://scene/Arrow.tscn")
+bubble = ResourceLoader.load("res://scene/Bubble.tscn")
 gameover = ResourceLoader.load("res://scene/GameOver.tscn")
 
 elemdict = {
@@ -351,6 +352,11 @@ class Player(KinematicBody2D):
 							return
 						i.freeze = True
 						i.get_node('AnimatedSprite').play('Idle')
+						givebubble = bubble.instance()
+						givebubble.scale += i.scale
+						if 'Boss' in str(i.name):
+							givebubble.scale += Vector2(2,2)
+						i.add_child(givebubble)
 						self.enemybubbled.append(i)
 				self.wait(10,'skill2',[part+1])
 				cdtime = 20
@@ -359,11 +365,20 @@ class Player(KinematicBody2D):
 			elif part == 1 and self.enemybubbled:
 				for i in self.enemybubbled:
 					i.freeze = False
+					bubblecheck = i.get_node('Bubble')
+					if bubblecheck:
+						bubblecheck.play('Pop')
+						bubblecheck.connect('animation_finished',bubblecheck,'queue_free')
+						
 				self.enemybubbled = []
 				
 	def removefrombubble(self,scene):
 		if scene in self.enemybubbled:
 			self.enemybubbled.remove(scene)
+			bubblecheck = scene.get_node('Bubble')
+			if bubblecheck:
+				bubblecheck.play('Pop')
+				bubblecheck.connect('animation_finished',bubblecheck,'queue_free')
 	
 	def hp_changed_func(self):
 		
