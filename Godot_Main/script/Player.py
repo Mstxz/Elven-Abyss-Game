@@ -87,6 +87,7 @@ class Player(KinematicBody2D):
 	def _process(self, delta):
 		"""Called every rendering process"""
 		self.updatevar()
+		self.mana_regen(delta)
 		if self.main.pause or self.freeze:
 			return
 		self.move(delta)
@@ -142,6 +143,7 @@ class Player(KinematicBody2D):
 				# if the player click
 				#acting is as it name suggest to prevent spam
 				self.acting = True
+				self.mana_consume(5)
 				self.sprite.play('Shoot' + self.animationid)
 				self.mousepos = self.get_global_mouse_position()#get mouse pos
 				if self.mousepos.x > self.position.x:
@@ -173,6 +175,7 @@ class Player(KinematicBody2D):
 					#acting is as it name suggest to prevent spam and
 					#keep the animation running
 					self.acting = True
+					self.mana_consume(10)
 					self.sprite.play('Shoot' + self.animationid)
 					self.mousepos = self.get_global_mouse_position()#get mouse pos
 					if self.mousepos.x > self.position.x:
@@ -306,6 +309,7 @@ class Player(KinematicBody2D):
 			cdtime = 10
 			if not self.skill1cd and Input.is_action_just_pressed('skill1') and not part:
 				self.freeze = True
+				self.mana_consume(20)
 				self.skill1cd = True
 				self.acting = True
 				self.wait(0.5,'playsfx',['Skill1Water_Enter'])
