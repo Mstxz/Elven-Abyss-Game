@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/godot_asset/PlayerSprite.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://script/Player.py" type="Script" id=2]
@@ -6,9 +6,120 @@
 [ext_resource path="res://assets/Audio/SFX/SFX_water_Skill_enter.mp3" type="AudioStream" id=4]
 [ext_resource path="res://assets/Audio/SFX/SFX_Water_Skill_current.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/Audio/SFX/SFX_Game_Lost.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/Particle.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18.5, 26.7708 )
+
+[sub_resource type="Gradient" id=97]
+interpolation_mode = 1
+offsets = PoolRealArray( 0, 0.463602, 0.996169, 1 )
+colors = PoolColorArray( 0, 0.612383, 0.998535, 0.784314, 0, 0.663086, 1, 0.507953, 1, 1, 1, 0.0934126, 1, 0.92767, 0.738281, 0 )
+
+[sub_resource type="GradientTexture" id=90]
+gradient = SubResource( 97 )
+
+[sub_resource type="Curve" id=98]
+max_value = 200.0
+_data = [ Vector2( 0, 118.409 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -40.6986, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=92]
+curve = SubResource( 98 )
+
+[sub_resource type="Curve" id=99]
+max_value = 0.5
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.40493, 0.0193182 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=94]
+curve = SubResource( 99 )
+
+[sub_resource type="Curve" id=100]
+max_value = 7.0
+_data = [ Vector2( 0, 5.48068 ), 0.0, 0.223109, 0, 0, Vector2( 1, 0 ), -3.40968, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=96]
+curve = SubResource( 100 )
+
+[sub_resource type="ParticlesMaterial" id=101]
+lifetime_randomness = 0.12
+trail_divisor = 2
+trail_size_modifier = SubResource( 96 )
+emission_shape = 1
+emission_sphere_radius = 8.87
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 100.0
+radial_accel_random = 0.07
+radial_accel_curve = SubResource( 92 )
+damping = 80.0
+angle = 125.2
+angle_random = 1.0
+scale_random = 0.1
+scale_curve = SubResource( 94 )
+color_ramp = SubResource( 90 )
+hue_variation = 0.05
+hue_variation_random = 0.7
+
+[sub_resource type="CircleShape2D" id=102]
+radius = 243.033
+
+[sub_resource type="Animation" id=104]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:one_shot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=103]
+resource_name = "WaterSkill2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:one_shot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.999998 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
@@ -43,3 +154,26 @@ bus = "Sfx"
 [node name="Skill1Water_Exit" type="AudioStreamPlayer2D" parent="Sfx"]
 stream = ExtResource( 3 )
 bus = "Sfx"
+
+[node name="Particles2D" type="Particles2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2( -5.96046e-08, 1.19209e-07 )
+emitting = false
+amount = 200
+lifetime = 2.5
+speed_scale = 2.5
+explosiveness = 1.0
+randomness = 0.15
+process_material = SubResource( 101 )
+texture = ExtResource( 7 )
+
+[node name="WaterSkill2Area" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterSkill2Area"]
+shape = SubResource( 102 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 104 )
+anims/WaterSkill2 = SubResource( 103 )

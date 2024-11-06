@@ -50,9 +50,10 @@ class Player(KinematicBody2D):
 	acting = export(bool, default=False)
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
-	invincible = export(bool, default=True)
+	invincible = export(bool, default=False)
 	freeze = export(bool, default=False)
 	
+	enemybubbled = []
 	skill0activate = False
 	velocity = Vector2()
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
@@ -76,6 +77,7 @@ class Player(KinematicBody2D):
 		self.uicd2 = self.get_parent().get_node("MainUI/Skill2Cd")
 		self.moneyui = self.get_parent().get_node("MainUI/ProfileBar/Money")
 		self.levelui = self.get_parent().get_node("MainUI/ProfileBar/Level")
+		self.animplayer = self.get_node('AnimationPlayer')
 		
 		#update ui
 		self.moneyui.updateui(self.money)
@@ -338,12 +340,32 @@ class Player(KinematicBody2D):
 				self.wait(cdtime,'cooldown',['skill1'])
 				self.uicd1.cooldownui(cdtime) #call ui func
 	
-	def skill2(self):
-		if not self.skill2cd and Input.is_action_just_pressed('skill2'):
-			self.skill2cd = True
-			cdtime = 10
-			self.wait(cdtime,'cooldown',['skill2'])
-			self.uicd2.cooldownui(cdtime) #call ui func
+	def skill2(self,part=0,param1=None):
+		if str(self.element) == 'Water':
+			if not self.skill2cd and Input.is_action_just_pressed('skill2') and not part:
+				self.skill2cd = True
+				self.animplayer.play('WaterSkill2')
+				self.mana_consume(80)
+				allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
+				for i in allbodies:
+					if 'Enemy' in str(i.name): #prevent recognizing other kinematic2d
+						if i.died:
+							return
+						i.freeze = True
+						i.get_node('AnimatedSprite').play('Idle')
+						self.enemybubbled.append(i)
+				self.wait(10,'skill2',[part+1])
+				cdtime = 20
+				self.wait(cdtime,'cooldown',['skill2'])
+				self.uicd2.cooldownui(cdtime) #call ui func
+			elif part == 1 and self.enemybubbled:
+				for i in self.enemybubbled:
+					i.freeze = False
+				self.enemybubbled = []
+				
+	def removefrombubble(self,scene):
+		if scene in self.enemybubbled:
+			self.enemybubbled.remove(scene)
 	
 	def hp_changed_func(self):
 		

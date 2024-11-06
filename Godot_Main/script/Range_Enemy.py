@@ -19,6 +19,7 @@ class Range_Enemy(KinematicBody2D):
 	died = export(bool, default=False)
 	player = None #use to store player objects
 	acting = export(bool, default=False)
+	freeze = export(bool, default=False)
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
 	velocity = Vector2()
 	randomwalking = export(bool, default=True) #if True randomwalking is on
@@ -37,6 +38,8 @@ class Range_Enemy(KinematicBody2D):
 	
 	def _process(self, delta):
 		'''runs every frame'''
+		if self.died or self.freeze:
+			return
 		self.movement(delta) #check movement every frames
 		if not self.acting and self.player and self.player.position.distance_to(self.position) <= self.maxrange:
 			self.shoot()
@@ -233,6 +236,8 @@ class Range_Enemy(KinematicBody2D):
 			self.animplayer.connect("animation_finished",self,"death")
 			return
 		self.player = self.get_node("../Player")
+		if self.freeze:
+			self.player.removefrombubble(self)
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
 		self.queue_free()

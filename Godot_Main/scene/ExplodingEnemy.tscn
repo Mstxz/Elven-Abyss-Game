@@ -324,33 +324,33 @@ interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.463602, 0.996169, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0.507953, 1, 1, 1, 0.0934126, 1, 0.92767, 0.738281, 0 )
 
-[sub_resource type="GradientTexture" id=90]
+[sub_resource type="GradientTexture" id=99]
 gradient = SubResource( 89 )
 
 [sub_resource type="Curve" id=91]
 max_value = 200.0
 _data = [ Vector2( 0, 118.409 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -40.6986, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=92]
+[sub_resource type="CurveTexture" id=100]
 curve = SubResource( 91 )
 
 [sub_resource type="Curve" id=93]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.387324, 0.494318 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=94]
+[sub_resource type="CurveTexture" id=101]
 curve = SubResource( 93 )
 
 [sub_resource type="Curve" id=95]
 max_value = 7.0
 _data = [ Vector2( 0, 5.48068 ), 0.0, 0.223109, 0, 0, Vector2( 1, 0 ), -3.40968, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=96]
+[sub_resource type="CurveTexture" id=102]
 curve = SubResource( 95 )
 
 [sub_resource type="ParticlesMaterial" id=97]
 lifetime_randomness = 0.12
 trail_divisor = 2
-trail_size_modifier = SubResource( 96 )
+trail_size_modifier = SubResource( 102 )
 emission_shape = 1
 emission_sphere_radius = 8.87
 flag_disable_z = true
@@ -364,14 +364,14 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 radial_accel = 100.0
 radial_accel_random = 0.07
-radial_accel_curve = SubResource( 92 )
+radial_accel_curve = SubResource( 100 )
 tangential_accel = 5.0
 damping = 100.0
 angle = 125.2
 angle_random = 1.0
 scale_random = 0.1
-scale_curve = SubResource( 94 )
-color_ramp = SubResource( 90 )
+scale_curve = SubResource( 101 )
+color_ramp = SubResource( 99 )
 
 [node name="ExplodingEnemy" type="KinematicBody2D"]
 collision_layer = 2
@@ -446,7 +446,7 @@ playing = true
 
 [node name="VirtualHealthBar" type="TextureRect" parent="."]
 visible = false
-self_modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0.784314 )
 material = SubResource( 12 )
 margin_left = -15.566
 margin_top = 31.0
