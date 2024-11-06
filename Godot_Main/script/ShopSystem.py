@@ -36,6 +36,21 @@ class Shop(VBoxContainer):
 
 	def _on_item_button_pressed(self, item_name):
 		"""Handles item button click, shows name and price, and enables buy button."""
+		cross = self.get_node("../ItemDesc/Items/Crossbow")
+		staff = self.get_node("../ItemDesc/Items/Staff")
+		healt = self.get_node("../ItemDesc/Items/HealthPotion")
+		if str(item_name) == "Crossbow":
+			cross.show()
+			staff.hide()
+			healt.hide()
+		elif str(item_name) == "HealthPotion":
+			cross.hide()
+			staff.hide()
+			healt.show()
+		elif str(item_name) == "Staff":
+			cross.hide()
+			staff.show()
+			healt.hide()
 		self.selected_item = item_name
 		item_info = self.items[str(item_name)]
 
