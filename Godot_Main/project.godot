@@ -38,6 +38,8 @@ singletons=[ "res://pythonscript.gdnlib" ]
 
 color=false
 layer=false
+"open user folder"=false
+Global=false
 
 [gui]
 
