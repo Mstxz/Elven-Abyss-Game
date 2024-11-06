@@ -23,6 +23,7 @@ extents = Vector2( 61.1111, 22.2222 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 0.18, 0.18 )
+z_index = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

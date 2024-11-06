@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/Tiles/Dungeon_Tile.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,41 @@
 [ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=7]
 [ext_resource path="res://scene/Stairs.tscn" type="PackedScene" id=8]
+
+[sub_resource type="Gradient" id=6]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.252874, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.493652, 0.493652, 0.493652, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0.879546 ), 0.0, 0.0, 0, 0, Vector2( 0.570423, 0.925 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 2
+emission_box_extents = Vector3( 180, 180, 0 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 1.0
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale = 1.2
+scale_curve = SubResource( 5 )
+color = Color( 1, 1, 1, 0.431373 )
+color_ramp = SubResource( 3 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 5 )
@@ -111,3 +146,11 @@ position = Vector2( 144, 49 )
 
 [node name="Stairs2" parent="CanvasModulate" instance=ExtResource( 8 )]
 position = Vector2( 146, -67 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 8 )

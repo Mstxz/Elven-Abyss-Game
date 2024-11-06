@@ -170,9 +170,6 @@ class Melee_Enemy(KinematicBody2D):
 				knockback.y = 0
 				dmg = self.atk
 			self.player.take_damage(self.atk,knockback)
-	
-	def _on_Hitbox_body_exited(self, body):
-		'''player will tkae damage when enter area'''
 
 	def hitbox_change(self,command):
 		'''change hitbox position to deal damage to player'''

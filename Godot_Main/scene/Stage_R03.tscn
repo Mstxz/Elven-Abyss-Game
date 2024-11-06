@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=2]
@@ -4709,6 +4709,41 @@ points = PoolVector2Array( 0, 0, 48, 0, 48, 32, 0, 32 )
 128/shapes = [  ]
 128/z_index = 0
 
+[sub_resource type="Gradient" id=31]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.16092, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.493652, 0.493652, 0.493652, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 31 )
+
+[sub_resource type="Curve" id=32]
+_data = [ Vector2( 0, 0.879546 ), 0.0, 0.0, 0, 0, Vector2( 0.570423, 0.925 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=13]
+curve = SubResource( 32 )
+
+[sub_resource type="ParticlesMaterial" id=33]
+emission_shape = 1
+emission_sphere_radius = 200.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 1.0
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale = 1.2
+scale_curve = SubResource( 13 )
+color = Color( 1, 1, 1, 0.431373 )
+color_ramp = SubResource( 12 )
+
 [node name="Stage3" type="Node2D"]
 script = ExtResource( 7 )
 
@@ -4833,3 +4868,11 @@ stream = ExtResource( 12 )
 volume_db = -14.0
 autoplay = true
 bus = "Music"
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 30
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 33 )

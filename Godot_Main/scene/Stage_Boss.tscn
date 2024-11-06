@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://script/Camera2D.py" type="Script" id=1]
 [ext_resource path="res://script/Gamesystem.py" type="Script" id=2]
@@ -12,6 +12,41 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 72, 70.5 )
+
+[sub_resource type="Gradient" id=2]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.252874, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.493652, 0.493652, 0.493652, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.879546 ), 0.0, 0.0, 0, 0, Vector2( 0.570423, 0.925 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 2
+emission_box_extents = Vector3( 180, 180, 0 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 1.0
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale = 1.2
+scale_curve = SubResource( 5 )
+color = Color( 1, 1, 1, 0.431373 )
+color_ramp = SubResource( 3 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -59,7 +94,7 @@ format = 1
 tile_data = PoolIntArray( -1507330, 59, 0, -1441794, 66, 0, -1507327, 63, 0, -1441790, 77, 0, -1179651, 78, 0, -1114115, 76, 0, -1114110, 76, 0, -983051, 52, 0, -983046, 52, 0, -983042, 66, 0, -1048574, 77, 0, -1048572, 52, 0, -1048567, 52, 0, -851967, 67, 0 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.788235, 0.541176, 0.541176, 1 )
+color = Color( 0.572549, 0.396078, 0.396078, 1 )
 
 [node name="Light2D" type="Light2D" parent="CanvasModulate"]
 position = Vector2( -123, -133 )
@@ -126,3 +161,20 @@ position = Vector2( 0, -457 )
 stream = ExtResource( 8 )
 autoplay = true
 bus = "Music"
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 6 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 0, -339 )
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 6 )

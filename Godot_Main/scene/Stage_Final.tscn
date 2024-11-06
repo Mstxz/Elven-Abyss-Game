@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/Tiles/Dungeon_Tile.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/Tiles/Dungeon_Main2.tres" type="TileSet" id=2]
@@ -11,6 +11,41 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 46.9592, 34 )
+
+[sub_resource type="Gradient" id=2]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.252874, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.493652, 0.493652, 0.493652, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.879546 ), 0.0, 0.0, 0, 0, Vector2( 0.570423, 0.925 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 2
+emission_box_extents = Vector3( 180, 180, 0 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 1.0
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale = 1.2
+scale_curve = SubResource( 8 )
+color = Color( 1, 1, 1, 0.431373 )
+color_ramp = SubResource( 7 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 7 )
@@ -60,7 +95,7 @@ smoothing_speed = 10.0
 script = ExtResource( 6 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.788235, 0.541176, 0.541176, 1 )
+color = Color( 0.572549, 0.396078, 0.396078, 1 )
 
 [node name="Light2D" type="Light2D" parent="CanvasModulate"]
 position = Vector2( -123, -133 )
@@ -111,3 +146,29 @@ texture = ExtResource( 4 )
 color = Color( 0.894118, 0.741176, 0.141176, 0.764706 )
 
 [node name="MainUI" parent="." instance=ExtResource( 5 )]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 6 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( -1, 514 )
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 6 )
+
+[node name="Particles2D3" type="Particles2D" parent="."]
+position = Vector2( 0, 277 )
+amount = 40
+lifetime = 5.0
+speed_scale = 0.5
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 6 )
