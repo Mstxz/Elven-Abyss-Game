@@ -16,6 +16,4 @@ class ReturnToTitle(Button):
 
 	def on_animation_finishedd(self, anim_name):
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-		Scenechange.scene = "res://scene/MainMenu.tscn"
-		Scenechange.new_scene = "Main"
-		Scenechange.load_game()
+		Scenechange.load_main()

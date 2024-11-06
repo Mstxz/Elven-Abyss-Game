@@ -51,7 +51,6 @@ class Shop(VBoxContainer):
 			price = item_info["price"]
 			self.buy_item(self.selected_item, price, self.coin)
 			self.buy_button.disabled = True
-			
 
 	def buy_item(self, item_name, price, player_coin):
 		"""Handles the actual purchase,"""

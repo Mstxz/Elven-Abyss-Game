@@ -9,6 +9,8 @@ loading = ResourceLoader.load("res://scene/Loadingscene.tscn")
 class Gamesystem(Node2D):
 
 	pause = export(bool, default=False)
+	is_act = False
+	is_stat = False
 	
 	def _ready(self):
 		self.pauseMenu = pauseload.instance()
@@ -25,9 +27,9 @@ class Gamesystem(Node2D):
 		self.statussys(False)
 
 	def _process(self,delta):
-		if Input.is_action_just_pressed("pause"):
+		if not self.is_stat and Input.is_action_just_pressed("pause"):
 			self.pausesys()
-		elif Input.is_action_just_pressed("StatusMenu"):
+		elif not self.is_act and Input.is_action_just_pressed("StatusMenu"):
 			self.statussys()
 			self.get_node("StatusUI").setvar()
 		if self.pause:
@@ -41,11 +43,13 @@ class Gamesystem(Node2D):
 			self.mainui.hide()
 			self.canvas.color = Color(0.1,0.1,0.1,1)
 			Engine.time_scale = 0
+			self.is_act = True
 		else:
 			self.pauseMenu.hide()
 			self.mainui.show()
 			self.canvas.color = self.screenoriginalcolor
 			Engine.time_scale = 1
+			self.is_act = False
 
 	def statussys(self, set = True):
 		if set:
@@ -55,8 +59,10 @@ class Gamesystem(Node2D):
 			self.mainui.hide()
 			self.canvas.color = Color(0.1,0.1,0.1,1)
 			Engine.time_scale = 0
+			self.is_stat = True
 		else:
 			self.statusMenu.hide()
 			self.mainui.show()
 			self.canvas.color = self.screenoriginalcolor
 			Engine.time_scale = 1
+			self.is_stat = False
