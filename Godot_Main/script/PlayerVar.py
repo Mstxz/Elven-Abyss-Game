@@ -7,7 +7,7 @@ class PlayerVar(Node):
 
 	# member variables here, example:
 	speed = export(float, default=150.0)
-	atk = export(float, default=10.00)
+	atk = export(float, default=10.0)
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
 	level = export(int, default=1)

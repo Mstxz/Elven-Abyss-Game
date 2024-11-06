@@ -9,6 +9,8 @@ class PlayButton(Button):
 		self.connect("pressed", self, "on_button_pressed")
 		self.connect("mouse_entered", self, "on_mouse_entered")
 		self.loading = self.get_node("../../../Loading")
+		self.PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
+		self.updatevar()
 		pass
 		
 	def on_button_pressed(self): #as the event says
@@ -21,5 +23,23 @@ class PlayButton(Button):
 		Scenechange.new_scene = "Lobby"
 		Scenechange.load_game()
 		
+	def updatevar(self):
+		'''update player var to global'''
+		self.PlayerVar.speed = 150.0
+		self.PlayerVar.atk = 10.0
+		self.PlayerVar.maxhp = 100.0
+		self.PlayerVar.hp = 100.0
+		self.PlayerVar.level = 1
+		self.PlayerVar.exp = 0.0
+		self.PlayerVar.money = 100
+		self.PlayerVar.maxmana = 100.0
+		self.PlayerVar.mana = 100.0
+		self.PlayerVar.defense = 0.0
+		self.PlayerVar.critrate = 0.0
+		self.PlayerVar.critdmg = 50.0
+		self.PlayerVar.weapon = 'Stick'
+		self.PlayerVar.element = "Water"
+		self.PlayerVar.skillpoint = 0
+	
 	def on_mouse_entered(self):
 		self.get_node("HoverSfx").play()

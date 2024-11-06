@@ -40,6 +40,7 @@ class InteractableArea(Area2D):
 			self.loading = self.get_node("/root").get_child(5).get_node("Loading")
 			self.loading.leave()
 			self.player.freeze = True
+			self.player.updatevar()
 			self.player.updateplayer()
 			self.loading.animation.connect("animation_finished", self, "on_animation_finished")
 
