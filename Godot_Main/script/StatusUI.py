@@ -42,36 +42,42 @@ class StatusUI(CanvasLayer):
 			self.player.maxhp += 10
 			self.player.hp += 10
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_ATKbutton_pressed(self):
 		if self.player.skillpoint > 0:
 			self.player.skillpoint -= 1
 			self.player.atk += 2
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_DEFbutton_pressed(self):
 		if self.player.skillpoint > 0:
 			self.player.skillpoint -= 1
 			self.player.defense += 2
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_SPDbutton_pressed(self):
 		if self.player.skillpoint > 0:
 			self.player.skillpoint -= 1
 			self.player.speed += 10
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_CRITRbutton_pressed(self):
 		if self.player.skillpoint > 0:
 			self.player.skillpoint -= 1
 			self.player.critrate += 5
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_CRITDbutton_pressed(self):
 		if self.player.skillpoint > 0:
 			self.player.skillpoint -= 1
 			self.player.critdmg += 5
 			self.setvar()
+			self.player.updatevar()
 
 	def _on_MANAbutton_pressed(self):
 		if self.player.skillpoint > 0:
@@ -79,3 +85,4 @@ class StatusUI(CanvasLayer):
 			self.player.mana += 10
 			self.player.maxmana += 10
 			self.setvar()
+			self.player.updatevar()

@@ -87,7 +87,6 @@ class Player(KinematicBody2D):
 		
 	def _process(self, delta):
 		"""Called every rendering process"""
-		self.updatevar()
 		self.mana_regen(delta)
 		if self.main.pause or self.freeze:
 			return

@@ -34,6 +34,9 @@ class Scenechange(Node):
 		"""Load the game scene and change to it"""
 		self.change_scene(self.namee[str(self.new_scene)])
 	
+	def load_last(self):
+		self.change_scene(self.namee[str(self.last_scene)])
+	
 	def load(self):
 		"""Load the game scene and change to it"""
 		PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")

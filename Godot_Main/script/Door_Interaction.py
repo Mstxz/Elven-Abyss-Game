@@ -38,6 +38,7 @@ class InteractableArea(Area2D):
 			self.loading.leave()
 			self.player.freeze = True
 			self.player.updateplayer()
+			self.player.updatevar()
 			self.loading.animation.connect("animation_finished", self, "on_animation_finished")
 	
 	def on_animation_finished(self, anim_name):
