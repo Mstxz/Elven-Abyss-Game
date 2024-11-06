@@ -1,4 +1,5 @@
 from godot import *
+import random
 
 #Load Scene here
 projectile = ResourceLoader.load("res://scene/EnergyBall.tscn")
@@ -160,7 +161,11 @@ class Player(KinematicBody2D):
 				bullet.direction = direction
 				bullet.spawnpos = self.position + (self.position - self.mousepos) * -0.22
 				bullet.spawnrot = direction
-				bullet.damage = self.atk
+				random1 = random.uniform(0.1, 100.0)
+				if random1 <= self.critrate:
+					bullet.damage = self.atk + (self.atk * (self.critdmg / 100))
+				else:
+					bullet.damage = self.atk
 				bullet.speed = 50
 				bullet.duration = 6
 				#add it

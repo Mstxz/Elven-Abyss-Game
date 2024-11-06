@@ -27,13 +27,13 @@ class StatusUI(CanvasLayer):
 		self.element.text = str(self.player.element)
 		self.weapon.text = str(self.player.weapon)
 		self.money.text = str(self.player.money)
-		self.hp.text = str(f"{self.player.hp}/{self.player.maxhp}")
+		self.hp.text = str(f"{self.player.hp:.1f}/{self.player.maxhp}")
 		self.atk.text = str(self.player.atk)
 		self.defense.text = str(self.player.defense)
 		self.spd.text = str(self.player.speed)
 		self.crirate.text = str(self.player.critrate)
 		self.cridam.text = str(self.player.critdmg)
-		self.mana.text = str(f"{self.player.mana}/{self.player.maxmana}")
+		self.mana.text = str(f"{self.player.mana:.1f}/{self.player.maxmana}")
 		self.skillpoint.text = str(f"Stats Point : {self.player.skillpoint} Point")
 
 	def _on_HPbutton_pressed(self):
