@@ -16,6 +16,7 @@ class Range_Enemy(KinematicBody2D):
 	defense = export(float, default=0.0)
 	exp = export(float, default=10.0)
 	gold = export(float, default=10.0)
+	died = export(bool, default=False)
 	player = None #use to store player objects
 	acting = export(bool, default=False)
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
@@ -32,6 +33,7 @@ class Range_Enemy(KinematicBody2D):
 		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
 		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
 		self.main = self.get_node("..")
+		self.animplayer = self.get_node("AnimationPlayer")
 	
 	def _process(self, delta):
 		'''runs every frame'''
@@ -223,8 +225,13 @@ class Range_Enemy(KinematicBody2D):
 		'''update the health'''
 		self.healthbar.updatehealth(self.maxhp,self.hp) 
 	
-	def death(self):
+	def death(self,param=None):
 		'''deletes itself'''
+		if not self.died: #death animation
+			self.died = True
+			self.animplayer.play('Die')
+			self.animplayer.connect("animation_finished",self,"death")
+			return
 		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
@@ -232,6 +239,8 @@ class Range_Enemy(KinematicBody2D):
 	
 	def take_damage(self, dmg, kb=None):
 		'''handle taking damage'''
+		if self.died:
+			return
 		#reduce damage with defense with the least possible dmg is 1
 		dmg = max(dmg-self.defense, 1) 
 		if kb: #kb stands for knockback

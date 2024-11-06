@@ -6,7 +6,7 @@ import random
 class Melee_Enemy(KinematicBody2D):
 
 	# member variables here, example:
-	speed = export(float, default=60.0)
+	speed = export(float, default=70.0)
 	atk = export(float, default=10.00)
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
@@ -16,6 +16,7 @@ class Melee_Enemy(KinematicBody2D):
 	acting = export(bool, default=False)
 	randomwalking = export(bool, default=True)
 	randomwalkdelaysent = False
+	died = export(bool, default=False)
 	randomdirection = Vector2(random.randrange(-100,100),random.randrange(-100,100)) #random direction
 	player = None #use to store player object
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
@@ -27,9 +28,12 @@ class Melee_Enemy(KinematicBody2D):
 		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
 		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
 		self.hitbox = self.get_node("Hitbox")
+		self.animplayer = self.get_node("AnimationPlayer")
 	
 	def _process(self, delta):
 		'''runs every frame'''
+		if self.died:
+			return
 		self.movement() #check movement every frames
 		if not self.acting and self.player:
 			distance = self.player.position.distance_to(self.position)
@@ -201,9 +205,13 @@ class Melee_Enemy(KinematicBody2D):
 		'''update the health'''
 		self.healthbar.updatehealth(self.maxhp,self.hp) 
 	
-	def death(self):
+	def death(self,param=None):
 		'''deletes itself'''
-		
+		if not self.died: #death animation
+			self.died = True
+			self.animplayer.play('Die')
+			self.animplayer.connect("animation_finished",self,"death")
+			return
 		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
@@ -211,6 +219,8 @@ class Melee_Enemy(KinematicBody2D):
 	
 	def take_damage(self, dmg, kb=None):
 		'''handle taking damage'''
+		if self.died:
+			return
 		#reduce damage with defense with the least possible dmg is 1
 		dmg = max(dmg-self.defense, 1) 
 		if kb: #kb stands for knockback

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://script/ExplodingEnemy.py" type="Script" id=2]
@@ -8,6 +8,14 @@
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.75, 12.1735 )
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 192.01
+
+[sub_resource type="CircleShape2D" id=50]
+radius = 31.0161
+
+[sub_resource type="World" id=11]
 
 [sub_resource type="AtlasTexture" id=51]
 atlas = ExtResource( 4 )
@@ -167,19 +175,50 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[sub_resource type="CircleShape2D" id=9]
-radius = 192.01
-
-[sub_resource type="CircleShape2D" id=50]
-radius = 31.0161
-
-[sub_resource type="World" id=11]
-
 [sub_resource type="CanvasItemMaterial" id=12]
 light_mode = 1
 
 [sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("Viewport")
+
+[sub_resource type="Animation" id=98]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.270588, 0, 0.498039, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VirtualHealthBar:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.784314 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=87]
 resource_name = "ExplodeLight"
@@ -255,6 +294,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AnimatedSprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimatedSprite:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Gradient" id=89]
 interpolation_mode = 2
@@ -319,13 +382,6 @@ script = ExtResource( 2 )
 position = Vector2( 0, 2.1735 )
 shape = SubResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -1, 2 )
-scale = Vector2( 0.8, 0.8 )
-frames = SubResource( 86 )
-animation = "Idle"
-playing = true
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
@@ -373,18 +429,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="VirtualHealthBar" type="TextureRect" parent="."]
-visible = false
-self_modulate = Color( 1, 1, 1, 0.784314 )
-material = SubResource( 12 )
-margin_left = -15.566
-margin_top = 20.0
-margin_right = 134.434
-margin_bottom = 44.0
-rect_scale = Vector2( 0.209, 0.209 )
-texture = SubResource( 10 )
-stretch_mode = 1
-
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.271, 0.271 )
 z_index = 3
@@ -393,7 +437,27 @@ texture_scale = 1.5
 color = Color( 0.756863, 0, 1, 1 )
 energy = 0.0
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -1, 2 )
+scale = Vector2( 0.8, 0.8 )
+frames = SubResource( 86 )
+animation = "Idle"
+playing = true
+
+[node name="VirtualHealthBar" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 12 )
+margin_left = -15.566
+margin_top = 31.0
+margin_right = 134.434
+margin_bottom = 55.0
+rect_scale = Vector2( 0.209, 0.209 )
+texture = SubResource( 10 )
+stretch_mode = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Die = SubResource( 98 )
 anims/ExplodeLight = SubResource( 87 )
 anims/RESET = SubResource( 88 )
 

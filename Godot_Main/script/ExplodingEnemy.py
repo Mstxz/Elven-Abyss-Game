@@ -6,7 +6,7 @@ import random
 class ExplodingEnemy(KinematicBody2D):
 
 	# member variables here, example:
-	speed = export(float, default=60.0)
+	speed = export(float, default=100.0)
 	atk = export(float, default=50.00)
 	maxhp = export(float, default=100.0)
 	hp = export(float, default=100.0)
@@ -28,6 +28,7 @@ class ExplodingEnemy(KinematicBody2D):
 		self.sprite = self.get_node("AnimatedSprite") #enemy sprite
 		self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
 		self.hitbox = self.get_node("Hitbox")
+		self.animplayer = self.get_node("AnimationPlayer")
 	
 	def _process(self, delta):
 		'''runs every frame'''
@@ -148,8 +149,8 @@ class ExplodingEnemy(KinematicBody2D):
 			self.sprite.play("Attack")
 			self.acting = True
 			self.sprite.connect("animation_finished",self,"attack",Array([part+1]))
-			self.get_node("AnimationPlayer").play('ExplodeLight')
-			self.get_node("AnimationPlayer").connect("animation_finished",self,"death")
+			self.animplayer.play('ExplodeLight')
+			self.animplayer.connect("animation_finished",self,"death")
 		elif part == 1:
 			allbodies = self.get_node("Hitbox").get_overlapping_bodies()
 			self.sprite.queue_free()
@@ -168,6 +169,11 @@ class ExplodingEnemy(KinematicBody2D):
 	
 	def death(self,param=None):
 		'''deletes itself'''
+		if not self.died: #death animation
+			self.died = True
+			self.animplayer.play('Die')
+			self.animplayer.connect("animation_finished",self,"death")
+			return
 		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
@@ -175,6 +181,8 @@ class ExplodingEnemy(KinematicBody2D):
 	
 	def take_damage(self, dmg, kb=None):
 		'''handle taking damage'''
+		if self.died:
+			return
 		#reduce damage with defense with the least possible dmg is 1
 		dmg = max(dmg-self.defense, 1) 
 		if kb: #kb stands for knockback

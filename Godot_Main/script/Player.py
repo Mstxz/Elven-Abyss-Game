@@ -50,11 +50,9 @@ class Player(KinematicBody2D):
 	acting = export(bool, default=False)
 	skill1cd = export(bool, default=False)
 	skill2cd = export(bool, default=False)
-	invincible = export(bool, default=False)
+	invincible = export(bool, default=True)
 	freeze = export(bool, default=False)
 	
-	
-	lockposition = False
 	skill0activate = False
 	velocity = Vector2()
 	knockbacked = Vector2() #set in take_damage and reduce by a rate in each _progress
@@ -249,7 +247,7 @@ class Player(KinematicBody2D):
 			self.velocity *= 0.9
 			self.knockbacked *= 0.9
 			self.move_and_slide(self.velocity)
-		elif (direction_x or direction_y) and not self.lockposition:
+		elif (direction_x or direction_y) and not self.freeze:
 			#-+-+-+-+-Player Moving-+-+-+-+-#
 			self.velocity.x = direction_x * self.speed
 			self.velocity.y = direction_y * self.speed
@@ -307,7 +305,7 @@ class Player(KinematicBody2D):
 		if str(self.element) == 'Water':
 			cdtime = 10
 			if not self.skill1cd and Input.is_action_just_pressed('skill1') and not part:
-				self.lockposition = True
+				self.freeze = True
 				self.skill1cd = True
 				self.acting = True
 				self.wait(0.5,'playsfx',['Skill1Water_Enter'])
@@ -316,13 +314,13 @@ class Player(KinematicBody2D):
 				self.uicd1.activating(self.element)
 			elif part == 1:
 				self.sprite.disconnect("animation_finished",self,"skill1")
-				self.lockposition = False
+				self.freeze = False
 				self.skill0activate = True
 				self.invincible = True
 				self.sprite.play('Skill0Idle')
 				self.wait(5,'skill1',[part+1])
 			elif part == 2:
-				self.lockposition = True
+				self.freeze = True
 				self.skill0activate = False
 				self.invincible = False
 				self.sprite.play('Skill'+ self.animationid + 'Cancel')
@@ -332,7 +330,7 @@ class Player(KinematicBody2D):
 				self.stopsfx('Skill1Water_Walk')
 				self.sprite.disconnect("animation_finished",self,"skill1")
 				self.acting = False
-				self.lockposition = False
+				self.freeze = False
 				self.wait(cdtime,'cooldown',['skill1'])
 				self.uicd1.cooldownui(cdtime) #call ui func
 	
@@ -355,7 +353,7 @@ class Player(KinematicBody2D):
 	
 	def take_damage(self, dmg, kb=None):
 		'''handle taking damage'''
-		if self.invincible:
+		if self.invincible or self.hp <= 0:
 			return
 		#reduce damage with defense with the least possible dmg is 1
 		dmg = max(dmg-self.defense, 1)
