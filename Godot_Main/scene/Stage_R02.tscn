@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/RF_Catacombs_v1.0/decorative.png" type="Texture" id=1]
 [ext_resource path="res://assets/RF_Catacombs_v1.0/mainlevbuild.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scene/ExplodingEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scene/Enemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scene/Range_Enemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/Audio/Game_Battle.mp3" type="AudioStream" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 48, 0, 48 )
@@ -2467,3 +2468,9 @@ position = Vector2( 75, -153 )
 
 [node name="Range_Enemy" parent="ExplodingEnemy" instance=ExtResource( 11 )]
 position = Vector2( 2, -137 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -14.0
+autoplay = true
+bus = "Music"
