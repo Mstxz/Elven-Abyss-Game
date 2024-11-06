@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/Sprite/Slime_Idle.PNG" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10.75, 12.1735 )
+extents = Vector2( 10.75, 22.6735 )
 
 [sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 5 )
@@ -211,7 +211,7 @@ collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2.1735 )
+position = Vector2( 0, -8.3265 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

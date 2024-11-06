@@ -4714,13 +4714,13 @@ interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.16092, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 0.493652, 0.493652, 0.493652, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture" id=34]
 gradient = SubResource( 31 )
 
 [sub_resource type="Curve" id=32]
 _data = [ Vector2( 0, 0.879546 ), 0.0, 0.0, 0, 0, Vector2( 0.570423, 0.925 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=13]
+[sub_resource type="CurveTexture" id=35]
 curve = SubResource( 32 )
 
 [sub_resource type="ParticlesMaterial" id=33]
@@ -4740,9 +4740,9 @@ tangential_accel_random = 1.0
 angle = 720.0
 angle_random = 1.0
 scale = 1.2
-scale_curve = SubResource( 13 )
+scale_curve = SubResource( 35 )
 color = Color( 1, 1, 1, 0.431373 )
-color_ramp = SubResource( 12 )
+color_ramp = SubResource( 34 )
 
 [node name="Stage3" type="Node2D"]
 script = ExtResource( 7 )
@@ -4777,7 +4777,7 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( -1245186, 6, 0, -1245185, 6, 1, -1310720, 6, 1, -1310719, 6, 4, -1179650, 6, 65536, -1179649, 19, 196609, -1245184, 19, 196610, -1245183, 6, 65540, -1114114, 6, 196608, -1114113, 19, 262145, -1179648, 19, 262146, -1179647, 6, 196612, -1048578, 6, 262144, -1048577, 19, 327681, -1114112, 19, 327682, -1114111, 6, 262148, -983042, 6, 327680, -983041, 19, 393217, -1048576, 19, 393218, -1048575, 6, 327684 )
+tile_data = PoolIntArray( -1245186, 6, 0, -1245185, 6, 1, -1310720, 6, 1, -1310719, 6, 4, -1179655, 82, 0, -1179654, 81, 0, -1179650, 6, 65536, -1179649, 19, 196609, -1245184, 19, 196610, -1245183, 6, 65540, -1245180, 81, 0, -1245178, 82, 0, -1114114, 6, 196608, -1114113, 19, 262145, -1179648, 19, 262146, -1179647, 6, 196612, -1048578, 6, 262144, -1048577, 19, 327681, -1114112, 19, 327682, -1114111, 6, 262148, -983050, 82, 0, -983042, 6, 327680, -983041, 19, 393217, -1048576, 19, 393218, -1048575, 6, 327684, -917515, 81, 0, -917495, 82, 0, -720911, 82, 0, -720910, 81, 0, -720882, 82, 0 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.788235, 0.541176, 0.541176, 1 )
