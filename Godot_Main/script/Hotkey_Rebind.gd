@@ -73,7 +73,6 @@ func update_all(event):
 
 	for evt in current_events:
 		if evt.scancode == event:
-			print("Key ", OS.get_scancode_string(event), " is already bound.")
 			return  # Exit early if the key is already bound
 
 	# Clear current events associated with the action
@@ -111,7 +110,6 @@ func _unhandled_key_input(event):
 
 		for evt in current_events:
 			if evt.scancode == event.scancode:
-				print("Key ", OS.get_scancode_string(event.scancode), " is already bound.")
 				return  # Exit early if the key is already bound
 
 		# Clear current events associated with the action

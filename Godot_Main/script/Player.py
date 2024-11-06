@@ -84,7 +84,6 @@ class Player(KinematicBody2D):
 		self.levelui.updateui(self.level)
 		self.hp_changed_func()
 		self.mana_changed_func()
-		self.level_up()
 		
 	def _process(self, delta):
 		"""Called every rendering process"""
@@ -428,16 +427,6 @@ class Player(KinematicBody2D):
 		self.moneyui.updateui(self.money)
 		return True
 		
-	def level_up(self):
-		while True:
-			req = 48 + (10*self.level)
-			if self.exp >= req:
-				self.exp -= req
-				self.level += 1
-				self.skillpoint += 3
-				self.levelui.updateui(self.level)
-			else:
-				break
 			
 	def gain_exp(self,amount):
 		'''call when giving exp to player'''
@@ -469,6 +458,7 @@ class Player(KinematicBody2D):
 		self.PlayerVar.critdmg = self.critdmg
 		self.PlayerVar.weapon = self.weapon
 		self.PlayerVar.element = self.element
+		self.PlayerVar.skillpoint = self.skillpoint
 		
 	def getvar(self):
 		'''get player var from global'''
@@ -486,3 +476,4 @@ class Player(KinematicBody2D):
 		self.critdmg = self.PlayerVar.critdmg
 		self.weapon = self.PlayerVar.weapon
 		self.element = self.PlayerVar.element
+		self.skillpoint = self.PlayerVar.skillpoint

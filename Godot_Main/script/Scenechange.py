@@ -1,6 +1,8 @@
 from godot import exposed, export
 from godot import *
 
+loading = ResourceLoader.load("res://scene/LevelUp.tscn", "", True)
+
 @exposed
 class Scenechange(Node):
 
@@ -31,7 +33,15 @@ class Scenechange(Node):
 	def load_game(self):
 		"""Load the game scene and change to it"""
 		self.change_scene(self.namee[str(self.new_scene)])
-
+	
+	def load(self):
+		"""Load the game scene and change to it"""
+		PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
+		req = 48 + (10*PlayerVar.level)
+		if PlayerVar.exp >= req:
+			self.change_scene(loading)
+		else:
+			self.load_game()
 	def load_new(self, filepath, sname):
 		"""Use for load new scene that not assign in this script"""
 		self.last_scene = str(filepath) #future
@@ -41,7 +51,7 @@ class Scenechange(Node):
 			#if this scene didn't load before, load it
 			game = ResourceLoader.load(self.last_scene, "", True)
 			self.namee[str(sname)] = game
-		self.load_game()
+		self.load()
 	
 	def find_first_child_of_class(self, parent, classname=Node2D):
 		for child in parent.get_children():
