@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://script/PlayButton.py" type="Script" id=1]
+[ext_resource path="res://script/Play.py" type="Script" id=1]
 [ext_resource path="res://assets/UI/Title.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/BackDrop.png" type="Texture" id=3]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=4]
@@ -10,6 +10,7 @@
 [ext_resource path="res://script/OptionButton.py" type="Script" id=8]
 [ext_resource path="res://scene/Loadingscene.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Audio/SFX/interface-soft-click-131438.mp3" type="AudioStream" id=10]
+[ext_resource path="res://scene/ChooseElement.tscn" type="PackedScene" id=11]
 
 [node name="Node2D" type="Node2D"]
 
@@ -105,6 +106,9 @@ margin_right = 456.5
 margin_bottom = 353.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="CanvasLayer2" parent="CanvasLayer" instance=ExtResource( 11 )]
+visible = false
 
 [node name="OptionMenu" parent="CanvasLayer" instance=ExtResource( 7 )]
 visible = false

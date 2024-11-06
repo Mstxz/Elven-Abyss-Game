@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/UI/GeneralDiamondSquare.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/Fire.png" type="Texture" id=2]
+[ext_resource path="res://script/PlayButton.py" type="Script" id=3]
+[ext_resource path="res://assets/Audio/SFX/interface-soft-click-131438.mp3" type="AudioStream" id=4]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
@@ -39,6 +41,8 @@ margin_right = 84.0
 margin_bottom = -39.0
 rect_rotation = 45.0
 custom_styles/normal = SubResource( 2 )
+script = ExtResource( 3 )
+element = "Wind"
 
 [node name="TextureRect" type="TextureRect" parent="Panel/Button2"]
 anchor_right = 1.0
@@ -51,6 +55,9 @@ rect_rotation = -45.0
 texture = ExtResource( 2 )
 expand = true
 
+[node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button2"]
+stream = ExtResource( 4 )
+
 [node name="Button4" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -62,6 +69,8 @@ margin_right = 83.0
 margin_bottom = 86.0
 rect_rotation = 45.0
 custom_styles/normal = SubResource( 2 )
+script = ExtResource( 3 )
+element = "Earth"
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/Button4"]
 anchor_right = 1.0
@@ -74,6 +83,9 @@ rect_rotation = -45.0
 texture = ExtResource( 2 )
 expand = true
 
+[node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button4"]
+stream = ExtResource( 4 )
+
 [node name="Button5" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -85,6 +97,8 @@ margin_right = 20.0
 margin_bottom = 23.0
 rect_rotation = 45.0
 custom_styles/normal = SubResource( 2 )
+script = ExtResource( 3 )
+element = "Water"
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/Button5"]
 anchor_right = 1.0
@@ -97,6 +111,9 @@ rect_rotation = -45.0
 texture = ExtResource( 2 )
 expand = true
 
+[node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button5"]
+stream = ExtResource( 4 )
+
 [node name="Button3" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -108,6 +125,8 @@ margin_right = 142.0
 margin_bottom = 21.0
 rect_rotation = 45.0
 custom_styles/normal = SubResource( 2 )
+script = ExtResource( 3 )
+element = "Fire"
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/Button3"]
 anchor_right = 1.0
@@ -119,3 +138,6 @@ margin_bottom = 36.0626
 rect_rotation = -45.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button3"]
+stream = ExtResource( 4 )

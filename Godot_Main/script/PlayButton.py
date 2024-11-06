@@ -4,16 +4,18 @@ from godot import *
 
 @exposed
 class PlayButton(Button):
-
+	
+	element = export(str, default='Stick')
+	
 	def _ready(self):
 		self.connect("pressed", self, "on_button_pressed")
 		self.connect("mouse_entered", self, "on_mouse_entered")
 		self.loading = self.get_node("../../../Loading")
 		self.PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
-		self.updatevar()
 		pass
 		
 	def on_button_pressed(self): #as the event says
+		self.updatevar()
 		self.loading.leave()
 		self.loading.animation.connect("animation_finished", self, "on_animation_finished")
 		
@@ -36,7 +38,8 @@ class PlayButton(Button):
 		self.PlayerVar.critrate = 0.0
 		self.PlayerVar.critdmg = 50.0
 		self.PlayerVar.weapon = 'Stick'
-		self.PlayerVar.element = "Water"
+		self.PlayerVar.element = self.element
+		print(self.element)
 		self.PlayerVar.skillpoint = 0
 	
 	def on_mouse_entered(self):
