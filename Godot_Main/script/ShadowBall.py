@@ -3,7 +3,7 @@ from godot import *
 
 
 @exposed
-class EnergyBall(KinematicBody2D):
+class ShadowBall(KinematicBody2D):
 
 	# member variables here, example:
 	speed = export(float, default=20.0)
@@ -37,13 +37,13 @@ class EnergyBall(KinematicBody2D):
 		'''Upon hitting the target'''
 		if self.gone:
 			return
-		if 'enemy' in str(body.name).lower(): #check if it is enemy
+		if 'player' in str(body.name).lower(): #check if it is enemy
 			#give the knockback max velocity to its target as take_damage param
 			#the speed of knockback are to be change
 			self.gone = True
 			calculatedknockback = Vector2()
 			if not self.knockback:
-				calculatedknockback = Vector2(-self.speed*10,0).rotated(self.direction)
+				calculatedknockback = Vector2(-10,0).rotated(self.direction)
 			else:
 				calculatedknockback = Vector2(-20*self.knockback,0).rotated(self.direction)
 			body.take_damage(self.damage* 0.85,calculatedknockback)
@@ -52,7 +52,7 @@ class EnergyBall(KinematicBody2D):
 	def _on_Timer_timeout(self):
 		'''when the set timer is timed out'''
 		self.disappear()
-	
+		
 	def deleteself(self,param=None):
 		self.queue_free()
 	
@@ -61,3 +61,4 @@ class EnergyBall(KinematicBody2D):
 		animplayer = self.get_node('AnimationPlayer')
 		animplayer.play('Despawn')
 		animplayer.connect('animation_finished',self,'deleteself')
+

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShadowBall.png-8b436d6a416e809a7ddd47df10575c32.stex"
+path="res://.import/ShadowBall3.png-383b98c4078e9a3d118f32448b0f9f42.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite/ShadowBall.png"
-dest_files=[ "res://.import/ShadowBall.png-8b436d6a416e809a7ddd47df10575c32.stex" ]
+source_file="res://assets/Sprite/ShadowBall/ShadowBall3.png"
+dest_files=[ "res://.import/ShadowBall3.png-383b98c4078e9a3d118f32448b0f9f42.stex" ]
 
 [params]
 

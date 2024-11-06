@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=2]
@@ -38,6 +38,14 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0.8, 0.8, 0.8, 0.666667 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 25
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
 
 [sub_resource type="Gradient" id=10]
 interpolation_mode = 2
@@ -79,6 +87,8 @@ Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 Label/fonts/font = SubResource( 8 )
 Panel/styles/panel = SubResource( 14 )
 PanelContainer/styles/panel = SubResource( 9 )
+ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+ProgressBar/fonts/font = SubResource( 15 )
 ProgressBar/styles/bg = SubResource( 3 )
 ProgressBar/styles/fg = SubResource( 5 )
 RichTextLabel/colors/font_color_shadow = Color( 0.105882, 0.0784314, 0.0784314, 1 )

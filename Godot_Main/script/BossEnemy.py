@@ -1,6 +1,8 @@
 from godot import exposed, export
 from godot import *
+import random
 
+projectile = ResourceLoader.load("res://scene/ShadowBall.tscn")
 
 @exposed
 class BossEnemy(KinematicBody2D):
@@ -26,13 +28,49 @@ class BossEnemy(KinematicBody2D):
 		#self.healthbar = self.get_node("Viewport/HealthBar") #enemy healthbar
 		self.hitbox = self.get_node("Hitbox")
 		self.animplayer = self.get_node("AnimationPlayer")
+		self.main = self.get_parent()
 	
 	def _process(self, delta):
 		'''runs every frame'''
 		if self.died or self.freeze:
 			return
+		self.summonshadowball()
 		
-	
+	def summonshadowball(self,part=0):
+		'''Summon ShadowBall'''
+		if not self.acting and not part:
+			self.acting = True
+			for i in range(15):
+				bullet = projectile.instance()
+				randomx = random.randrange(-200,200)
+				randomy = random.randrange(-300,-270)
+				#get direction from mousepos turn it into proper angle value
+				direction = (Vector2(randomx,-500) - Vector2(randomx,randomy)).angle()
+				#set projectile property
+				bullet.direction = direction
+				bullet.spawnpos = Vector2(randomx,randomy)
+				bullet.spawnrot = direction
+				bullet.speed = random.randrange(80,250)
+				bullet.duration = 20
+				#add it
+				self.main.add_child(bullet)
+			self.wait(1,'summonshadowball',[part+1])
+		elif part == 1:
+			for i in range(10):
+				bullet = projectile.instance()
+				randomx = random.randrange(-200,200)
+				randomy = random.randrange(-300,-270)
+				#get direction from mousepos turn it into proper angle value
+				direction = (Vector2(randomx,-500) - Vector2(randomx,randomy)).angle()
+				#set projectile property
+				bullet.direction = direction
+				bullet.spawnpos = Vector2(randomx,randomy)
+				bullet.spawnrot = direction
+				bullet.speed = random.randrange(80,250)
+				bullet.duration = 20
+				#add it
+				self.main.add_child(bullet)
+			self.wait(10,'cooldown')
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
 		timer = Timer.new()
