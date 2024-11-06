@@ -20,3 +20,5 @@ class PlayerVar(Node):
 	critdmg = export(float, default=50.0)
 	weapon = export(str, default='Stick')
 	element = export(str, default="Water")
+	skillpoint = export(int, default=0)
+

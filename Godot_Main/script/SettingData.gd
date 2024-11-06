@@ -124,7 +124,6 @@ func on_interact_set(array: int) -> void:
 func on_load_setting_data(data: Dictionary) -> void:
 	# update value when trigger signal
 	loaded_data = data
-	print(loaded_data.up)
 	on_window_mode_selected(loaded_data.window_mode_index)
 	on_window_res_selected(loaded_data.window_res_index)
 	on_master_sound_set(loaded_data.master_sound)

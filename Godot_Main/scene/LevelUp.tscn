@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://script/LevelUp.py" type="Script" id=3]
+[ext_resource path="res://scene/Loadingscene.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -17,6 +19,7 @@ use_filter = true
 font_data = ExtResource( 2 )
 
 [node name="StatusUI" type="CanvasLayer"]
+script = ExtResource( 3 )
 
 [node name="Panel2" type="Panel" parent="."]
 anchor_right = 1.0
@@ -84,3 +87,5 @@ theme = ExtResource( 1 )
 text = "EXP : 0/100"
 align = 1
 autowrap = true
+
+[node name="Loading" parent="." instance=ExtResource( 4 )]
