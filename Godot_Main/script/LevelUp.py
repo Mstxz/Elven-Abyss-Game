@@ -32,9 +32,35 @@ class LevelUp(CanvasLayer):
 			if self.count <= self.PlayerVar.exp:
 				self.exp_label.text = f"EXP : {self.count}/{self.req}"
 				if self.count == self.PlayerVar.exp:
-					load = self.get_node("Loading")
-					load.leave()
-					load.animation.connect("animation_finished", self, "on_animation_finished")
+					self.load()
+
+	def load(self, para=0):
+		if para == 1:
+			load = self.get_node("Loading")
+			load.leave()
+			load.animation.connect("animation_finished", self, "on_animation_finished")
+		else:
+			self.wait(1,"load",Array([para+1]))
+
+	def wait(self,time,funcname,para=Array()):
+		'''see example in shoot()'''
+		timer = Timer.new()
+		timer.one_shot = True
+		self.add_child(timer)
+		
+		# Connect the timeout signal to a custom method
+		timer.connect("timeout", self, funcname, Array(para))
+		timer.connect("timeout", self, 'cleartimer', Array([timer]))
+		# Start the timer
+		timer.start(time)
+	
+	def cooldown(self):
+		'''frequently use to let the enemies act after the timer'''
+		self.acting = False
+		
+	def cleartimer(self,timer):
+		'''sole purpose to delete timer made from wait()'''
+		timer.queue_free()
 	
 	def on_animation_finished(self, anim_name):
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")

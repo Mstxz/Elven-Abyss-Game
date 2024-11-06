@@ -2,6 +2,8 @@ from godot import exposed, export
 from godot import *
 
 loading = ResourceLoader.load("res://scene/LevelUp.tscn", "", True)
+shop = ResourceLoader.load("res://scene/Shop.tscn", "", True)
+boss = ResourceLoader.load("res://scene/Stage_Boss.tscn", "", True)
 
 @exposed
 class Scenechange(Node):
@@ -10,6 +12,9 @@ class Scenechange(Node):
 	new_scene = export(str, default="") # scene that want to go by name example "Main" and "Game" in menu everytime that load new scene create name and assign it in namee
 	namee = {} #store loaded scene load only one time and can use everytime
 	last_scene = export(str, default="res://scene/Lobby.tscn") #make for future now it not important
+	map_lim = export(int, default = 5)
+	count = 0
+	count_shop = 1
 
 	def _ready(self):
 		# LoadScene that want to use when open game
@@ -32,10 +37,24 @@ class Scenechange(Node):
 
 	def load_game(self):
 		"""Load the game scene and change to it"""
-		self.change_scene(self.namee[str(self.new_scene)])
+		if not self.count_shop:
+			self.change_scene(shop)
+			self.count_shop = 2
+		elif self.count == self.map_lim:
+			self.change_scene(boss)
+		else:
+			self.count_shop -= 1
+			self.count += 1
+			self.change_scene(self.namee[str(self.new_scene)])
 	
 	def load_last(self):
 		self.change_scene(self.namee[str(self.last_scene)])
+	
+	def load_main(self):
+		self.change_scene(self.namee["Main"])
+	
+	def load_new_game(self):
+		self.change_scene(self.namee["Lobby"])
 	
 	def load(self):
 		"""Load the game scene and change to it"""

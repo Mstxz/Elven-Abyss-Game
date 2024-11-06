@@ -19,9 +19,7 @@ class PlayButton(Button):
 		
 	def on_animation_finished(self, anim_name):
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-		Scenechange.scene = "res://scene/Lobby.tscn"
-		Scenechange.new_scene = "Lobby"
-		Scenechange.load_game()
+		Scenechange.load_new_game()
 		
 	def updatevar(self):
 		'''update player var to global'''
