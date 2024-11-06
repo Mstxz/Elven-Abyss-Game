@@ -1,3 +1,5 @@
+![alt text](Godot_Main/icon.png)
+
 # AbyssWalker
 
 A game project for PSCP Subject from B.Sc. School of Information Technology, KMITL (1st year).
