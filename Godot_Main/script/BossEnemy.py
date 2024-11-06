@@ -3,6 +3,9 @@ from godot import *
 import random
 
 projectile = ResourceLoader.load("res://scene/ShadowBall.tscn")
+skeleton = ResourceLoader.load("res://scene/Range_Enemy.tscn")
+slime = ResourceLoader.load("res://scene/Enemy.tscn")
+bug = ResourceLoader.load("res://scene/ExplodingEnemy.tscn")
 
 @exposed
 class BossEnemy(KinematicBody2D):
@@ -39,10 +42,36 @@ class BossEnemy(KinematicBody2D):
 			self.freeze = False
 			self.take_damage(20)
 			self.player.removefrombubble(self)
-		self.summonshadowball()
 		if not self.player:
 			self.player = self.main.get_node('Player')
+		elif self.player: #when there is player in sight
+			distance = self.player.position.distance_to(self.position)
+			if distance < 220:
+				randomnum = random.randrange(0,3)
+				if randomnum == 0:
+					self.summonshadowball()
+				elif randomnum ==1:
+					self.summonmonster()
 		
+	def summonmonster(self,part=0):
+		if 0 < part < 10 or (not part and not self.acting):
+			self.acting = True
+			randomnum = random.randrange(0,3)
+			randomx = random.randrange(-180,180)
+			randomy = random.randrange(-150,150)
+			monster = None
+			if randomnum == 0:
+				monster = skeleton.instance()
+			elif randomnum == 1:
+				monster = slime.instance()
+			elif randomnum ==2:
+				monster = bug.instance()
+			monster.position = Vector2(randomx,randomy)
+			self.main.add_child(monster)
+			self.wait(1,'summonmonster',[part+1])
+		elif part >= 10:
+			self.wait(10,'cooldown')
+			
 	def summonshadowball(self,part=0):
 		'''Summon ShadowBall'''
 		if not self.acting and not part:
@@ -50,7 +79,7 @@ class BossEnemy(KinematicBody2D):
 			for i in range(15):
 				bullet = projectile.instance()
 				randomx = random.randrange(-200,200)
-				randomy = random.randrange(-300,-270)
+				randomy = random.randrange(-350,-300)
 				#get direction from mousepos turn it into proper angle value
 				direction = (Vector2(randomx,-500) - Vector2(randomx,randomy)).angle()
 				#set projectile property
