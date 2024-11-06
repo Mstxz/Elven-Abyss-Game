@@ -317,6 +317,7 @@ class Player(KinematicBody2D):
 				self.mana_consume(20)
 				self.skill1cd = True
 				self.acting = True
+				self.invincible = True
 				self.wait(0.5,'playsfx',['Skill1Water_Enter'])
 				self.sprite.play('Skill'+ self.animationid)
 				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
@@ -331,13 +332,14 @@ class Player(KinematicBody2D):
 			elif part == 2:
 				self.freeze = True
 				self.skill0activate = False
-				self.invincible = False
+				self.invincible = True
 				self.sprite.play('Skill'+ self.animationid + 'Cancel')
 				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
 			elif part == 3:
 				self.playsfx('Skill1Water_Exit')
 				self.stopsfx('Skill1Water_Walk')
 				self.sprite.disconnect("animation_finished",self,"skill1")
+				self.invincible = False
 				self.acting = False
 				self.freeze = False
 				self.wait(cdtime,'cooldown',['skill1'])
