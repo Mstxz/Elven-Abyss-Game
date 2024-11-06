@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/Tiles/Dungeon_Tile.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scene/MainUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/PointLight.png" type="Texture" id=7]
 [ext_resource path="res://scene/Stairs.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/Audio/Game_Normal.mp3" type="AudioStream" id=9]
 
 [sub_resource type="Gradient" id=6]
 interpolation_mode = 2
@@ -154,3 +155,8 @@ speed_scale = 0.5
 randomness = 1.0
 local_coords = false
 process_material = SubResource( 8 )
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
+bus = "Music"
