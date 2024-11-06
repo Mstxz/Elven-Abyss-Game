@@ -47,7 +47,7 @@ scale_curve = SubResource( 8 )
 color = Color( 1, 1, 1, 0.431373 )
 color_ramp = SubResource( 7 )
 
-[node name="Node2D" type="Node2D"]
+[node name="FinalStage" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="Floor" type="TileMap" parent="."]
