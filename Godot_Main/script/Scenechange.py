@@ -11,7 +11,7 @@ class Scenechange(Node):
 	scene = export(str, default="") # scene for loading script example res://...
 	new_scene = export(str, default="") # scene that want to go by name example "Main" and "Game" in menu everytime that load new scene create name and assign it in namee
 	namee = {} #store loaded scene load only one time and can use everytime
-	last_scene = export(str, default="res://scene/Lobby.tscn") #make for future now it not important
+	last_scene = export(str, default="Lobby") #make for future now it not important
 	map_lim = export(int, default = 5)
 	count = 0
 	count_shop = 1
@@ -19,7 +19,7 @@ class Scenechange(Node):
 	def _ready(self):
 		# LoadScene that want to use when open game
 		mainmenu = ResourceLoader.load("res://scene/MainMenu.tscn", "", True)
-		game = ResourceLoader.load(self.last_scene, "", True)
+		game = ResourceLoader.load("res://scene/Lobby.tscn", "", True)
 		# store loaded scene in dict
 		self.namee["Main"] = mainmenu
 		self.namee["Lobby"] = game
@@ -40,12 +40,15 @@ class Scenechange(Node):
 		if not self.count_shop:
 			self.change_scene(shop)
 			self.count_shop = 2
+			self.last_scene = shop
 		elif self.count == self.map_lim:
 			self.change_scene(boss)
+			self.last_scene = boss
 		else:
 			self.count_shop -= 1
 			self.count += 1
 			self.change_scene(self.namee[str(self.new_scene)])
+			self.last_scene = self.new_scene
 	
 	def load_last(self):
 		self.change_scene(self.namee[str(self.last_scene)])
@@ -64,14 +67,15 @@ class Scenechange(Node):
 			self.change_scene(loading)
 		else:
 			self.load_game()
+
 	def load_new(self, filepath, sname):
 		"""Use for load new scene that not assign in this script"""
-		self.last_scene = str(filepath) #future
 		self.scene = str(filepath) #for loading scene script
 		self.new_scene = str(sname) #new scene name
+		self.last_scene = self.new_scene
 		if sname not in self.namee:
 			#if this scene didn't load before, load it
-			game = ResourceLoader.load(self.last_scene, "", True)
+			game = ResourceLoader.load(self.scene, "", True)
 			self.namee[str(sname)] = game
 		self.load()
 	
