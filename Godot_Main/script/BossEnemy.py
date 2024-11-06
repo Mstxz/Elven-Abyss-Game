@@ -10,9 +10,9 @@ class BossEnemy(KinematicBody2D):
 	# member variables here, example:
 	speed = export(float, default=70.0)
 	atk = export(float, default=10.00)
-	maxhp = export(float, default=100.0)
-	hp = export(float, default=100.0)
-	defense = export(float, default=0.0)
+	maxhp = export(float, default=300.0)
+	hp = export(float, default=300.0)
+	defense = export(float, default=10.0)
 	exp = export(float, default=10.0)
 	gold = export(float, default=10.0)
 	acting = export(bool, default=False)
@@ -29,11 +29,16 @@ class BossEnemy(KinematicBody2D):
 		self.hitbox = self.get_node("Hitbox")
 		self.animplayer = self.get_node("AnimationPlayer")
 		self.main = self.get_parent()
+		self.healthbar = self.main.get_node('BossHealthBar').get_node('HealthBar')
 	
 	def _process(self, delta):
 		'''runs every frame'''
-		if self.died or self.freeze:
+		if self.died:
 			return
+		if self.freeze:
+			self.freeze = False
+			self.take_damage(20)
+			self.player.removefrombubble(self)
 		self.summonshadowball()
 		
 	def summonshadowball(self,part=0):
@@ -123,6 +128,7 @@ class BossEnemy(KinematicBody2D):
 			self.hp_changed_func()
 		if self.hp <= 0: #if health <= 0 then call death func
 			self.death()
+		print(self.hp)
 		
 	def heal(self, amount): 
 		'''handle heals'''

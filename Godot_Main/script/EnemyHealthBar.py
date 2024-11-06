@@ -25,6 +25,6 @@ class EnemyHealthBar(ProgressBar):
 		
 	def updatehealth(self, maxhp, newhp):
 		self.virtualbar.visible = True
-		if maxhp == self.max_value: #in case of maxhp changing
+		if maxhp != self.max_value: #in case of maxhp changing
 			self.tweenvalue('max_value', maxhp) #read above function if you wonder what tween is
 		self.tweenvalue('value', newhp) #update progress

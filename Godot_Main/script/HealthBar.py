@@ -20,6 +20,6 @@ class HealthBar(TextureProgress):
 		tween.start()
 		
 	def updatehealth(self, maxhp, newhp):
-		if maxhp == self.max_value: #in case of maxhp changing
+		if maxhp != self.max_value: #in case of maxhp changing
 			self.tweenvalue('max_value', maxhp) #read above function if you wonder what tween is
 		self.tweenvalue('value', newhp) #update progress
