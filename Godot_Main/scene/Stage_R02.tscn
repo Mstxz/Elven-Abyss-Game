@@ -2495,15 +2495,6 @@ visible = false
 [node name="ExplodingEnemy" parent="." instance=ExtResource( 9 )]
 position = Vector2( -4, 121 )
 
-[node name="Enemy" parent="ExplodingEnemy" instance=ExtResource( 10 )]
-position = Vector2( -143, -101 )
-
-[node name="Enemy2" parent="ExplodingEnemy" instance=ExtResource( 10 )]
-position = Vector2( 75, -153 )
-
-[node name="Range_Enemy" parent="ExplodingEnemy" instance=ExtResource( 11 )]
-position = Vector2( 2, -137 )
-
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = -14.0
@@ -2517,3 +2508,12 @@ speed_scale = 0.5
 randomness = 1.0
 local_coords = false
 process_material = SubResource( 16 )
+
+[node name="Enemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( -147, 20 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 71, -32 )
+
+[node name="Range_Enemy" parent="." instance=ExtResource( 11 )]
+position = Vector2( -2, -16 )
