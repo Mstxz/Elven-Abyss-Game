@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://script/Play.py" type="Script" id=1]
 [ext_resource path="res://assets/UI/Title.png" type="Texture" id=2]
-[ext_resource path="res://assets/UI/BackDrop.png" type="Texture" id=3]
+[ext_resource path="res://assets/BG/0052.png" type="Texture" id=3]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=4]
 [ext_resource path="res://script/QuitGameButton.py" type="Script" id=5]
 [ext_resource path="res://assets/Audio/Game_Lobby.mp3" type="AudioStream" id=6]
@@ -11,13 +11,75 @@
 [ext_resource path="res://scene/Loadingscene.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Audio/SFX/interface-soft-click-131438.mp3" type="AudioStream" id=10]
 [ext_resource path="res://scene/ChooseElement.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/BG/0046.png" type="Texture" id=12]
+[ext_resource path="res://assets/BG/0023.png" type="Texture" id=13]
+[ext_resource path="res://assets/BG/0033.png" type="Texture" id=14]
+[ext_resource path="res://assets/BG/0029.png" type="Texture" id=15]
+[ext_resource path="res://assets/BG/0031.png" type="Texture" id=16]
+[ext_resource path="res://assets/BG/0054.png" type="Texture" id=17]
+[ext_resource path="res://assets/BG/0034.png" type="Texture" id=18]
+[ext_resource path="res://assets/BG/0053.png" type="Texture" id=19]
+[ext_resource path="res://assets/BG/0030.png" type="Texture" id=20]
+[ext_resource path="res://assets/BG/0058.png" type="Texture" id=21]
+[ext_resource path="res://assets/BG/0015.png" type="Texture" id=22]
+[ext_resource path="res://assets/BG/0017.png" type="Texture" id=23]
+[ext_resource path="res://assets/BG/0032.png" type="Texture" id=24]
+[ext_resource path="res://assets/BG/0050.png" type="Texture" id=25]
+[ext_resource path="res://assets/BG/0014.png" type="Texture" id=26]
+[ext_resource path="res://assets/BG/0012.png" type="Texture" id=27]
+[ext_resource path="res://assets/BG/0013.png" type="Texture" id=28]
+[ext_resource path="res://assets/BG/0026.png" type="Texture" id=29]
+[ext_resource path="res://assets/BG/0041.png" type="Texture" id=30]
+[ext_resource path="res://assets/BG/0016.png" type="Texture" id=31]
+[ext_resource path="res://assets/BG/0018.png" type="Texture" id=32]
+[ext_resource path="res://assets/BG/0049.png" type="Texture" id=33]
+[ext_resource path="res://assets/BG/0025.png" type="Texture" id=34]
+[ext_resource path="res://assets/BG/0036.png" type="Texture" id=35]
+[ext_resource path="res://assets/BG/0055.png" type="Texture" id=36]
+[ext_resource path="res://assets/BG/0059.png" type="Texture" id=37]
+[ext_resource path="res://assets/BG/0060.png" type="Texture" id=38]
+[ext_resource path="res://assets/BG/0022.png" type="Texture" id=39]
+[ext_resource path="res://assets/BG/0045.png" type="Texture" id=40]
+[ext_resource path="res://assets/BG/0021.png" type="Texture" id=41]
+[ext_resource path="res://assets/BG/0027.png" type="Texture" id=42]
+[ext_resource path="res://assets/BG/0040.png" type="Texture" id=43]
+[ext_resource path="res://assets/BG/0057.png" type="Texture" id=44]
+[ext_resource path="res://assets/BG/0038.png" type="Texture" id=45]
+[ext_resource path="res://assets/BG/0042.png" type="Texture" id=46]
+[ext_resource path="res://assets/BG/0039.png" type="Texture" id=47]
+[ext_resource path="res://assets/BG/0048.png" type="Texture" id=48]
+[ext_resource path="res://assets/BG/0043.png" type="Texture" id=49]
+[ext_resource path="res://assets/BG/0028.png" type="Texture" id=50]
+[ext_resource path="res://assets/BG/0047.png" type="Texture" id=51]
+[ext_resource path="res://assets/BG/0044.png" type="Texture" id=52]
+[ext_resource path="res://assets/BG/0020.png" type="Texture" id=53]
+[ext_resource path="res://assets/BG/0019.png" type="Texture" id=54]
+[ext_resource path="res://assets/BG/0056.png" type="Texture" id=55]
+[ext_resource path="res://assets/BG/0024.png" type="Texture" id=56]
+[ext_resource path="res://assets/BG/0035.png" type="Texture" id=57]
+[ext_resource path="res://assets/BG/0037.png" type="Texture" id=58]
+[ext_resource path="res://assets/BG/0051.png" type="Texture" id=59]
+[ext_resource path="res://assets/BG/0003.png" type="Texture" id=60]
+[ext_resource path="res://assets/BG/0005.png" type="Texture" id=61]
+[ext_resource path="res://assets/BG/0002.png" type="Texture" id=62]
+[ext_resource path="res://assets/BG/0006.png" type="Texture" id=63]
+[ext_resource path="res://assets/BG/0004.png" type="Texture" id=64]
+[ext_resource path="res://assets/BG/0001.png" type="Texture" id=65]
+[ext_resource path="res://assets/BG/0011.png" type="Texture" id=66]
+[ext_resource path="res://assets/BG/0009.png" type="Texture" id=67]
+[ext_resource path="res://assets/BG/0007.png" type="Texture" id=68]
+[ext_resource path="res://assets/BG/0008.png" type="Texture" id=69]
+[ext_resource path="res://assets/BG/0010.png" type="Texture" id=70]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 65 ), ExtResource( 62 ), ExtResource( 60 ), ExtResource( 64 ), ExtResource( 61 ), ExtResource( 63 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 67 ), ExtResource( 70 ), ExtResource( 66 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 26 ), ExtResource( 22 ), ExtResource( 31 ), ExtResource( 23 ), ExtResource( 32 ), ExtResource( 54 ), ExtResource( 53 ), ExtResource( 41 ), ExtResource( 39 ), ExtResource( 13 ), ExtResource( 56 ), ExtResource( 34 ), ExtResource( 29 ), ExtResource( 42 ), ExtResource( 50 ), ExtResource( 15 ), ExtResource( 20 ), ExtResource( 16 ), ExtResource( 24 ), ExtResource( 14 ), ExtResource( 18 ), ExtResource( 57 ), ExtResource( 35 ), ExtResource( 58 ), ExtResource( 45 ), ExtResource( 47 ), ExtResource( 43 ), ExtResource( 30 ), ExtResource( 46 ), ExtResource( 49 ), ExtResource( 52 ), ExtResource( 40 ), ExtResource( 12 ), ExtResource( 51 ), ExtResource( 48 ), ExtResource( 33 ), ExtResource( 25 ), ExtResource( 59 ), ExtResource( 3 ), ExtResource( 19 ), ExtResource( 17 ), ExtResource( 36 ), ExtResource( 55 ), ExtResource( 44 ), ExtResource( 21 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 21 ), ExtResource( 44 ), ExtResource( 55 ), ExtResource( 36 ), ExtResource( 17 ), ExtResource( 19 ), ExtResource( 3 ), ExtResource( 59 ), ExtResource( 25 ), ExtResource( 33 ), ExtResource( 48 ), ExtResource( 51 ), ExtResource( 12 ), ExtResource( 40 ), ExtResource( 52 ), ExtResource( 49 ), ExtResource( 46 ), ExtResource( 30 ), ExtResource( 43 ), ExtResource( 47 ), ExtResource( 45 ), ExtResource( 58 ), ExtResource( 35 ), ExtResource( 57 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 24 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 15 ), ExtResource( 50 ), ExtResource( 42 ), ExtResource( 29 ), ExtResource( 34 ), ExtResource( 56 ), ExtResource( 13 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 32 ), ExtResource( 23 ), ExtResource( 31 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 27 ), ExtResource( 66 ), ExtResource( 70 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 63 ), ExtResource( 61 ), ExtResource( 64 ), ExtResource( 60 ), ExtResource( 62 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
 
 [node name="Node2D" type="Node2D"]
-
-[node name="BackDrop" type="Sprite" parent="."]
-position = Vector2( 7.59804, 0.999994 )
-scale = Vector2( 1.16954, 1.15278 )
-texture = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -29,6 +91,7 @@ smoothing_speed = 10.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Loading" parent="CanvasLayer" instance=ExtResource( 9 )]
+visible = false
 
 [node name="Menu" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -100,10 +163,10 @@ stream = ExtResource( 10 )
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -456.5
-margin_top = 50.0
-margin_right = 456.5
-margin_bottom = 353.0
+margin_left = -321.0
+margin_top = 87.0
+margin_right = 321.0
+margin_bottom = 300.0
 texture = ExtResource( 2 )
 expand = true
 
@@ -118,3 +181,9 @@ stream = ExtResource( 6 )
 volume_db = -14.0
 autoplay = true
 bus = "Music"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -16, -7 )
+scale = Vector2( 0.483866, 0.488889 )
+frames = SubResource( 1 )
+playing = true

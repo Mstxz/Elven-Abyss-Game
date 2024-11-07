@@ -20,6 +20,7 @@ border_width_bottom = 2
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="Panel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.784314 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -40,6 +41,8 @@ margin_top = -119.0
 margin_right = 81.0
 margin_bottom = -38.0
 rect_rotation = 45.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 script = ExtResource( 3 )
 element = "Wind"
@@ -58,6 +61,8 @@ expand = true
 [node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button2"]
 stream = ExtResource( 4 )
 
+[node name="Tween" type="Tween" parent="Panel/Button2"]
+
 [node name="Button4" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -67,6 +72,8 @@ margin_top = 5.0
 margin_right = 81.0
 margin_bottom = 86.0
 rect_rotation = 45.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 script = ExtResource( 3 )
 element = "Earth"
@@ -85,6 +92,8 @@ expand = true
 [node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button4"]
 stream = ExtResource( 4 )
 
+[node name="Tween" type="Tween" parent="Panel/Button4"]
+
 [node name="Button5" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -95,6 +104,8 @@ margin_top = -57.0
 margin_right = 19.0
 margin_bottom = 24.0
 rect_rotation = 45.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 script = ExtResource( 3 )
 element = "Water"
@@ -113,6 +124,8 @@ expand = true
 [node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button5"]
 stream = ExtResource( 4 )
 
+[node name="Tween" type="Tween" parent="Panel/Button5"]
+
 [node name="Button3" type="Button" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -123,6 +136,8 @@ margin_top = -57.0
 margin_right = 143.0
 margin_bottom = 24.0
 rect_rotation = 45.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 script = ExtResource( 3 )
 element = "Fire"
@@ -140,3 +155,5 @@ expand = true
 
 [node name="HoverSfx" type="AudioStreamPlayer2D" parent="Panel/Button3"]
 stream = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="Panel/Button3"]
