@@ -211,8 +211,6 @@ class Melee_Enemy(KinematicBody2D):
 			self.animplayer.connect("animation_finished",self,"death")
 			return
 		self.player = self.get_node("../Player")
-		if self.freeze:
-			self.player.removefrombubble(self)
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
 		self.queue_free()
@@ -235,4 +233,11 @@ class Melee_Enemy(KinematicBody2D):
 		
 	def heal(self, amount): 
 		'''handle heals'''
-		self.hp += amount
+		self.hp += amount	
+		
+	def bubblepop(self):
+		bubblecheck = self.get_node('Bubble')
+		self.freeze = False
+		if bubblecheck:
+			bubblecheck.play('Pop')
+			bubblecheck.connect('animation_finished',bubblecheck,'queue_free')

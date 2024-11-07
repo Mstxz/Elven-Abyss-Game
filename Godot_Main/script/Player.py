@@ -364,28 +364,10 @@ class Player(KinematicBody2D):
 						if 'Boss' in str(i.name):
 							givebubble.scale += Vector2(2,2)
 						i.add_child(givebubble)
-						self.enemybubbled.append(i)
-				self.wait(10,'skill2',[part+1])
+						i.wait(10,'bubblepop')
 				cdtime = 20
 				self.wait(cdtime,'cooldown',['skill2'])
 				self.uicd2.cooldownui(cdtime) #call ui func
-			elif part == 1 and self.enemybubbled:
-				for i in self.enemybubbled:
-					i.freeze = False
-					bubblecheck = i.get_node('Bubble')
-					if bubblecheck:
-						bubblecheck.play('Pop')
-						bubblecheck.connect('animation_finished',bubblecheck,'queue_free')
-						
-				self.enemybubbled = []
-				
-	def removefrombubble(self,scene):
-		if scene in self.enemybubbled:
-			self.enemybubbled.remove(scene)
-			bubblecheck = scene.get_node('Bubble')
-			if bubblecheck:
-				bubblecheck.play('Pop')
-				bubblecheck.connect('animation_finished',bubblecheck,'queue_free')
 	
 	def hp_changed_func(self):
 		
