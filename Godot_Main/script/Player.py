@@ -143,16 +143,16 @@ class Player(KinematicBody2D):
 		if str(self.weapon) == 'Stick':
 			if not part and Input.is_action_just_pressed('left_click') and not self.acting:
 				# if the player click
-				#acting is as it name suggest to prevent spam
-				self.acting = True
-				self.mana_consume(5)
-				self.sprite.play('Shoot' + self.animationid)
-				self.mousepos = self.get_global_mouse_position()#get mouse pos
-				if self.mousepos.x > self.position.x:
-					self.sprite.flip_h = True
-				else:
-					self.sprite.flip_h = False
-				self.wait(0.3,'shoot',[part+1])
+				if self.mana_consume(5):
+					#acting is as it name suggest to prevent spam
+					self.acting = True
+					self.sprite.play('Shoot' + self.animationid)
+					self.mousepos = self.get_global_mouse_position()#get mouse pos
+					if self.mousepos.x > self.position.x:
+						self.sprite.flip_h = True
+					else:
+						self.sprite.flip_h = False
+					self.wait(0.3,'shoot',[part+1])
 			elif part == 1:
 				# 'projectile' is loaded scene sees at the start of this script
 				bullet = projectile.instance()
@@ -178,17 +178,17 @@ class Player(KinematicBody2D):
 			if not part and Input.is_action_just_pressed('left_click'):
 				# if the player click
 				if not self.acting:
-					#acting is as it name suggest to prevent spam and
-					#keep the animation running
-					self.acting = True
-					self.mana_consume(10)
-					self.sprite.play('Shoot' + self.animationid)
-					self.mousepos = self.get_global_mouse_position()#get mouse pos
-					if self.mousepos.x > self.position.x:
-						self.sprite.flip_h = True
-					else:
-						self.sprite.flip_h = False
-					self.wait(0.3,'shoot',[part+1])
+					if self.mana_consume(10):
+						#acting is as it name suggest to prevent spam and
+						#keep the animation running
+						self.acting = True
+						self.sprite.play('Shoot' + self.animationid)
+						self.mousepos = self.get_global_mouse_position()#get mouse pos
+						if self.mousepos.x > self.position.x:
+							self.sprite.flip_h = True
+						else:
+							self.sprite.flip_h = False
+						self.wait(0.3,'shoot',[part+1])
 			elif part == 1:
 				# 'projectile' is loaded scene sees at the start of this script
 				bulletoffset = [
@@ -314,15 +314,15 @@ class Player(KinematicBody2D):
 		if str(self.element) == 'Water':
 			cdtime = 10
 			if not self.skill1cd and Input.is_action_just_pressed('skill1') and not part:
-				self.freeze = True
-				self.mana_consume(20)
-				self.skill1cd = True
-				self.acting = True
-				self.invincible = True
-				self.wait(0.5,'playsfx',['Skill1Water_Enter'])
-				self.sprite.play('Skill'+ self.animationid)
-				self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
-				self.uicd1.activating(self.element)
+				if self.mana_consume(20):
+					self.freeze = True
+					self.skill1cd = True
+					self.acting = True
+					self.invincible = True
+					self.wait(0.5,'playsfx',['Skill1Water_Enter'])
+					self.sprite.play('Skill'+ self.animationid)
+					self.sprite.connect("animation_finished",self,"skill1",Array([part+1]))
+					self.uicd1.activating(self.element)
 			elif part == 1:
 				self.sprite.disconnect("animation_finished",self,"skill1")
 				self.freeze = False
@@ -349,27 +349,27 @@ class Player(KinematicBody2D):
 	def skill2(self,part=0,param1=None):
 		if str(self.element) == 'Water':
 			if not self.skill2cd and Input.is_action_just_pressed('skill2') and not part:
-				self.skill2cd = True
-				cdtime = 20
-				self.animplayer.play('WaterSkill2')
-				self.wait(cdtime,'cooldown',['skill2'])
-				self.mana_consume(80)
-				allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
-				for i in allbodies:
-					if 'Enemy' in str(i.name): #prevent recognizing other kinematic2d
-						if i.died:
-							return
-						i.freeze = True
-						i.get_node('AnimatedSprite').play('Idle')
-						givebubble = bubble.instance()
-						givebubble.scale += i.scale
-						if 'Boss' in str(i.name):
-							givebubble.scale += Vector2(2,2)
-						i.add_child(givebubble)
-						i.wait(10,'bubblepop')
+				if self.mana_consume(80):
+					self.skill2cd = True
+					cdtime = 20
+					self.animplayer.play('WaterSkill2')
+					self.wait(cdtime,'cooldown',['skill2'])
+					allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
+					for i in allbodies:
+						if 'Enemy' in str(i.name): #prevent recognizing other kinematic2d
+							if i.died:
+								return
+							i.freeze = True
+							i.get_node('AnimatedSprite').play('Idle')
+							givebubble = bubble.instance()
+							givebubble.scale += i.scale
+							if 'Boss' in str(i.name):
+								givebubble.scale += Vector2(2,2)
+							i.add_child(givebubble)
+							i.wait(10,'bubblepop')
 				
 				
-				self.uicd2.cooldownui(cdtime) #call ui func
+					self.uicd2.cooldownui(cdtime) #call ui func
 	
 	def hp_changed_func(self):
 		
