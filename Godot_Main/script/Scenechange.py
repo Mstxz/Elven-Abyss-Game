@@ -23,6 +23,8 @@ class Scenechange(Node):
 		# store loaded scene in dict
 		self.namee["Main"] = mainmenu
 		self.namee["Lobby"] = game
+		self.namee["Shop"] = shop
+		self.namee["Boss"] = boss
 
 	def change_scene(self, scene: PackedScene):
 		"""Change scene system"""
@@ -38,12 +40,12 @@ class Scenechange(Node):
 	def load_game(self):
 		"""Load the game scene and change to it"""
 		if not self.count_shop:
-			self.change_scene(shop)
+			self.change_scene(self.namee["Shop"])
 			self.count_shop = 2
-			self.last_scene = shop
+			self.last_scene = "Shop"
 		elif self.count == self.map_lim:
-			self.change_scene(boss)
-			self.last_scene = boss
+			self.change_scene(self.namee["Boss"])
+			self.last_scene = "Boss"
 		else:
 			self.count_shop -= 1
 			self.count += 1
@@ -55,6 +57,8 @@ class Scenechange(Node):
 	
 	def load_main(self):
 		self.change_scene(self.namee["Main"])
+		self.count = 0
+		self.count_shop = 1
 	
 	def load_new_game(self):
 		self.change_scene(self.namee["Lobby"])
