@@ -181,7 +181,7 @@ local_coords = false
 process_material = SubResource( 6 )
 
 [node name="BossEnemy" parent="." instance=ExtResource( 10 )]
-position = Vector2( 6, -18 )
+position = Vector2( 0, -50 )
 
 [node name="BossHealthBar" parent="." instance=ExtResource( 11 )]
 

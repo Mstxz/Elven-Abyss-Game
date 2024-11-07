@@ -116,7 +116,7 @@ class Player(KinematicBody2D):
 	
 	def cooldown(self,target=None,timeout=False):
 		'''frequently use to reset cooldown after the timer'''
-		if self.sprite.is_connected("animation_finished",self,"cooldown"):
+		if self.sprite.is_connected("animation_finished",self,"cooldown") and not target:
 			self.sprite.disconnect("animation_finished",self,"cooldown")
 			if not timeout and not target:
 				return
@@ -350,7 +350,9 @@ class Player(KinematicBody2D):
 		if str(self.element) == 'Water':
 			if not self.skill2cd and Input.is_action_just_pressed('skill2') and not part:
 				self.skill2cd = True
+				cdtime = 20
 				self.animplayer.play('WaterSkill2')
+				self.wait(cdtime,'cooldown',['skill2'])
 				self.mana_consume(80)
 				allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
 				for i in allbodies:
@@ -365,8 +367,8 @@ class Player(KinematicBody2D):
 							givebubble.scale += Vector2(2,2)
 						i.add_child(givebubble)
 						i.wait(10,'bubblepop')
-				cdtime = 20
-				self.wait(cdtime,'cooldown',['skill2'])
+				
+				
 				self.uicd2.cooldownui(cdtime) #call ui func
 	
 	def hp_changed_func(self):

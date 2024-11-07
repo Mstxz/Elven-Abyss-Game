@@ -12,7 +12,7 @@ class BossEnemy(KinematicBody2D):
 
 	# member variables here, example:
 	speed = export(float, default=70.0)
-	atk = export(float, default=50.00)
+	atk = export(float, default=30.00)
 	maxhp = export(float, default=300.0)
 	hp = export(float, default=300.0)
 	defense = export(float, default=10.0)
@@ -43,7 +43,7 @@ class BossEnemy(KinematicBody2D):
 			self.bubblepop()
 		if not self.player:
 			self.player = self.main.get_node('Player')
-		elif self.player: #when there is player in sight
+		elif self.player and not self.acting: #when there is player in sight
 			distance = self.player.position.distance_to(self.position)
 			if distance < 220:
 				randomnum = random.randrange(0,3)
@@ -51,29 +51,36 @@ class BossEnemy(KinematicBody2D):
 					self.summonshadowball()
 				elif randomnum ==1:
 					self.summonmonster()
-				elif randomnum == 2:
-					self.attack()
+					self.sprite.play('Summon')
+				elif randomnum == 2 and self.player.hp > 0:
+					self.acting = True
+					self.animplayer.play('Disappear')
+					self.animplayer.connect("animation_finished",self,"attack")
 	
-	def attack(self,part=0):
+	def attack(self,blank=None,part=0):
 		if not part:
-			self.acting = True
+			self.animplayer.play('Appear')
+			self.animplayer.disconnect("animation_finished",self,"attack")
+			self.position = self.player.position + Vector2(0,-50)
 			self.sprite.play('Attack')
-			self.sprite.connect("animation_finished",self,"attack",Array([part+1]))
-		elif part == 1:
-			self.sprite.disconnect("animation_finished",self,"attack")
 			allbodies = self.get_node("Hitbox").get_overlapping_bodies()
 			for i in allbodies:
 				if 'Player' in str(i.name): #prevent recognizing other kinematic2d
-					if i.died:
-						return
-					i.take_damage(atk)
+					i.take_damage(self.atk)
+			self.sprite.connect("animation_finished",self,"attack",Array([None,part+1]))
+		elif part == 1:
+			self.sprite.disconnect("animation_finished",self,"attack")
+			self.animcancel()
+			self.animplayer.play('Disappear')
+			self.wait(2,'attack',[None,part+1])
+		elif part == 2:
+			self.animplayer.play('Appear')
+			self.position = Vector2(0,-50)
 			self.wait(5,'cooldown')
-			
 	
 	def summonmonster(self,part=0):
-		if 0 < part < 10 or (not part and not self.acting):
+		if 0 < part < 3 or (not part and not self.acting):
 			self.acting = True
-			self.sprite.play('Summon')
 			randomnum = random.randrange(0,3)
 			randomx = random.randrange(-180,180)
 			randomy = random.randrange(-150,150)
@@ -87,7 +94,8 @@ class BossEnemy(KinematicBody2D):
 			monster.position = Vector2(randomx,randomy)
 			self.main.add_child(monster)
 			self.wait(1,'summonmonster',[part+1])
-		elif part >= 10:
+		elif part >= 3:
+			self.animcancel()
 			self.wait(10,'cooldown')
 			
 	def summonshadowball(self,part=0):
@@ -95,6 +103,7 @@ class BossEnemy(KinematicBody2D):
 		if not self.acting and not part:
 			self.acting = True
 			self.sprite.play('ShadowBall')
+			self.sprite.connect("animation_finished",self,"animcancel")
 			for i in range(15):
 				bullet = projectile.instance()
 				randomx = random.randrange(-200,200)
@@ -125,7 +134,6 @@ class BossEnemy(KinematicBody2D):
 				bullet.duration = 20
 				#add it
 				self.main.add_child(bullet)
-			self.sprite.play('Idle')
 			self.wait(10,'cooldown')
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -139,6 +147,10 @@ class BossEnemy(KinematicBody2D):
 		# Start the timer
 		timer.start(time)
 	
+	def animcancel(self):
+		'''Cancel Animation'''
+		self.sprite.play('Idle')
+		
 	def cooldown(self):
 		'''frequently use to let the enemies act after the timer'''
 		self.sprite.play('Idle')
@@ -147,9 +159,6 @@ class BossEnemy(KinematicBody2D):
 	def cleartimer(self,timer):
 		'''sole purpose to delete timer made from wait()'''
 		timer.queue_free()
-
-	def attack(self,part=0):
-		'''attack function'''
 		
 	def hp_changed_func(self):
 		'''update the health'''
@@ -165,6 +174,7 @@ class BossEnemy(KinematicBody2D):
 		self.player = self.get_node("../Player")
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
+		self.healthbar.get_node('../').queue_free()
 		self.queue_free()
 	
 	def take_damage(self, dmg, kb=None):
