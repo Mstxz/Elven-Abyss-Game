@@ -56,7 +56,7 @@ class Shop(VBoxContainer):
 
 		#Display Item
 		self.item_name_label.text = item_info['name']
-		self.price_label.text = f"Price: {item_info['price']}"
+		self.price_label.text = f"{item_info['price']}"
 		self.buy_button.disabled = False
 
 	def _on_buy_button_pressed(self):
