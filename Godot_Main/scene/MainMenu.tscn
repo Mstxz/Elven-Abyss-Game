@@ -183,7 +183,7 @@ autoplay = true
 bus = "Music"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -16, -7 )
-scale = Vector2( 0.483866, 0.488889 )
+position = Vector2( -15.6278, -7 )
+scale = Vector2( 0.484641, 0.488889 )
 frames = SubResource( 1 )
 playing = true

@@ -12,7 +12,7 @@ class BossEnemy(KinematicBody2D):
 
 	# member variables here, example:
 	speed = export(float, default=70.0)
-	atk = export(float, default=10.00)
+	atk = export(float, default=50.00)
 	maxhp = export(float, default=300.0)
 	hp = export(float, default=300.0)
 	defense = export(float, default=10.0)
@@ -51,10 +51,29 @@ class BossEnemy(KinematicBody2D):
 					self.summonshadowball()
 				elif randomnum ==1:
 					self.summonmonster()
-		
+				elif randomnum == 2:
+					self.attack()
+	
+	def attack(self,part=0):
+		if not part:
+			self.acting = True
+			self.sprite.play('Attack')
+			self.sprite.connect("animation_finished",self,"attack",Array([part+1]))
+		elif part == 1:
+			self.sprite.disconnect("animation_finished",self,"attack")
+			allbodies = self.get_node("Hitbox").get_overlapping_bodies()
+			for i in allbodies:
+				if 'Player' in str(i.name): #prevent recognizing other kinematic2d
+					if i.died:
+						return
+					i.take_damage(atk)
+			self.wait(5,'cooldown')
+			
+	
 	def summonmonster(self,part=0):
 		if 0 < part < 10 or (not part and not self.acting):
 			self.acting = True
+			self.sprite.play('Summon')
 			randomnum = random.randrange(0,3)
 			randomx = random.randrange(-180,180)
 			randomy = random.randrange(-150,150)
@@ -75,6 +94,7 @@ class BossEnemy(KinematicBody2D):
 		'''Summon ShadowBall'''
 		if not self.acting and not part:
 			self.acting = True
+			self.sprite.play('ShadowBall')
 			for i in range(15):
 				bullet = projectile.instance()
 				randomx = random.randrange(-200,200)
@@ -105,6 +125,7 @@ class BossEnemy(KinematicBody2D):
 				bullet.duration = 20
 				#add it
 				self.main.add_child(bullet)
+			self.sprite.play('Idle')
 			self.wait(10,'cooldown')
 	def wait(self,time,funcname,para=Array()):
 		'''see example in shoot()'''
@@ -120,6 +141,7 @@ class BossEnemy(KinematicBody2D):
 	
 	def cooldown(self):
 		'''frequently use to let the enemies act after the timer'''
+		self.sprite.play('Idle')
 		self.acting = False
 		
 	def cleartimer(self,timer):
