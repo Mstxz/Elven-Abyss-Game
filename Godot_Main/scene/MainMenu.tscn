@@ -91,7 +91,6 @@ smoothing_speed = 10.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Loading" parent="CanvasLayer" instance=ExtResource( 9 )]
-visible = false
 
 [node name="Menu" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0

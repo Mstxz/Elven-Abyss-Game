@@ -351,25 +351,32 @@ class Player(KinematicBody2D):
 			if not self.skill2cd and Input.is_action_just_pressed('skill2') and not part:
 				if self.mana_consume(80):
 					self.skill2cd = True
-					cdtime = 20
-					self.animplayer.play('WaterSkill2')
-					self.wait(cdtime,'cooldown',['skill2'])
-					allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
-					for i in allbodies:
-						if 'Enemy' in str(i.name): #prevent recognizing other kinematic2d
-							if i.died:
-								return
-							i.freeze = True
-							i.get_node('AnimatedSprite').play('Idle')
-							givebubble = bubble.instance()
-							givebubble.scale += i.scale
-							if 'Boss' in str(i.name):
-								givebubble.scale += Vector2(2,2)
-							i.add_child(givebubble)
-							i.wait(10,'bubblepop')
-				
-				
-					self.uicd2.cooldownui(cdtime) #call ui func
+					self.freeze = True
+					self.sprite.play('Ult'+ self.animationid)
+					self.sprite.connect('animation_finished',self,'updateplayer')
+					self.wait(1,'skill2',[part+1])
+			elif part == 1:
+				self.animplayer.play('WaterSkill2')
+				allbodies = self.get_node("WaterSkill2Area").get_overlapping_bodies()
+				for i in allbodies:
+					if 'Enemy' in str(i.name): #prevent recognizing other kinematic2d
+						if i.died:
+							return
+						i.freeze = True
+						i.get_node('AnimatedSprite').play('Idle')
+						givebubble = bubble.instance()
+						givebubble.scale += i.scale
+						if 'Boss' in str(i.name):
+							givebubble.scale += Vector2(2,2)
+						i.add_child(givebubble)
+						i.wait(10,'bubblepop')
+				self.wait(1.2,'skill2',[part+1])
+			elif part == 2:
+				cdtime = 20
+				self.freeze = False
+				self.sprite.disconnect('animation_finished',self,'updateplayer')
+				self.wait(cdtime,'cooldown',['skill2'])
+				self.uicd2.cooldownui(cdtime) #call ui func
 	
 	def hp_changed_func(self):
 		
