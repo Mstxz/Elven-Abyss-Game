@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scene/Hotkey_Rebind.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/Windowm_Mode.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/godot_asset/menu_ui.tres" type="Theme" id=3]
 [ext_resource path="res://scene/Window_Resolution.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scene/Audio_Setting.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=6]
 
 [node name="Setting_tab" type="Control"]
 modulate = Color( 1, 1, 1, 0.901961 )
@@ -19,6 +20,7 @@ theme = ExtResource( 3 )
 all_tabs_in_front = true
 
 [node name="Display" type="Tabs" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 24.0
@@ -67,7 +69,6 @@ margin_bottom = 192.0
 custom_constants/separation = 0
 
 [node name="Sound" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -104,6 +105,7 @@ anchor_bottom = 0.0
 margin_top = 64.0
 margin_right = 3.0
 margin_bottom = 64.0
+theme = ExtResource( 6 )
 bus_name = "Master"
 
 [node name="Audio_Setting" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 5 )]
@@ -112,6 +114,7 @@ anchor_bottom = 0.0
 margin_top = 128.0
 margin_right = 3.0
 margin_bottom = 128.0
+theme = ExtResource( 6 )
 
 [node name="Audio_Setting3" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 5 )]
 anchor_right = 0.0
@@ -119,6 +122,7 @@ anchor_bottom = 0.0
 margin_top = 192.0
 margin_right = 3.0
 margin_bottom = 192.0
+theme = ExtResource( 6 )
 bus_name = "Sfx"
 
 [node name="HSeparator3" type="HSeparator" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer"]

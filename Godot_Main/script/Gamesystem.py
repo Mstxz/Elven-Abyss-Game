@@ -55,6 +55,7 @@ class Gamesystem(Node2D):
 		if set:
 			self.pause = not self.pause
 		if self.pause:
+			self.statusMenu.updateplayer()
 			self.statusMenu.show()
 			self.mainui.hide()
 			self.canvas.color = Color(0.1,0.1,0.1,1)

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=2]
+[gd_resource type="Theme" load_steps=20 format=2]
 
 [ext_resource path="res://assets/godot_asset/buttonstylebox.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/Font/AGENCYR.TTF" type="DynamicFontData" id=2]
@@ -12,6 +12,23 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxEmpty" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxLine" id=16]
+color = Color( 1, 1, 1, 1 )
+grow_begin = -6.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id=18]
+color = Color( 1, 1, 1, 1 )
+grow_begin = -6.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id=17]
+grow_begin = -6.0
+grow_end = 0.0
+thickness = 6
 
 [sub_resource type="DynamicFont" id=8]
 size = 35
@@ -83,6 +100,9 @@ Button/styles/focus = SubResource( 4 )
 Button/styles/hover = ExtResource( 1 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = ExtResource( 1 )
+HSlider/styles/grabber_area = SubResource( 16 )
+HSlider/styles/grabber_area_highlight = SubResource( 18 )
+HSlider/styles/slider = SubResource( 17 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 Label/fonts/font = SubResource( 8 )
 Panel/styles/panel = SubResource( 14 )

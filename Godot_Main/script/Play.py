@@ -10,9 +10,11 @@ class Play(Button):
 		self.connect("mouse_entered", self, "on_mouse_entered")
 		pass
 		
+	
+		
 	def on_button_pressed(self): #as the event says
-		element = self.get_tree().get_root().get_node("/root/Node2D/CanvasLayer/CanvasLayer2")
-		menu = self.get_tree().get_root().get_node("/root/Node2D/CanvasLayer/Menu")
+		element = self.get_tree().get_root().get_child(5).get_node("CanvasLayer/CanvasLayer2")
+		menu = self.get_tree().get_root().get_child(5).get_node("CanvasLayer/Menu")
 		element.show()
 		menu.hide()
 	

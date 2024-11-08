@@ -408,7 +408,7 @@ margin_right = 159.084
 margin_bottom = 109.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 5 )
-text = "Name"
+text = "Alice"
 autowrap = true
 
 [node name="Panel4" type="Panel" parent="Panel"]

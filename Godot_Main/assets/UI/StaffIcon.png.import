@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player death .png-e7c8c0eacdff8e71128eeed197393581.stex"
+path="res://.import/StaffIcon.png-42bd0b6e689af5578fb20baf20d6bf11.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite/player death .png"
-dest_files=[ "res://.import/player death .png-e7c8c0eacdff8e71128eeed197393581.stex" ]
+source_file="res://assets/UI/StaffIcon.png"
+dest_files=[ "res://.import/StaffIcon.png-42bd0b6e689af5578fb20baf20d6bf11.stex" ]
 
 [params]
 

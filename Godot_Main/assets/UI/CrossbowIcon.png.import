@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player death .png-e7c8c0eacdff8e71128eeed197393581.stex"
+path="res://.import/CrossbowIcon.png-2110e39755fe32948e8792becbe36593.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite/player death .png"
-dest_files=[ "res://.import/player death .png-e7c8c0eacdff8e71128eeed197393581.stex" ]
+source_file="res://assets/UI/CrossbowIcon.png"
+dest_files=[ "res://.import/CrossbowIcon.png-2110e39755fe32948e8792becbe36593.stex" ]
 
 [params]
 
