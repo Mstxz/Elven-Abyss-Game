@@ -2,8 +2,32 @@ from godot import exposed, export
 from godot import *
 
 
+elemdict = {
+	'Water' : 0,
+	'Fire' : 1,
+	'Wind' : 2,
+	'Earth' : 3
+}
+		
+weapondict = {
+	'Stick' : 0,
+	'Spellbook' : 1,
+	'Staff' : 2,
+	'Bow' : 3,
+	'Crossbow' : 4,
+	'Gun' : 5
+}
+
+elemcolordict = {
+	'Water' : Color(0,0.45,1,0.8),
+	'Fire' : Color(1,0.5,0,0.8),
+	'Wind' : Color(0,0.76,0.6,0.8),
+	'Earth' : Color(0.75,0.54,0,0.8)
+}
+	
 @exposed
 class StatusUI(CanvasLayer):
+
 
 	def _ready(self):
 		self.level = self.get_node("Panel/InfoContainer/HBoxContainer/VBoxContainer2/Label6")
@@ -20,6 +44,8 @@ class StatusUI(CanvasLayer):
 		self.mana = self.get_node("Panel/StatContainer/StatValue/MANA")
 		self.skillpoint = self.get_node("Panel/StatsPoint")
 		self.player = self.get_node("../Player")
+		self.PlayerVar = self.get_tree().get_root().get_node("/root/PlayerVar")
+		self.updateplayer()
 
 	def setvar(self):
 		self.level.text = str(f"{int(self.player.level)}")
@@ -86,3 +112,12 @@ class StatusUI(CanvasLayer):
 			self.player.maxmana += 10
 			self.setvar()
 			self.player.updatevar()
+	
+	def updateplayer(self):
+		'''reset animation when chaning weapon or element'''
+		#prepare animation id (str() is require twice to convert gdstring to string)
+		self.animationid = str(elemdict[str(self.PlayerVar.element)]) + str(weapondict[str(self.PlayerVar.weapon)])
+		profileui = self.get_node("Panel/Panel4/Panel3/AnimatedSprite")
+		profileui.play('Idle'+self.animationid)
+		self.sprite = self.get_node('AnimatedSprite')
+		self.sprite.play('Idle'+self.animationid)

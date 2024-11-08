@@ -411,7 +411,7 @@ custom_fonts/font = SubResource( 5 )
 text = "Name"
 autowrap = true
 
-[node name="Panel" type="Panel" parent="Panel"]
+[node name="Panel4" type="Panel" parent="Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -146.167
@@ -421,7 +421,7 @@ margin_bottom = 147.0
 rect_clip_content = true
 custom_styles/panel = SubResource( 4 )
 
-[node name="Panel3" type="Panel" parent="Panel/Panel"]
+[node name="Panel3" type="Panel" parent="Panel/Panel4"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -121.0
@@ -431,7 +431,7 @@ margin_bottom = 123.0
 rect_clip_content = true
 custom_styles/panel = SubResource( 6 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Panel/Panel/Panel3"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Panel/Panel4/Panel3"]
 position = Vector2( 62.0835, 101 )
 scale = Vector2( 2.5625, 2.5625 )
 frames = ExtResource( 3 )
