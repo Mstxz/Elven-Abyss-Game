@@ -89,10 +89,10 @@ class Player(KinematicBody2D):
 		
 	def _process(self, delta):
 		"""Called every rendering process"""
-		self.mana_regen(delta)
+		self.mana_regen(delta*4)
 		if self.main.pause or self.freeze:
 			return
-		self.move(delta)
+		self.move(delta+self.maxmana//1000)
 		if not self.acting and not self.get_tree().is_input_handled():
 			self.shoot()
 			self.skill1()
@@ -435,14 +435,14 @@ class Player(KinematicBody2D):
 	def money_modify(self,amount):
 		if self.money + amount < 0:
 			return False
-		self.money += amount
+		self.money += amount*2
 		self.moneyui.updateui(self.money)
 		return True
 		
 			
 	def gain_exp(self,amount):
 		'''call when giving exp to player'''
-		self.exp += amount
+		self.exp += amount*2
 	
 	def changeweapon(self,weapon):
 		'''change weapon to ...'''
