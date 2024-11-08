@@ -90,7 +90,7 @@ class Player(KinematicBody2D):
 	def _process(self, delta):
 		"""Called every rendering process"""
 		self.mana_regen(delta*4)
-		if self.main.pause or self.freeze:
+		if self.main.pause or self.freeze or self.hp <= 0:
 			return
 		self.move(delta+self.maxmana//1000)
 		if not self.acting and not self.get_tree().is_input_handled():
@@ -134,6 +134,7 @@ class Player(KinematicBody2D):
 		#prepare animation id (str() is require twice to convert gdstring to string)
 		self.animationid = str(elemdict[str(self.element)]) + str(weapondict[str(self.weapon)])
 		profileui = self.get_node("../MainUI/Viewport/AnimatedSprite")
+		
 		profileui.play('Idle'+self.animationid)
 		self.sprite = self.get_node('AnimatedSprite')
 		self.sprite.play('Idle'+self.animationid)
@@ -410,6 +411,7 @@ class Player(KinematicBody2D):
 		self.freeze = True
 		overui = gameover.instance()
 		self.main.add_child(overui)
+		self.sprite.play('Died')
 		overui.get_node("AnimationPlayer").play('GameOver')
 		self.playsfx('GameOverSfx')
 		

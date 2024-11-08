@@ -50,9 +50,9 @@ class StatusUI(CanvasLayer):
 	def setvar(self):
 		self.level.text = str(f"{int(self.player.level)}")
 		self.exp.text = str(f"{int(self.player.exp)}")
-		self.element.text = str(self.player.element)
-		self.weapon.text = str(self.player.weapon)
-		self.money.text = str(int(self.player.money))
+		self.element.text = ': ' + str(self.player.element)
+		self.weapon.text = ': ' + str(self.player.weapon)
+		self.money.text = ': ' + str(int(self.player.money))
 		self.hp.text = str(f"{self.player.hp:.1f}/{self.player.maxhp}")
 		self.atk.text = str(int(self.player.atk))
 		self.defense.text = str(int(self.player.defense))
@@ -61,6 +61,7 @@ class StatusUI(CanvasLayer):
 		self.cridam.text = str(int(self.player.critdmg))
 		self.mana.text = str(f"{self.player.mana:.1f}/{self.player.maxmana}")
 		self.skillpoint.text = str(f"Stats Point : {self.player.skillpoint} Point")
+		self.updateplayer()
 
 	def _on_HPbutton_pressed(self):
 		if self.player.skillpoint > 0:
@@ -116,8 +117,6 @@ class StatusUI(CanvasLayer):
 	def updateplayer(self):
 		'''reset animation when chaning weapon or element'''
 		#prepare animation id (str() is require twice to convert gdstring to string)
-		self.animationid = str(elemdict[str(self.PlayerVar.element)]) + str(weapondict[str(self.PlayerVar.weapon)])
+		self.animationid = str(elemdict[str(self.player.element)]) + str(weapondict[str(self.player.weapon)])
 		profileui = self.get_node("Panel/Panel4/Panel3/AnimatedSprite")
 		profileui.play('Idle'+self.animationid)
-		self.sprite = self.get_node('AnimatedSprite')
-		self.sprite.play('Idle'+self.animationid)

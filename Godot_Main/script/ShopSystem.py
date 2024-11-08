@@ -65,21 +65,21 @@ class Shop(VBoxContainer):
 			item_info = self.items[str(self.selected_item)]
 			price = item_info["price"]
 			self.buy_item(self.selected_item, price, self.coin)
-			self.buy_button.disabled = True
+			if str(self.selected_item) != 'HealthPotion':
+				self.buy_button.disabled = True
 
 	def buy_item(self, item_name, price, player_coin):
 		"""Handles the actual purchase,"""
-		if str(item_name) == "Crossbow":
-			print("Crossbow")
-			self.player.changeweapon('Crossbow')
-		elif str(item_name) == "HealthPotion":
-			print("Health Potion")
-			self.player.heal(10)
-		elif str(item_name) == "Staff":
-			print("Staff")
-			self.player.changeweapon('Staff')
+		if self.player.money_modify(-price):
+			if str(item_name) == "Crossbow":
+				print("Crossbow")
+				self.player.changeweapon('Crossbow')
+			elif str(item_name) == "HealthPotion":
+				print("Health Potion")
+				self.player.heal(10)
+			elif str(item_name) == "Staff":
+				print("Staff")
+				self.player.changeweapon('Staff')
 
-		player_coin = -price
 
-		self.player.money_modify(player_coin)
-		return player_coin
+			return player_coin
