@@ -433,9 +433,9 @@ class Player(KinematicBody2D):
 		return False
 		
 	def money_modify(self,amount):
-		if self.money + amount < 0:
+		if self.money < abs(amount) :
 			return False
-		self.money += amount*2
+		self.money += amount
 		self.moneyui.updateui(self.money)
 		return True
 		
