@@ -35,6 +35,5 @@ class InteractableArea(Area2D):
 			self.loading.animation.connect("animation_finished", self, "on_animation_finished")
 
 	def on_animation_finished(self, anim_name):
-		random_scene_path = self.stages
 		Scenechange = self.get_tree().get_root().get_node("/root/Scenechange")
-		Scenechange.load_new(str(random_scene_path[0]),str(random_scene_path[1]))
+		Scenechange.load_main()

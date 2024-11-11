@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/Dungeon_Main2.tres" type="TileSet" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://assets/RFCastle_1.0/lightA02.png" type="Texture" id=10]
 [ext_resource path="res://assets/RFCastle_1.0/lightA01.png" type="Texture" id=11]
 [ext_resource path="res://assets/Audio/Game_Normal.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/godot_asset/main_theme.tres" type="Theme" id=13]
+[ext_resource path="res://scene/TextPopUp.py" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 45, 54.5 )
@@ -227,3 +229,46 @@ randomness = 1.0
 visibility_rect = Rect2( -200, -150, 400, 250 )
 local_coords = false
 process_material = SubResource( 13 )
+
+[node name="TextTutorial" type="Area2D" parent="."]
+collision_layer = 4
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextTutorial"]
+shape = SubResource( 2 )
+
+[node name="Tutorial" type="Label" parent="TextTutorial"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 26.0
+margin_top = -7.0
+margin_right = 462.0
+margin_bottom = 35.0
+rect_scale = Vector2( 0.344, 0.344 )
+theme = ExtResource( 13 )
+text = "Press Tab to open player's status menu"
+align = 1
+
+[node name="Tween" type="Tween" parent="TextTutorial"]
+
+[node name="TextTutorial2" type="Area2D" parent="."]
+position = Vector2( 0, -124 )
+collision_layer = 4
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextTutorial2"]
+shape = SubResource( 2 )
+
+[node name="Tutorial" type="Label" parent="TextTutorial2"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = -64.0
+margin_top = 29.0
+margin_right = 312.0
+margin_bottom = 71.0
+rect_scale = Vector2( 0.344, 0.344 )
+theme = ExtResource( 13 )
+text = "Press F  to interact"
+align = 1
+
+[node name="Tween" type="Tween" parent="TextTutorial2"]

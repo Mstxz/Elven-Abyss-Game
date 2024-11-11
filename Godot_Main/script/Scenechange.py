@@ -4,6 +4,7 @@ from godot import *
 loading = ResourceLoader.load("res://scene/LevelUp.tscn", "", True)
 shop = ResourceLoader.load("res://scene/Shop.tscn", "", True)
 boss = ResourceLoader.load("res://scene/Stage_Boss.tscn", "", True)
+final = ResourceLoader.load("res://scene/Stage_Final.tscn", "", True)
 
 @exposed
 class Scenechange(Node):
@@ -13,6 +14,7 @@ class Scenechange(Node):
 	namee = {} #store loaded scene load only one time and can use everytime
 	last_scene = export(str, default="Lobby") #make for future now it not important
 	map_lim = export(int, default = 5)
+	won = export(bool, default = False)
 	count = 0
 	count_shop = 1
 
@@ -25,6 +27,7 @@ class Scenechange(Node):
 		self.namee["Lobby"] = game
 		self.namee["Shop"] = shop
 		self.namee["Boss"] = boss
+		self.namee["Final"] = final
 
 	def change_scene(self, scene: PackedScene):
 		"""Change scene system"""
@@ -43,6 +46,10 @@ class Scenechange(Node):
 			self.change_scene(self.namee["Shop"])
 			self.count_shop = 2
 			self.last_scene = "Shop"
+		elif self.won:
+			self.change_scene(self.namee["Final"])
+			self.last_scene = "Final"
+			self.won = False
 		elif self.count == self.map_lim:
 			self.change_scene(self.namee["Boss"])
 			self.last_scene = "Boss"

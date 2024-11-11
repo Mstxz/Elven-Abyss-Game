@@ -175,6 +175,7 @@ class BossEnemy(KinematicBody2D):
 		self.player.gain_exp(self.exp)
 		self.player.money_modify(self.gold)
 		self.healthbar.get_node('../').queue_free()
+		self.get_node('/root/Scenechange').won = True
 		self.queue_free()
 	
 	def take_damage(self, dmg, kb=None):
