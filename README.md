@@ -25,9 +25,16 @@ A game project for PSCP Subject from B.Sc. School of Information Technology, KMI
 
 ## วิธีการติดตั้ง Project
 1. ทำการ Git clone project ใน command prompt หรือ clone ใน Github desktop 
-```https://github.com/Mstxz/Elven-Abyss-Game.git```
+```git clone https://github.com/Mstxz/Elven-Abyss-Game.git```
 2. เปิดโฟลเดอร์ ที่ทำการ clone มา
 3. เปิดโฟลเดอร์ ที่ชื่อว่า Godot_Main
 4. เปิดโปรแกรมที่ชื่่อว่า `Godot_v3.6-stable_win64` และเล่นได้เลย
 
-***รองรับเฉพาะระบบปฎิบัติการ Windows เท่านั้น***
+## For Eng User - Project Installation
+1. Clone this project in command prompt or clone it in Github desktop 
+```git clone https://github.com/Mstxz/Elven-Abyss-Game.git```
+2. Open the Folder
+3. Open folder named Godot_Main
+4. Open a program named `Godot_v3.6-stable_win64` and Enjoy!
+
+***รองรับเฉพาะระบบปฎิบัติการ Windows เท่านั้น - Only windows os Support***
